@@ -1,0 +1,49 @@
+{
+  "common": {
+    "readMore": "Read More",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Saved successfully!",
+    "delete": "Delete",
+    "add": "Add New",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "actions": "Actions",
+    "adminPanel": "Admin Panel",
+    "logout": "Log Out",
+    "login": "Login",
+    "email": "Email Address",
+    "password": "Password",
+    "yes": "Yes",
+    "no": "No",
+    "applyNow": "Apply for Loan",
+    "contactUs": "Contact Us",
+    "viewAll": "View All"
+  },
+  "contactForm": {
+    "title": "Send a Message",
+    "name": "Full Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "message": "Message",
+    "success": "Your message has been sent successfully. We will get back to you soon.",
+    "error": "Failed to send message. Please try again."
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "loginTitle": "Onkur Admin Login",
+    "welcome": "Welcome, Administrator",
+    "homePage": "Home Page",
+    "aboutPage": "About Page",
+    "team": "Team Members",
+    "testimonials": "Testimonials",
+    "blog": "Blog Posts",
+    "faq": "FAQs",
+    "settings": "Settings & Contacts",
+    "stats": "Impact Stats",
+    "saveSuccess": "Content updated successfully!",
+    "saveError": "Failed to save content. Check Firebase logs."
+  }
+}

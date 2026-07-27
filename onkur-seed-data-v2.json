@@ -1,0 +1,143 @@
+{
+  "siteContent": {
+    "home": {
+      "hero_title_bn": "ছোট ঋণ। বড় পরিবর্তন।",
+      "hero_title_en": "Small Loans. Big Changes.",
+      "hero_subtitle_bn": "গ্রামীণ ও অবহেলিত জনগোষ্ঠীর জন্য সহজ, স্বচ্ছ ও মর্যাদাপূর্ণ আর্থিক সহায়তা।",
+      "hero_subtitle_en": "Simple, transparent, and dignified financial support for rural and underserved communities.",
+      "services": [
+        {
+          "title_bn": "ক্ষুদ্র (জাগরণ) ঋণ",
+          "title_en": "Khudro (Jagoron) Loan",
+          "desc_bn": "সমিতি ভিত্তিক সাপ্তাহিক ঋণ প্রোগ্রাম, শুধুমাত্র আয়বর্ধক কাজে নিয়োজিত নারীদের জন্য। ঋণসীমা ২০,০০০ থেকে সর্বোচ্চ ১,০০,০০০ টাকা, মেয়াদ ১ বছর (৪৬ সপ্তাহ)।",
+          "desc_en": "A committee-based weekly loan program designed exclusively for women engaged in income-generating activities. Loan ceiling ranges from BDT 20,000 up to a maximum of BDT 100,000, with a 1-year (46-week) tenure.",
+          "icon": "sprout"
+        },
+        {
+          "title_bn": "ক্ষুদ্র ব্যবসা ও উদ্যোক্তা (অগ্রসর) ঋণ",
+          "title_en": "Small Business & Entrepreneur (Progoshor) Loan",
+          "desc_bn": "নারী ও পুরুষ উভয়ের জন্য উন্মুক্ত, সাপ্তাহিক বা মাসিক কিস্তিতে পরিশোধযোগ্য। ঋণসীমা ৫০,০০০ থেকে সর্বোচ্চ ১৫,০০,০০০ টাকা, ব্যবসা সম্প্রসারণ ও উদ্যোক্তা উন্নয়নের জন্য।",
+          "desc_en": "Open to both men and women, repayable in weekly or monthly installments. Loan ceiling ranges from BDT 50,000 up to a maximum of BDT 1,500,000, designed for business expansion and entrepreneurship development.",
+          "icon": "store"
+        }
+      ],
+      "mission_heading_bn": "অর্থায়নের মাধ্যমে বাধা ভাঙা",
+      "mission_heading_en": "Breaking Barriers with Access to Finance",
+      "mission_body_bn": "অঙ্কুর ফাউন্ডেশন ক্ষুদ্রঋণ কার্যক্রমের মাধ্যমে প্রান্তিক ও সুবিধাবঞ্চিত জনগোষ্ঠীর অর্থনৈতিক স্বাবলম্বন নিশ্চিত করতে প্রতিশ্রুতিবদ্ধ। আমাদের ঋণ বিতরণ নীতিমালার মূল লক্ষ্য হল স্বচ্ছতা, জবাবদিহিতা এবং সঠিক সময়ে সঠিক ব্যক্তির নিকট আর্থিক সহায়তা পৌঁছে দেয়া।",
+      "mission_body_en": "Onkur Foundation is committed to ensuring economic self-reliance for marginalized and underserved communities through its microcredit programs. The core objective of our loan disbursement policy is transparency, accountability, and delivering financial support to the right person at the right time.",
+      "mission_bullets": [
+        { "text_bn": "আর্থিকভাবে পিছিয়ে পড়া জনগোষ্ঠীর জীবনমান উন্নয়নে সহজ শর্তে ঋণ সহায়তা প্রদান", "text_en": "Provide loans on easy terms to improve the living standards of financially disadvantaged communities" },
+        { "text_bn": "স্বচ্ছতা ও নিয়মনিষ্ঠা বজায় রেখে ঋণ আবেদন যাচাই-বাছাই থেকে বিতরণ পর্যন্ত সকল পর্যায়ে যথাযথ নিয়মাবলী অনুসরণ", "text_en": "Follow proper rules at every stage from loan application screening to disbursement, maintaining transparency and discipline" },
+        { "text_bn": "ঋণগ্রহীতাদের দক্ষতা বৃদ্ধির পাশাপাশি স্বনির্ভর করে গড়ে তোলার জন্য তদারকি ও পরামর্শ প্রদান", "text_en": "Provide monitoring and advisory support to build borrowers' skills and help them become self-reliant" },
+        { "text_bn": "প্রতিষ্ঠানের আর্থিক স্থায়িত্ব বজায় রাখার জন্য যথাযথ ঝুঁকি নিরূপণ প্রক্রিয়া নিশ্চিতকরণ", "text_en": "Ensure proper risk assessment processes to maintain the organization's financial sustainability" }
+      ],
+      "vision_bullets": [
+        { "text_bn": "সকলের জন্য আর্থিক অন্তর্ভুক্তিসহ একটি বাংলাদেশ", "text_en": "A Bangladesh with financial inclusion for all" },
+        { "text_bn": "মর্যাদার সাথে সমৃদ্ধ কমিউনিটি", "text_en": "Communities thriving with dignity" },
+        { "text_bn": "সামাজিক রূপান্তরে নারীর নেতৃত্ব", "text_en": "Women leading social transformation" },
+        { "text_bn": "শক্তিশালী কৃষি ও গ্রামীণ উদ্যোগ", "text_en": "Stronger agriculture and rural enterprises" },
+        { "text_bn": "টেকসই প্রবৃদ্ধির মাধ্যমে দারিদ্র্য হ্রাস", "text_en": "Poverty reduced through sustainable growth" }
+      ],
+      "values_bullets": [
+        { "text_bn": "প্রতিটি কাজে সততা", "text_en": "Integrity in every action" },
+        { "text_bn": "মানুষ ও ধারণার ক্ষমতায়ন", "text_en": "Empowerment of people and ideas" },
+        { "text_bn": "অবহেলিতদের জন্য অন্তর্ভুক্তি", "text_en": "Inclusivity for the underserved" },
+        { "text_bn": "সমাধানে স্থায়িত্ব", "text_en": "Sustainability in solutions" },
+        { "text_bn": "মর্যাদা ও সম্মানের সাথে সহানুভূতি", "text_en": "Compassion with dignity and respect" }
+      ]
+    },
+    "about": {
+      "heading_bn": "আমাদের সম্পর্কে",
+      "heading_en": "About Us",
+      "body_bn": "অঙ্কুর ফাউন্ডেশন ক্ষুদ্রঋণ কার্যক্রমের মাধ্যমে প্রান্তিক ও সুবিধাবঞ্চিত জনগোষ্ঠীর অর্থনৈতিক স্বাবলম্বন নিশ্চিত করতে প্রতিশ্রুতিবদ্ধ একটি প্রতিষ্ঠান। এই নীতিমালা এমনভাবে প্রণয়ন করা হয়েছে যাতে ক্ষুদ্রঋণ প্রদানের ক্ষেত্রে সুশৃঙ্খল প্রক্রিয়া বজায় থাকে এবং ঋণের অপব্যবহার রোধ করে উদ্যোক্তাদের আয়বর্ধক কর্মকাণ্ডে উৎসাহিত করা যায়।",
+      "body_en": "Onkur Foundation is an organization committed to ensuring economic self-reliance for marginalized and underserved communities through its microcredit programs. Our policies are designed to maintain a disciplined process in providing microcredit while preventing misuse of loans and encouraging entrepreneurs toward income-generating activities.",
+      "approach_bn": "আমরা বিশ্বাস করি সঠিক সময়ে সঠিক পরিমাণ ঋণ বিতরণ এবং তার সঠিক ব্যবহারই দারিদ্র্য বিমোচনের একটি শক্তিশালী হাতিয়ার হিসেবে কাজ করতে পারে। আমাদের প্রতিটি মাঠকর্মী, শাখা ব্যবস্থাপক ও প্রদানকারী কর্মকর্তা সর্বোচ্চ পেশাদারিত্ব বজায় রেখে কাজ করেন।",
+      "approach_en": "We believe that disbursing the right amount of loan at the right time, along with its proper use, can serve as a powerful tool for poverty alleviation. Every field worker, branch manager, and loan officer of ours works while maintaining the highest level of professionalism."
+    },
+    "nav": {
+      "home_bn": "হোম", "home_en": "Home",
+      "about_bn": "আমাদের সম্পর্কে", "about_en": "About Us",
+      "team_bn": "আমাদের টিম", "team_en": "Our Team",
+      "blog_bn": "ব্লগ", "blog_en": "Blog",
+      "faq_bn": "সাধারণ জিজ্ঞাসা", "faq_en": "FAQ",
+      "contact_bn": "যোগাযোগ", "contact_en": "Contact"
+    },
+    "footer": {
+      "tagline_bn": "অঙ্কুর – আশার বিকাশ, জীবনের ক্ষমতায়ন",
+      "tagline_en": "Onkur – Growing Hope, Empowering Lives",
+      "quickLinks": [
+        { "label_bn": "আমাদের সম্পর্কে", "label_en": "About Us", "url": "/about" },
+        { "label_bn": "আমাদের টিম", "label_en": "Our Team", "url": "/team" },
+        { "label_bn": "ব্লগ", "label_en": "Blog", "url": "/blog" },
+        { "label_bn": "যোগাযোগ", "label_en": "Contact", "url": "/contact" }
+      ],
+      "copyrightText_bn": "© ২০২৬ অঙ্কুর ফাউন্ডেশন। সর্বস্বত্ব সংরক্ষিত।",
+      "copyrightText_en": "© 2026 Onkur Foundation. All rights reserved."
+    },
+    "contact": {
+      "heading_bn": "যোগাযোগ করুন",
+      "heading_en": "Get In Touch",
+      "body_bn": "আপনার কোনো প্রশ্ন থাকলে বা ঋণের জন্য আবেদন করতে চাইলে আমাদের সাথে যোগাযোগ করুন।",
+      "body_en": "Reach out to us for any questions or to apply for a loan."
+    }
+  },
+  "team": {
+    "member1": { "name_bn": "আরফান আলী", "name_en": "Arfan Ali", "role_bn": "চেয়ারম্যান", "role_en": "Chairman", "bio_bn": "আরফান আলী অঙ্কুর ফাউন্ডেশনের চেয়ারম্যান হিসেবে প্রতিষ্ঠানের সার্বিক দিকনির্দেশনা ও নীতিনির্ধারণে নেতৃত্ব দিচ্ছেন।", "bio_en": "Arfan Ali leads Onkur Foundation's overall direction and policy-making as Chairman.", "imageUrl": "/images/team/placeholder.jpg", "order": 1, "facebook": "", "linkedin": "" },
+    "member2": { "name_bn": "মমতাজ আক্তার জাহান", "name_en": "Mamtaz Akhter Jahan", "role_bn": "সদস্য", "role_en": "Member", "bio_bn": "মমতাজ আক্তার জাহান বোর্ড সদস্য হিসেবে প্রতিষ্ঠানের সামাজিক প্রভাব ও কমিউনিটি সম্পৃক্ততা নিয়ে কাজ করছেন।", "bio_en": "Mamtaz Akhter Jahan works on the organization's social impact and community engagement as a Board Member.", "imageUrl": "/images/team/placeholder.jpg", "order": 2, "facebook": "", "linkedin": "" },
+    "member3": { "name_bn": "আকবর হোসেন", "name_en": "Akber Hossain", "role_bn": "সদস্য", "role_en": "Member", "bio_bn": "আকবর হোসেন বোর্ড সদস্য হিসেবে ঋণ কার্যক্রম পরিচালনা ও ঝুঁকি ব্যবস্থাপনা তদারকি করেন।", "bio_en": "Akber Hossain oversees loan operations and risk management as a Board Member.", "imageUrl": "/images/team/placeholder.jpg", "order": 3, "facebook": "", "linkedin": "" },
+    "member4": { "name_bn": "সাজ্জাদুল হক", "name_en": "Sazzadul Haque", "role_bn": "সদস্য", "role_en": "Member", "bio_bn": "সাজ্জাদুল হক বোর্ড সদস্য হিসেবে আর্থিক নিয়ন্ত্রণ ও প্রতিবেদন প্রক্রিয়া তদারকি করেন।", "bio_en": "Sazzadul Haque oversees financial control and reporting processes as a Board Member.", "imageUrl": "/images/team/placeholder.jpg", "order": 4, "facebook": "", "linkedin": "" },
+    "member5": { "name_bn": "আব্দুল বাতেন", "name_en": "Abdul Baten", "role_bn": "সদস্য", "role_en": "Member", "bio_bn": "আব্দুল বাতেন বোর্ড সদস্য হিসেবে প্রতিষ্ঠানের সম্প্রসারণ ও নতুন শাখা পরিকল্পনায় ভূমিকা রাখেন।", "bio_en": "Abdul Baten plays a role in the organization's expansion and new branch planning as a Board Member.", "imageUrl": "/images/team/placeholder.jpg", "order": 5, "facebook": "", "linkedin": "" }
+  },
+  "testimonials": {
+    "t1": { "name_bn": "রহিমা বেগম", "name_en": "Rohima Begum", "location_bn": "কুড়িগ্রাম", "location_en": "Kurigram", "quote_bn": "অঙ্কুর ফাউন্ডেশনের ঋণ নিয়ে আমি আমার সেলাই দোকান শুরু করেছি। এখন আমি নিজের পরিবার চালাতে পারি।", "quote_en": "With a loan from Onkur Foundation, I started my tailoring shop. Now I can support my family.", "imageUrl": "/images/testimonials/placeholder.jpg", "order": 1 },
+    "t2": { "name_bn": "করিম মিয়া", "name_en": "Karim Mia", "location_bn": "রংপুর", "location_en": "Rangpur", "quote_bn": "কোনো জামানত ছাড়াই আমি সহজে ঋণ পেয়েছি এবং আমার ফসলের ব্যবসা বড় করেছি।", "quote_en": "I got a loan easily without any collateral and grew my crop business.", "imageUrl": "/images/testimonials/placeholder.jpg", "order": 2 },
+    "t3": { "name_bn": "শাহিনুর আক্তার", "name_en": "Shahinur Akter", "location_bn": "মুন্সীগঞ্জ", "location_en": "Munshiganj", "quote_bn": "সাপ্তাহিক কিস্তি পরিশোধ করা আমার জন্য সহজ হয়েছে, এবং সঞ্চয়ের সুযোগও পেয়েছি।", "quote_en": "Weekly installment repayment has been easy for me, and I also got the opportunity to save.", "imageUrl": "/images/testimonials/placeholder.jpg", "order": 3 }
+  },
+  "blog": {
+    "b1": {
+      "title_bn": "কীভাবে ক্ষুদ্রঋণ গ্রামীণ জীবন বদলে দেয়",
+      "title_en": "How Microloans Are Changing Rural Lives",
+      "excerpt_bn": "বাংলাদেশের প্রত্যন্ত অঞ্চলে ছোট ঋণ কীভাবে বড় পরিবর্তন আনছে তার একটি ঝলক।",
+      "excerpt_en": "A glimpse into how small loans are creating big changes in remote areas of Bangladesh.",
+      "content_bn": "বাংলাদেশের গ্রামীণ এলাকায় আর্থিক সেবার অভাব দীর্ঘদিনের একটি চ্যালেঞ্জ। অঙ্কুর ফাউন্ডেশন এই ব্যবধান কমাতে কাজ করে যাচ্ছে। আমাদের ক্ষুদ্র (জাগরণ) ঋণ প্রোগ্রামের মাধ্যমে হাজারো নারী স্বনির্ভর হয়ে উঠেছেন।",
+      "content_en": "Lack of financial services in rural Bangladesh has long been a challenge. Onkur Foundation is working to bridge this gap. Through our Khudro (Jagoron) loan program, thousands of women have become self-reliant.",
+      "coverImageUrl": "/images/blog/placeholder.jpg",
+      "slug": "how-microloans-changing-rural-lives",
+      "publishedAt": "2026-07-01",
+      "author": "Onkur Foundation"
+    },
+    "b2": {
+      "title_bn": "সঞ্চয়ের অভ্যাস গড়ে তোলা: আমাদের সদস্যদের গল্প",
+      "title_en": "Building the Habit of Saving: Our Members' Stories",
+      "excerpt_bn": "সাপ্তাহিক সঞ্চয় কীভাবে আমাদের সদস্যদের আর্থিক সুরক্ষা দিচ্ছে তার গল্প।",
+      "excerpt_en": "Stories of how weekly savings are giving our members financial security.",
+      "content_bn": "ঋণের পাশাপাশি সঞ্চয়ও অঙ্কুর ফাউন্ডেশনের একটি গুরুত্বপূর্ণ অংশ। আমাদের সদস্যরা সাপ্তাহিক সঞ্চয় জমা রেখে বার্ষিক ৬% সুদ পান, যা তাদের ভবিষ্যতের জন্য একটি সুরক্ষা বলয় তৈরি করে।",
+      "content_en": "Alongside loans, savings are also an important part of Onkur Foundation. Our members deposit weekly savings and earn 6% annual interest, creating a safety net for their future.",
+      "coverImageUrl": "/images/blog/placeholder.jpg",
+      "slug": "building-habit-of-saving",
+      "publishedAt": "2026-06-15",
+      "author": "Onkur Foundation"
+    }
+  },
+  "faq": {
+    "f1": { "question_bn": "ঋণ নেওয়ার জন্য বয়সসীমা কত?", "question_en": "What is the age limit for taking a loan?", "answer_bn": "সদস্যের বয়স ১৮-৬০ বছরের মধ্যে হতে হবে এবং শারীরিক ও মানসিকভাবে সুস্থ হতে হবে। শাখার কর্ম এলাকায় স্থায়ীভাবে বসবাস করতে হবে।", "answer_en": "The member's age must be between 18-60 years and must be physically and mentally fit. They must permanently reside in the branch's working area.", "order": 1 },
+    "f2": { "question_bn": "ঋণ পেতে কি কোনো জামানত লাগে?", "question_en": "Do I need collateral to get a loan?", "answer_bn": "না, কোনো জামানত লাগে না। তবে ঋণগ্রহীতার জামিনদার প্রয়োজন হবে, যার বয়স ১৮-৬০ বছরের মধ্যে হতে হবে।", "answer_en": "No collateral is required. However, the borrower needs a guarantor, who must also be between 18-60 years of age.", "order": 2 },
+    "f3": { "question_bn": "সর্বোচ্চ কত টাকা ঋণ পাওয়া যায়?", "question_en": "What is the maximum loan amount available?", "answer_bn": "ক্ষুদ্র (জাগরণ) ঋণে সর্বোচ্চ সিলিং ১,০০,০০০ টাকা। ক্ষুদ্র ব্যবসা ও উদ্যোক্তা (অগ্রসর) ঋণে সর্বোচ্চ সিলিং ১৫,০০,০০০ টাকা।", "answer_en": "For the Khudro (Jagoron) loan, the maximum ceiling is BDT 100,000. For the Small Business & Entrepreneur (Progoshor) loan, the maximum ceiling is BDT 1,500,000.", "order": 3 },
+    "f4": { "question_bn": "ঋণ পরিশোধের কিস্তি কীভাবে দিতে হয়?", "question_en": "How do I pay loan installments?", "answer_bn": "ক্ষুদ্র (জাগরণ) ঋণে সাপ্তাহিক প্রতি হাজারে ২৫ টাকা কিস্তি দিতে হয়। অগ্রসর ঋণে সাপ্তাহিক ২৫ টাকা বা মাসিক ৯৫ টাকা প্রতি হাজারে দেওয়া যায়। মেয়াদ সাধারণত ১ বছর (৪৬ সপ্তাহ)।", "answer_en": "For the Khudro (Jagoron) loan, weekly installments are BDT 25 per thousand. For the Progoshor loan, it's BDT 25 weekly or BDT 95 monthly per thousand. The tenure is generally 1 year (46 weeks).", "order": 4 },
+    "f5": { "question_bn": "সঞ্চয়ের কোনো ব্যবস্থা আছে কি?", "question_en": "Is there a savings facility?", "answer_bn": "হ্যাঁ, সদস্যরা সর্বোচ্চ সাপ্তাহিক ৩০ টাকা বা মাসিক ১০০ টাকা সঞ্চয় জমা রাখতে পারেন। সঞ্চয় স্থিতির উপর বার্ষিক ৬% হারে সুদ প্রদান করা হয়।", "answer_en": "Yes, members can deposit up to BDT 30 weekly or BDT 100 monthly in savings. An annual interest rate of 6% is provided on the savings balance.", "order": 5 },
+    "f6": { "question_bn": "ঋণগ্রহীতার মৃত্যু হলে অবশিষ্ট ঋণের কী হয়?", "question_en": "What happens to the remaining loan if the borrower passes away?", "answer_bn": "নিয়মিত ঋণগ্রহীতা মৃত্যু বা প্রমাণিত স্থায়ী অক্ষমতার ক্ষেত্রে অবশিষ্ট ঋণ মওকুফ করা হয় এবং নমিনিকে দাফন-কাফন বাবদ ১০,০০০ টাকা প্রদান করা হয় (ঋণবীমা সুবিধার অংশ)।", "answer_en": "In case of death or proven permanent disability of a regular borrower, the remaining loan is waived and BDT 10,000 is provided to the nominee for funeral expenses (part of the loan insurance benefit).", "order": 6 }
+  },
+  "stats": {
+    "amountDistributed": 40456,
+    "peopleServed": 140456,
+    "yearsActive": 5,
+    "districtsCovered": 12
+  },
+  "settings": {
+    "phone": "+8802226617258",
+    "email": "info@onkur.net",
+    "address_bn": "নাভানা সিলভানিয়া (৪র্থ তলা), হোল্ডিং নং- কা-৬/এ, নদ্দা, গুলশান, ঢাকা, বাংলাদেশ",
+    "address_en": "Navana Sylvania (4th Floor), Holding No- Ka-6/A, Nodda, Gulshan, Dhaka, Bangladesh",
+    "facebookUrl": "https://www.facebook.com/share/18Z1c45wGT/"
+  }
+}

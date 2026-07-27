@@ -1,0 +1,135 @@
+{
+  "siteContent": {
+    "home": {
+      "hero_title_bn": "ছোট ঋণ। বড় পরিবর্তন।",
+      "hero_title_en": "Small Loans. Big Changes.",
+      "hero_subtitle_bn": "গ্রামীণ ও অবহেলিত জনগোষ্ঠীর জন্য সহজ, স্বচ্ছ ও মর্যাদাপূর্ণ আর্থিক সহায়তা।",
+      "hero_subtitle_en": "Simple, transparent, and dignified financial support for rural and underserved communities.",
+      "services": [
+        {
+          "title_bn": "গ্রামীণ ঋণ",
+          "title_en": "Rural Microloans",
+          "desc_bn": "সাশ্রয়ী, সুদমুক্ত বা স্বল্প-সুদের ঋণ যা গ্রামীণ পরিবারকে ছোট ব্যবসা শুরু করতে, সরঞ্জাম কিনতে বা কৃষিতে বিনিয়োগ করতে সাহায্য করে।",
+          "desc_en": "Affordable, interest-free or low-interest loans that help rural families start small businesses, buy tools, or invest in farming.",
+          "icon": "sprout"
+        },
+        {
+          "title_bn": "মাইক্রোক্রেডিট ঋণ",
+          "title_en": "Microcredit Loan",
+          "desc_bn": "সীমিত পুঁজি নিয়ে শুরু করতে চাওয়া ছোট দোকানদার বা ক্ষুদ্র উদ্যোক্তাদের জন্য, কোনো জামানত ছাড়াই দ্রুত সহায়তা।",
+          "desc_en": "Designed for small shopkeepers or micro-entrepreneurs who want to start with limited capital, offering quick support without collateral.",
+          "icon": "store"
+        },
+        {
+          "title_bn": "এসএমই ঋণ",
+          "title_en": "SME Loan",
+          "desc_bn": "মাঝারি আকারের ব্যবসার সম্প্রসারণ, পণ্য ক্রয় বা নতুন উদ্যোগ চালুর জন্য তৈরি।",
+          "desc_en": "Tailored for medium-sized businesses to help with expansion, product purchase, or launching new ventures.",
+          "icon": "building"
+        }
+      ],
+      "mission_heading_bn": "অর্থায়নের মাধ্যমে বাধা ভাঙা",
+      "mission_heading_en": "Breaking Barriers with Access to Finance",
+      "mission_body_bn": "অঙ্কুর ফাউন্ডেশনে আমরা বিশ্বাস করি প্রকৃত ক্ষমতায়ন তখনই শুরু হয় যখন আর্থিক সুযোগ তাদের কাছে পৌঁছায় যাদের সবচেয়ে বেশি প্রয়োজন। দীর্ঘদিন ধরে গ্রামীণ ও প্রান্তিক জনগোষ্ঠী আনুষ্ঠানিক আর্থিক ব্যবস্থার বাইরে থেকে গেছে। আমরা সহজ, অন্তর্ভুক্তিমূলক ও কার্যকর অর্থায়নের মাধ্যমে এই বাধা ভাঙতে প্রতিশ্রুতিবদ্ধ।",
+      "mission_body_en": "At Onkur Foundation, we believe that true empowerment begins when financial opportunities reach those who need them most. For too long, rural and marginalized communities have been left outside the formal financial system. We are committed to breaking these barriers by making access to finance simple, inclusive, and impactful.",
+      "mission_bullets": [
+        { "text_bn": "ন্যায্য ও স্বচ্ছ ক্ষুদ্রঋণ প্রদান", "text_en": "Provide fair and transparent microloans" },
+        { "text_bn": "নারী ও গ্রামীণ পরিবারকে ক্ষমতায়ন", "text_en": "Empower women and rural families" },
+        { "text_bn": "কৃষক ও ছোট ব্যবসাকে সহায়তা", "text_en": "Support farmers and small businesses" },
+        { "text_bn": "আর্থিক সাক্ষরতা প্রচার", "text_en": "Promote financial literacy" },
+        { "text_bn": "প্রতিটি সম্পদ কমিউনিটিতে পুনর্বিনিয়োগ", "text_en": "Reinvest every resource into communities" }
+      ],
+      "vision_bullets": [
+        { "text_bn": "সকলের জন্য আর্থিক অন্তর্ভুক্তিসহ একটি বাংলাদেশ", "text_en": "A Bangladesh with financial inclusion for all" },
+        { "text_bn": "মর্যাদার সাথে সমৃদ্ধ কমিউনিটি", "text_en": "Communities thriving with dignity" },
+        { "text_bn": "সামাজিক রূপান্তরে নারীর নেতৃত্ব", "text_en": "Women leading social transformation" },
+        { "text_bn": "শক্তিশালী কৃষি ও গ্রামীণ উদ্যোগ", "text_en": "Stronger agriculture and rural enterprises" },
+        { "text_bn": "টেকসই প্রবৃদ্ধির মাধ্যমে দারিদ্র্য হ্রাস", "text_en": "Poverty reduced through sustainable growth" }
+      ],
+      "values_bullets": [
+        { "text_bn": "প্রতিটি কাজে সততা", "text_en": "Integrity in every action" },
+        { "text_bn": "মানুষ ও ধারণার ক্ষমতায়ন", "text_en": "Empowerment of people and ideas" },
+        { "text_bn": "অবহেলিতদের জন্য অন্তর্ভুক্তি", "text_en": "Inclusivity for the underserved" },
+        { "text_bn": "সমাধানে স্থায়িত্ব", "text_en": "Sustainability in solutions" },
+        { "text_bn": "মর্যাদা ও সম্মানের সাথে সহানুভূতি", "text_en": "Compassion with dignity and respect" }
+      ]
+    },
+    "about": {
+      "heading_bn": "আমাদের সম্পর্কে",
+      "heading_en": "About Us",
+      "body_bn": "অঙ্কুর ফাউন্ডেশন বাংলাদেশের গ্রামীণ ও অবহেলিত জনগোষ্ঠীর জন্য ন্যায্য ও স্বচ্ছ আর্থিক সেবা প্রদানকারী একটি প্রতিষ্ঠান। আমরা বিশ্বাস করি ছোট ঋণ বড় পরিবর্তন আনতে পারে।",
+      "body_en": "Onkur Foundation is an organization providing fair and transparent financial services to rural and underserved communities in Bangladesh. We believe small loans can bring big changes.",
+      "approach_bn": "আমরা প্রতিটি ঋণগ্রহীতার সাথে মর্যাদা ও সম্মানের সাথে কাজ করি, তাদের প্রকৃত প্রয়োজন বুঝে সহায়তা প্রদান করি।",
+      "approach_en": "We work with every borrower with dignity and respect, providing support based on their real needs."
+    },
+    "nav": {
+      "home_bn": "হোম", "home_en": "Home",
+      "about_bn": "আমাদের সম্পর্কে", "about_en": "About Us",
+      "team_bn": "আমাদের টিম", "team_en": "Our Team",
+      "blog_bn": "ব্লগ", "blog_en": "Blog",
+      "faq_bn": "সাধারণ জিজ্ঞাসা", "faq_en": "FAQ",
+      "contact_bn": "যোগাযোগ", "contact_en": "Contact"
+    },
+    "footer": {
+      "tagline_bn": "অঙ্কুর – আশার বিকাশ, জীবনের ক্ষমতায়ন",
+      "tagline_en": "Onkur – Growing Hope, Empowering Lives",
+      "quickLinks": [
+        { "label_bn": "আমাদের সম্পর্কে", "label_en": "About Us", "url": "/about" },
+        { "label_bn": "আমাদের টিম", "label_en": "Our Team", "url": "/team" },
+        { "label_bn": "ব্লগ", "label_en": "Blog", "url": "/blog" },
+        { "label_bn": "যোগাযোগ", "label_en": "Contact", "url": "/contact" }
+      ],
+      "copyrightText_bn": "© ২০২৬ অঙ্কুর ফাউন্ডেশন। সর্বস্বত্ব সংরক্ষিত।",
+      "copyrightText_en": "© 2026 Onkur Foundation. All rights reserved."
+    },
+    "contact": {
+      "heading_bn": "যোগাযোগ করুন",
+      "heading_en": "Get In Touch",
+      "body_bn": "আপনার কোনো প্রশ্ন থাকলে বা ঋণের জন্য আবেদন করতে চাইলে আমাদের সাথে যোগাযোগ করুন।",
+      "body_en": "Reach out to us for any questions or to apply for a loan."
+    }
+  },
+  "team": {
+    "member1": { "name_bn": "আরফান আলী", "name_en": "Arfan Ali", "role_bn": "চেয়ারম্যান", "role_en": "Chairman", "imageUrl": "/images/team/placeholder.jpg", "order": 1, "facebook": "", "linkedin": "" },
+    "member2": { "name_bn": "মমতাজ আক্তার জাহান", "name_en": "Mamtaz Akhter Jahan", "role_bn": "সদস্য", "role_en": "Member", "imageUrl": "/images/team/placeholder.jpg", "order": 2, "facebook": "", "linkedin": "" },
+    "member3": { "name_bn": "আকবর হোসেন", "name_en": "Akber Hossain", "role_bn": "সদস্য", "role_en": "Member", "imageUrl": "/images/team/placeholder.jpg", "order": 3, "facebook": "", "linkedin": "" },
+    "member4": { "name_bn": "সাজ্জাদুল হক", "name_en": "Sazzadul Haque", "role_bn": "সদস্য", "role_en": "Member", "imageUrl": "/images/team/placeholder.jpg", "order": 4, "facebook": "", "linkedin": "" },
+    "member5": { "name_bn": "আব্দুল বাতেন", "name_en": "Abdul Baten", "role_bn": "সদস্য", "role_en": "Member", "imageUrl": "/images/team/placeholder.jpg", "order": 5, "facebook": "", "linkedin": "" }
+  },
+  "testimonials": {
+    "t1": { "name_bn": "রহিমা বেগম", "name_en": "Rohima Begum", "location_bn": "কুড়িগ্রাম", "location_en": "Kurigram", "quote_bn": "অঙ্কুর ফাউন্ডেশনের ঋণ নিয়ে আমি আমার সেলাই দোকান শুরু করেছি। এখন আমি নিজের পরিবার চালাতে পারি।", "quote_en": "With a loan from Onkur Foundation, I started my tailoring shop. Now I can support my family.", "imageUrl": "/images/testimonials/placeholder.jpg", "order": 1 },
+    "t2": { "name_bn": "করিম মিয়া", "name_en": "Karim Mia", "location_bn": "রংপুর", "location_en": "Rangpur", "quote_bn": "কোনো জামানত ছাড়াই আমি সহজে ঋণ পেয়েছি এবং আমার ফসলের ব্যবসা বড় করেছি।", "quote_en": "I got a loan easily without any collateral and grew my crop business.", "imageUrl": "/images/testimonials/placeholder.jpg", "order": 2 }
+  },
+  "blog": {
+    "b1": {
+      "title_bn": "কীভাবে ক্ষুদ্রঋণ গ্রামীণ জীবন বদলে দেয়",
+      "title_en": "How Microloans Are Changing Rural Lives",
+      "excerpt_bn": "বাংলাদেশের প্রত্যন্ত অঞ্চলে ছোট ঋণ কীভাবে বড় পরিবর্তন আনছে তার একটি ঝলক।",
+      "excerpt_en": "A glimpse into how small loans are creating big changes in remote areas of Bangladesh.",
+      "content_bn": "বাংলাদেশের গ্রামীণ এলাকায় আর্থিক সেবার অভাব দীর্ঘদিনের একটি চ্যালেঞ্জ। অঙ্কুর ফাউন্ডেশন এই ব্যবধান কমাতে কাজ করে যাচ্ছে...",
+      "content_en": "Lack of financial services in rural Bangladesh has long been a challenge. Onkur Foundation is working to bridge this gap...",
+      "coverImageUrl": "/images/blog/placeholder.jpg",
+      "slug": "how-microloans-changing-rural-lives",
+      "publishedAt": 1753500000000,
+      "author": "Onkur Foundation"
+    }
+  },
+  "faq": {
+    "f1": { "question_bn": "কীভাবে ঋণের জন্য আবেদন করব?", "question_en": "How do I apply for a loan?", "answer_bn": "আপনি আমাদের অফিসে সরাসরি যোগাযোগ করতে পারেন অথবা ওয়েবসাইটের যোগাযোগ ফর্ম পূরণ করতে পারেন।", "answer_en": "You can contact our office directly or fill out the contact form on our website.", "order": 1 },
+    "f2": { "question_bn": "ঋণ পেতে কি কোনো জামানত লাগে?", "question_en": "Do I need collateral to get a loan?", "answer_bn": "আমাদের বেশিরভাগ মাইক্রোক্রেডিট ঋণের জন্য কোনো জামানতের প্রয়োজন হয় না।", "answer_en": "Most of our microcredit loans do not require any collateral.", "order": 2 },
+    "f3": { "question_bn": "ঋণ পরিশোধের সময়সীমা কত?", "question_en": "What is the loan repayment period?", "answer_bn": "ঋণের ধরন অনুযায়ী পরিশোধের সময়সীমা ৬ মাস থেকে ২৪ মাস পর্যন্ত হতে পারে।", "answer_en": "Depending on the loan type, the repayment period can range from 6 to 24 months.", "order": 3 }
+  },
+  "stats": {
+    "amountDistributed": 40456,
+    "peopleServed": 140456,
+    "yearsActive": 5,
+    "districtsCovered": 12
+  },
+  "settings": {
+    "phone": "+8802226617258",
+    "email": "info@onkur.net",
+    "address_bn": "নাভানা সিলভানিয়া (৪র্থ তলা), হোল্ডিং নং- কা-৬/এ, নদ্দা, গুলশান, ঢাকা, বাংলাদেশ",
+    "address_en": "Navana Sylvania (4th Floor), Holding No- Ka-6/A, Nodda, Gulshan, Dhaka, Bangladesh",
+    "facebookUrl": "https://www.facebook.com/share/18Z1c45wGT/"
+  }
+}

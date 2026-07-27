@@ -1,0 +1,48 @@
+{
+  "rules": {
+    "siteContent": {
+      ".read": "true",
+      ".write": "auth != null"
+    },
+    "settings": {
+      ".read": "true",
+      ".write": "auth != null"
+    },
+    "stats": {
+      ".read": "true",
+      ".write": "auth != null"
+    },
+    "team": {
+      ".read": "true",
+      ".write": "auth != null"
+    },
+    "testimonials": {
+      ".read": "true",
+      ".write": "auth != null"
+    },
+    "blog": {
+      ".read": "true",
+      ".write": "auth != null"
+    },
+    "faq": {
+      ".read": "true",
+      ".write": "auth != null"
+    },
+    "jobs": {
+      ".read": "true",
+      ".write": "auth != null"
+    },
+    "contactMessages": {
+      ".read": "auth != null",
+      "$message_id": {
+        ".write": "true"
+      }
+    },
+    "jobApplications": {
+      ".read": "auth != null",
+      "$application_id": {
+        ".write": "true"
+      }
+    }
+  }
+}
