@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, push, set } from "firebase/database";
 import { db } from "@/lib/firebase";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
@@ -17,7 +17,8 @@ import {
   ArrowRight,
   Sparkles,
   Percent,
-  CalendarDays
+  CalendarDays,
+  X
 } from "lucide-react";
 import Link from "next/link";
 
@@ -25,6 +26,49 @@ export default function ServicesPage() {
   const { tContent } = useLanguage();
   const [servicesData, setServicesData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+
+  // Loan Apply Modal State
+  const [showApplyModal, setShowApplyModal] = useState(false);
+  const [selectedLoanProduct, setSelectedLoanProduct] = useState("");
+  const [applicantName, setApplicantName] = useState("");
+  const [applicantPhone, setApplicantPhone] = useState("");
+  const [applicantEmail, setApplicantEmail] = useState("");
+  const [applicantAmount, setApplicantAmount] = useState("");
+  const [applicantAddress, setApplicantAddress] = useState("");
+  const [applicantNotes, setApplicantNotes] = useState("");
+  const [submittingLoan, setSubmittingLoan] = useState(false);
+  const [loanSuccess, setLoanSuccess] = useState(false);
+
+  const handleLoanSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmittingLoan(true);
+    try {
+      const loanAppsRef = ref(db, "loanApplications");
+      const newRef = push(loanAppsRef);
+      await set(newRef, {
+        name: applicantName,
+        phone: applicantPhone,
+        email: applicantEmail,
+        loanType: selectedLoanProduct || "Microfinance Loan",
+        amount: applicantAmount,
+        address: applicantAddress,
+        notes: applicantNotes,
+        status: "Pending",
+        submittedAt: new Date().toISOString()
+      });
+      setLoanSuccess(true);
+      setApplicantName("");
+      setApplicantPhone("");
+      setApplicantEmail("");
+      setApplicantAmount("");
+      setApplicantAddress("");
+      setApplicantNotes("");
+    } catch (err: any) {
+      alert("Error submitting loan application: " + err.message);
+    } finally {
+      setSubmittingLoan(false);
+    }
+  };
 
   // Fallbacks for seeding transition
   const defaultServices = {
@@ -238,13 +282,17 @@ export default function ServicesPage() {
               </div>
 
               <div className="pt-6">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center bg-[#1F4A3D] hover:bg-[#15342b] text-white px-5 py-3 rounded-lg text-sm font-semibold transition-colors gap-2"
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedLoanProduct(tContent(product.title_bn, product.title_en));
+                    setShowApplyModal(true);
+                  }}
+                  className="inline-flex items-center bg-[#1F4A3D] hover:bg-[#15342b] text-white px-5 py-3 rounded-lg text-sm font-semibold transition-colors gap-2 cursor-pointer shadow-xs"
                 >
                   <span>{tContent("ঋণের আবেদন করুন", "Apply for Loan")}</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </button>
               </div>
             </motion.div>
           ))}
@@ -320,6 +368,156 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      {/* Loan Application Modal */}
+      {showApplyModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl relative border border-[#1F4A3D]/10 max-h-[90vh] overflow-y-auto space-y-6">
+            <button 
+              onClick={() => { setShowApplyModal(false); setLoanSuccess(false); }}
+              className="absolute top-5 right-5 text-gray-400 hover:text-gray-700 bg-gray-100 p-1.5 rounded-full cursor-pointer transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div>
+              <span className="text-[#C65D2E] font-semibold text-xs uppercase tracking-wider block">
+                {tContent("অনলাইন ঋণ আবেদন", "Online Loan Application")}
+              </span>
+              <h3 className="text-2xl font-bold text-[#1F4A3D] mt-1">
+                {selectedLoanProduct || tContent("ঋণের আবেদন করুন", "Apply for Loan")}
+              </h3>
+            </div>
+
+            {loanSuccess ? (
+              <div className="text-center py-8 space-y-4">
+                <div className="bg-[#1F4A3D]/10 text-[#1F4A3D] p-4 rounded-full inline-block">
+                  <CheckCircle2 className="w-12 h-12 text-[#C65D2E]" />
+                </div>
+                <h4 className="text-xl font-bold text-[#1F4A3D]">
+                  {tContent("আবেদন সফলভাবে জমা হয়েছে!", "Application Submitted Successfully!")}
+                </h4>
+                <p className="text-xs text-[#2B2621]/70 leading-relaxed max-w-xs mx-auto">
+                  {tContent(
+                    "আমাদের মাঠ কর্মকর্তা শীঘ্রই আপনার সাথে যোগাযোগ করবেন। ধন্যবাদ!",
+                    "Our field officer will contact you shortly regarding your application. Thank you!"
+                  )}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => { setShowApplyModal(false); setLoanSuccess(false); }}
+                  className="mt-4 bg-[#1F4A3D] text-white text-xs font-semibold px-6 py-2.5 rounded-lg cursor-pointer hover:bg-[#15342b]"
+                >
+                  {tContent("বন্ধ করুন", "Close")}
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleLoanSubmit} className="space-y-4">
+                <div>
+                  <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                    {tContent("আবেদনকারীর নাম", "Applicant Name")} *
+                  </label>
+                  <input
+                    type="text" required
+                    placeholder={tContent("পূর্ণ নাম লিখুন", "Enter full name")}
+                    value={applicantName}
+                    onChange={(e) => setApplicantName(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg text-sm focus:outline-none focus:border-[#C65D2E]"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                      {tContent("মোবাইল নম্বর", "Phone Number")} *
+                    </label>
+                    <input
+                      type="tel" required
+                      placeholder="017XXXXXXXX"
+                      value={applicantPhone}
+                      onChange={(e) => setApplicantPhone(e.target.value)}
+                      className="w-full px-4 py-2.5 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg text-sm focus:outline-none focus:border-[#C65D2E]"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                      {tContent("ইমেইল (ঐচ্ছিক)", "Email (Optional)")}
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="name@example.com"
+                      value={applicantEmail}
+                      onChange={(e) => setApplicantEmail(e.target.value)}
+                      className="w-full px-4 py-2.5 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg text-sm focus:outline-none focus:border-[#C65D2E]"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                      {tContent("আবেদনের ঋণের পরিমাণ (টাকা)", "Requested Amount (BDT)")} *
+                    </label>
+                    <input
+                      type="text" required
+                      placeholder="e.g. 50,000"
+                      value={applicantAmount}
+                      onChange={(e) => setApplicantAmount(e.target.value)}
+                      className="w-full px-4 py-2.5 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg text-sm focus:outline-none focus:border-[#C65D2E]"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                      {tContent("ঋণের প্রোডাক্ট", "Loan Product")}
+                    </label>
+                    <input
+                      type="text" readOnly
+                      value={selectedLoanProduct}
+                      className="w-full px-4 py-2.5 bg-gray-100 border border-gray-200 rounded-lg text-xs font-semibold text-gray-700"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                    {tContent("ঠিকানা / শাখা এলাকা", "Address / Branch Area")} *
+                  </label>
+                  <input
+                    type="text" required
+                    placeholder={tContent("উপজেলা, জেলা লিখুন", "e.g. Narsingdi Branch")}
+                    value={applicantAddress}
+                    onChange={(e) => setApplicantAddress(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg text-sm focus:outline-none focus:border-[#C65D2E]"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                    {tContent("পেশা / মন্তব্য", "Occupation / Business Details")}
+                  </label>
+                  <textarea
+                    rows={3}
+                    placeholder={tContent("আপনার ব্যবসা বা খামারের সংক্ষিপ্ত বিবরণ...", "Briefly describe your business or farm...")}
+                    value={applicantNotes}
+                    onChange={(e) => setApplicantNotes(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg text-sm focus:outline-none focus:border-[#C65D2E] resize-none"
+                  />
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={submittingLoan}
+                    className="w-full bg-[#C65D2E] hover:bg-[#b04f24] text-white py-3 rounded-lg text-sm font-semibold tracking-wide shadow-xs transition-colors cursor-pointer disabled:opacity-50"
+                  >
+                    {submittingLoan ? tContent("জমা হচ্ছে...", "Submitting...") : tContent("আবেদন জমা দিন", "Submit Application")}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
 
     </div>
   );

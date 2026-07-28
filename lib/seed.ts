@@ -81,7 +81,14 @@ export async function runClientSeed() {
       body_bn: "অঙ্কুর ফাউন্ডেশন গ্রামীণ অঞ্চলের দরিদ্র ও সুবিধাবঞ্চিত জনগোষ্ঠীর অর্থনৈতিক মুক্তির লক্ষ্যে কাজ করে চলেছে। আমরা বিশ্বাস করি, ক্ষুদ্র ঋণের সহায়তায় মানুষ তাদের সুপ্ত প্রতিভার বিকাশ ঘটিয়ে স্বাবলম্বী হতে পারে।",
       body_en: "Onkur Foundation operates with the goal of economic liberation for poor and underserved communities in rural areas. We believe that with small loans, people can unlock their potential and achieve self-reliance.",
       approach_bn: "আমাদের পদ্ধতিটি সহজ: আমরা মাঠপর্যায়ে গিয়ে আবেদনকারীদের প্রয়োজনীয়তা মূল্যায়ন করি, জামানতবিহীন ঋণের সুবিধা দিই এবং ঋণগ্রহীতাদের অর্থনৈতিক উন্নয়ন তদারকি করি।",
-      approach_en: "Our approach is simple: we assess applicants' needs directly on the ground, offer collateral-free loan options, and guide borrowers to ensure sustainable growth."
+      approach_en: "Our approach is simple: we assess applicants' needs directly on the ground, offer collateral-free loan options, and guide borrowers to ensure sustainable growth.",
+      chairman_name_bn: "আরফান আলী",
+      chairman_name_en: "Arfan Ali",
+      chairman_title_bn: "চেয়ারম্যান, অঙ্কুর ফাউন্ডেশন",
+      chairman_title_en: "Chairman, Onkur Foundation",
+      chairman_message_bn: "অঙ্কুর ফাউন্ডেশনের মূল উদ্দেশ্য হলো প্রতিটি প্রান্তিক ও সুবিধাবঞ্চিত পরিবারকে একটি মর্যাদাপূর্ণ জীবনের সুযোগ করে দেওয়া। আমরা কেবল মূলধন সরবরাহ করি না, বরং তাদের সুপ্ত সম্ভাবনার বিকাশ ঘটিয়ে টেকসই অর্থনৈতিক ক্ষমতায়ন নিশ্চিত করতে কাজ করি।",
+      chairman_message_en: "At Onkur, our primary goal is to ensure a life of dignity and self-reliance for every marginalized family. We don't just provide capital; we walk with our borrowers, helping them harness their inner potential.",
+      chairman_image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"
     },
     nav: {
       home_bn: "হোম", home_en: "Home",
@@ -114,6 +121,8 @@ export async function runClientSeed() {
       name_en: "Arfan Ali",
       role_bn: "চেয়ারম্যান",
       role_en: "Chairman",
+      bio_bn: "আরফান আলী অঙ্কুর ফাউন্ডেশনের চেয়ারম্যান হিসেবে প্রতিষ্ঠানের সার্বিক দিকনির্দেশনা ও নীতিনির্ধারণে নেতৃত্ব দিচ্ছেন।",
+      bio_en: "Arfan Ali leads Onkur Foundation's overall direction and policy-making as Chairman.",
       imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
       order: 1,
       facebook: "https://facebook.com",
@@ -124,6 +133,8 @@ export async function runClientSeed() {
       name_en: "Mamtaz Akhter Jahan",
       role_bn: "সদস্য",
       role_en: "Member",
+      bio_bn: "মমতাজ আক্তার জাহান বোর্ড সদস্য হিসেবে প্রতিষ্ঠানের সামাজিক প্রভাব ও কমিউনিটি সম্পৃক্ততা নিয়ে কাজ করছেন।",
+      bio_en: "Mamtaz Akhter Jahan works on the organization's social impact and community engagement as a Board Member.",
       imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400",
       order: 2,
       facebook: "https://facebook.com",
@@ -134,6 +145,8 @@ export async function runClientSeed() {
       name_en: "Akber Hossain",
       role_bn: "সদস্য",
       role_en: "Member",
+      bio_bn: "আকবর হোসেন বোর্ড সদস্য হিসেবে ঋণ কার্যক্রম পরিচালনা ও ঝুঁকি ব্যবস্থাপনা তদারকি করেন।",
+      bio_en: "Akber Hossain oversees loan operations and risk management as a Board Member.",
       imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
       order: 3,
       facebook: "https://facebook.com",
@@ -144,6 +157,8 @@ export async function runClientSeed() {
       name_en: "Sazzadul Haque",
       role_bn: "সদস্য",
       role_en: "Member",
+      bio_bn: "সাজ্জাদুল হক বোর্ড সদস্য হিসেবে আর্থিক নিয়ন্ত্রণ ও প্রতিবেদন প্রক্রিয়া তদারকি করেন।",
+      bio_en: "Sazzadul Haque oversees financial control and reporting processes as a Board Member.",
       imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400",
       order: 4,
       facebook: "https://facebook.com",
@@ -154,6 +169,8 @@ export async function runClientSeed() {
       name_en: "Abdul Baten",
       role_bn: "সদস্য",
       role_en: "Member",
+      bio_bn: "আব্দুল বাতেন বোর্ড সদস্য হিসেবে প্রতিষ্ঠানের সম্প্রসারণ ও নতুন শাখা পরিকল্পনায় ভূমিকা রাখেন।",
+      bio_en: "Abdul Baten plays a role in the organization's expansion and new branch planning as a Board Member.",
       imageUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400",
       order: 5,
       facebook: "https://facebook.com",
@@ -189,5 +206,48 @@ export async function runClientSeed() {
     quote_en: "Taking a rural loan from Onkur allowed me to buy my own sewing machine. Today, I am self-reliant and my family is doing well.",
     imageUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400",
     order: 1
+  });
+
+  // Seed Blog posts
+  await set(ref(db, "blog"), {
+    post1: {
+      title_bn: "ক্ষুদ্রঋণে সফল রাহেলা বেগমের গল্প",
+      title_en: "Rahela Begum's Microfinance Success",
+      excerpt_bn: "অঙ্কুরের জামানতবিহীন ঋণ নিয়ে কীভাবে সেলাই মেশিন কিনে স্বাবলম্বী হলেন রাহেলা বেগম, পড়ুন তার মুখেই।",
+      excerpt_en: "How Rahela Begum bought a sewing machine and became self-reliant with Onkur's microloan. Read her story.",
+      content_bn: "রাহেলা বেগম নরসিংদীর এক নিভৃত গ্রামে বাস করেন। অভাবের সংসারে তিনি অঙ্কুর ফাউন্ডেশনের সহজ কিস্তি ঋণ নিয়ে একটি সেলাই মেশিন কেনেন। আজ তিনি স্বাবলম্বী এবং তার সন্তানের লেখাপড়া চালাতে পারছেন।",
+      content_en: "Rahela Begum lives in a remote village in Narsingdi. Facing financial hardship, she took a flexible microloan from Onkur Foundation to buy a sewing machine. Today, she is self-reliant and funds her children's education.",
+      category: "Success Story",
+      author: "Onkur Team",
+      publishedAt: "2026-07-01T10:00:00Z",
+      coverImageUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600",
+      slug: "rahela-begum-success"
+    },
+    post2: {
+      title_bn: "ডিজিটাল ঋণ সেবা ও এমএফএস সংহতি",
+      title_en: "Digital Credit & MFS Integration",
+      excerpt_bn: "মোবাইল ফিন্যান্সিয়াল সার্ভিস ব্যবহারের মাধ্যমে অঙ্কুরের কিস্তি পরিশোধ এখন আরও সহজ।",
+      excerpt_en: "Repaying Onkur loan installments is now easier than ever with Mobile Financial Services integration.",
+      content_bn: "প্রযুক্তির আধুনিকায়নে অঙ্কুর ফাউন্ডেশন এখন ঋণ বিতরণ ও আদায়ের কাজে বিকাশ এবং নগদ মোবাইল ওয়ালেট সংহত করেছে। মাঠপর্যায়ের গ্রাহকদের সুবিধার্থে এটি একটি বিপ্লবী পদক্ষেপ।",
+      content_en: "With technological advancement, Onkur Foundation has integrated bKash and Nagad mobile wallets for loan disbursements and collections, a milestone step for rural borrowers.",
+      category: "News",
+      author: "IT Dept",
+      publishedAt: "2026-07-20T12:00:00Z",
+      coverImageUrl: "https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&q=80&w=600",
+      slug: "digital-mfs-integration"
+    },
+    post3: {
+      title_bn: "ক্ষুদ্রঋণ কীভাবে পরিবর্তন করছে গ্রামীণ জীবন",
+      title_en: "How Microloans Are Changing Rural Lives",
+      excerpt_bn: "ক্ষুদ্রঋণ সুবিধার মাধ্যমে কীভাবে গ্রামীণ পরিবারগুলো তাদের জীবনযাত্রার মান উন্নত করছে।",
+      excerpt_en: "Discover how access to affordable microloans is helping rural households build sustainable livelihoods.",
+      content_bn: "অঙ্কুর ফাউন্ডেশনের ক্ষুদ্রঋণ কর্মসূচির মাধ্যমে বাংলাদেশের প্রত্যন্ত অঞ্চলের বহু পরিবার নতুন আশা ও স্বাবলম্বিতার মুখ দেখেছে। আমরা গ্রামীণ উদ্যোক্তাদের স্বল্প সুদে এবং জামানতবিহীন ঋণ দিয়ে তাদের নিজস্ব ক্ষুদ্র ব্যবসা প্রতিষ্ঠার সুযোগ করে দিচ্ছি। এর মাধ্যমে তারা নিজেদের পরিবারের শিক্ষা, স্বাস্থ্য এবং ভবিষ্যতের জন্য নিশ্চিত আর্থিক ভিত্তি নির্মাণ করছে।",
+      content_en: "Through Onkur Foundation's microfinance programs, thousands of families across rural Bangladesh have achieved self-reliance. We provide accessible, collateral-free credit to micro-entrepreneurs, allowing them to establish small enterprises, support their families, and invest in healthcare and education.",
+      category: "Impact",
+      author: "Research Team",
+      publishedAt: "2026-07-15T09:00:00Z",
+      coverImageUrl: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&q=80&w=600",
+      slug: "how-microloans-changing-rural-lives"
+    }
   });
 }

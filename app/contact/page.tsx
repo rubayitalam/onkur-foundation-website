@@ -298,17 +298,17 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* Embedded Dynamic Google Map using settings address */}
-      <div className="rounded-3xl overflow-hidden shadow-sm border border-[#1F4A3D]/15 h-[400px]">
+      {/* Embedded Official Google Map for Navana Shaz Sylvania */}
+      <div className="rounded-3xl overflow-hidden shadow-sm border border-[#1F4A3D]/15 h-[450px] w-full">
         <iframe
-          src={`https://maps.google.com/maps?q=${encodeURIComponent(
-            settings?.address_en || "Navana Sylvania, Ka-6/A, Nodda, Gulshan, Dhaka, Bangladesh"
-          )}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.392916435311!2d90.4207945!3d23.804623199999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c76ced93ae11%3A0x625b9d54b7adb92a!2sNavana%20Shaz%20Sylvania!5e0!3m2!1sen!2sbd!4v1785219426549!5m2!1sen!2sbd"
           width="100%"
           height="100%"
           style={{ border: 0 }}
           allowFullScreen
           loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+          title="Navana Shaz Sylvania Office Location"
         ></iframe>
       </div>
 

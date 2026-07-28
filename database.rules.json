@@ -43,6 +43,12 @@
       "$application_id": {
         ".write": "true"
       }
+    },
+    "loanApplications": {
+      ".read": "auth != null",
+      "$application_id": {
+        ".write": "true"
+      }
     }
   }
 }

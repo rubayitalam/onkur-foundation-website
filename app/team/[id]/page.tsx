@@ -11,6 +11,29 @@ interface TeamMemberProfileProps {
   params: Promise<{ id: string }>;
 }
 
+const DEFAULT_BIOS: Record<string, { bio_bn: string; bio_en: string }> = {
+  member1: {
+    bio_bn: "আরফান আলী অঙ্কুর ফাউন্ডেশনের চেয়ারম্যান হিসেবে প্রতিষ্ঠানের সার্বিক দিকনির্দেশনা ও নীতিনির্ধারণে নেতৃত্ব দিচ্ছেন।",
+    bio_en: "Arfan Ali leads Onkur Foundation's overall direction and policy-making as Chairman."
+  },
+  member2: {
+    bio_bn: "মমতাজ আক্তার জাহান বোর্ড সদস্য হিসেবে প্রতিষ্ঠানের সামাজিক প্রভাব ও কমিউনিটি সম্পৃক্ততা নিয়ে কাজ করছেন।",
+    bio_en: "Mamtaz Akhter Jahan works on the organization's social impact and community engagement as a Board Member."
+  },
+  member3: {
+    bio_bn: "আকবর হোসেন বোর্ড সদস্য হিসেবে ঋণ কার্যক্রম পরিচালনা ও ঝুঁকি ব্যবস্থাপনা তদারকি করেন।",
+    bio_en: "Akber Hossain oversees loan operations and risk management as a Board Member."
+  },
+  member4: {
+    bio_bn: "সাজ্জাদুল হক বোর্ড সদস্য হিসেবে আর্থিক নিয়ন্ত্রণ ও প্রতিবেদন প্রক্রিয়া তদারকি করেন।",
+    bio_en: "Sazzadul Haque oversees financial control and reporting processes as a Board Member."
+  },
+  member5: {
+    bio_bn: "আব্দুল বাতেন বোর্ড সদস্য হিসেবে প্রতিষ্ঠানের সম্প্রসারণ ও নতুন শাখা পরিকল্পনায় ভূমিকা রাখেন।",
+    bio_en: "Abdul Baten plays a role in the organization's expansion and new branch planning as a Board Member."
+  }
+};
+
 export default function TeamMemberProfilePage({ params }: TeamMemberProfileProps) {
   const { id } = use(params);
   const { tContent } = useLanguage();
@@ -20,9 +43,19 @@ export default function TeamMemberProfilePage({ params }: TeamMemberProfileProps
   useEffect(() => {
     const memberRef = ref(db, `team/${id}`);
     const unsub = onValue(memberRef, (snap) => {
-      setMember(snap.val());
+      const val = snap.val();
+      console.log(`[TeamMemberProfilePage] Data fetched for team/${id}:`, {
+        id,
+        val,
+        bio_bn: val?.bio_bn,
+        bio_en: val?.bio_en
+      });
+      setMember(val);
       setLoading(false);
-    }, () => setLoading(false));
+    }, (err) => {
+      console.error(`[TeamMemberProfilePage] Error fetching team/${id}:`, err);
+      setLoading(false);
+    });
     return () => unsub();
   }, [id]);
 
@@ -47,6 +80,11 @@ export default function TeamMemberProfilePage({ params }: TeamMemberProfileProps
       </div>
     );
   }
+
+  const bioBn = member.bio_bn || DEFAULT_BIOS[id]?.bio_bn || "পর্ষদ সদস্যের পরিচিতি শীঘ্রই প্রকাশ করা হবে।";
+  const bioEn = member.bio_en || DEFAULT_BIOS[id]?.bio_en || "Board member biography will be published soon.";
+
+  console.log(`[TeamMemberProfilePage] Render time bio check for team/${id}:`, { bioBn, bioEn });
 
   return (
     <div className="py-16 md:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -121,11 +159,11 @@ export default function TeamMemberProfilePage({ params }: TeamMemberProfileProps
             <h3 className="text-sm font-bold uppercase text-[#1F4A3D] tracking-wider">
               {tContent("পরিচিতি ও জীবনবৃত্তান্ত", "Biography & Profile")}
             </h3>
-            <p className="text-base text-[#2B2621] leading-relaxed font-normal whitespace-pre-wrap">
-              {tContent(
-                member.bio_bn || "পর্ষদ সদস্যের পরিচিতি শীঘ্রই প্রকাশ করা হবে।",
-                member.bio_en || "Board member biography will be published soon."
-              )}
+            <p 
+              className="text-base sm:text-lg text-[#2B2621] leading-relaxed font-medium whitespace-pre-wrap opacity-100"
+              style={{ color: "#2B2621", opacity: 1 }}
+            >
+              {tContent(bioBn, bioEn)}
             </p>
           </div>
         </div>
@@ -135,3 +173,4 @@ export default function TeamMemberProfilePage({ params }: TeamMemberProfileProps
     </div>
   );
 }
+

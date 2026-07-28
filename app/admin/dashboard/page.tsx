@@ -115,7 +115,7 @@ const defaultServices = {
   ]
 };
 
-type Section = "home" | "about" | "services" | "team" | "blog" | "career" | "contact" | "settings";
+type Section = "home" | "about" | "services" | "loans" | "team" | "blog" | "career" | "contact" | "settings";
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -153,6 +153,8 @@ export default function AdminDashboardPage() {
   const [faqList, setFaqList] = useState<any[]>([]);
   const [jobsList, setJobsList] = useState<any[]>([]);
   const [applicationsList, setApplicationsList] = useState<any[]>([]);
+  const [loanApplicationsList, setLoanApplicationsList] = useState<any[]>([]);
+  const [viewingLoanApp, setViewingLoanApp] = useState<any | null>(null);
 
   // Sub-items adding/editing forms states
   const [activeTeamMember, setActiveTeamMember] = useState<any>({ id: "", name_bn: "", name_en: "", role_bn: "", role_en: "", imageUrl: "", order: 1, facebook: "", linkedin: "", bio_bn: "", bio_en: "" });
@@ -213,13 +215,14 @@ export default function AdminDashboardPage() {
     const faqRef = ref(db, "faq");
     const jobsRef = ref(db, "jobs");
     const appsRef = ref(db, "jobApplications");
+    const loanAppsRef = ref(db, "loanApplications");
     const careerContentRef = ref(db, "siteContent/career");
     const servicesContentRef = ref(db, "siteContent/services");
 
     let itemsLoaded = 0;
     const markLoaded = () => {
       itemsLoaded++;
-      if (itemsLoaded >= 15) setDbLoading(false);
+      if (itemsLoaded >= 16) setDbLoading(false);
     };
 
     const unsubHome = onValue(homeRef, (snap) => {
@@ -309,6 +312,12 @@ export default function AdminDashboardPage() {
       markLoaded();
     }, () => markLoaded());
 
+    const unsubLoanApps = onValue(loanAppsRef, (snap) => {
+      const val = snap.val() || {};
+      setLoanApplicationsList(Object.keys(val).map(k => ({ id: k, ...val[k] })).sort((a, b) => new Date(b.submittedAt || 0).getTime() - new Date(a.submittedAt || 0).getTime()));
+      markLoaded();
+    }, () => markLoaded());
+
     const unsubCareer = onValue(careerContentRef, (snap) => {
       setCareerContent(snap.val() || {});
       markLoaded();
@@ -339,6 +348,7 @@ export default function AdminDashboardPage() {
       unsubFaq();
       unsubJobs();
       unsubApps();
+      unsubLoanApps();
       unsubCareer();
       unsubServices();
     };
@@ -347,6 +357,32 @@ export default function AdminDashboardPage() {
   const triggerToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(""), 3000);
+  };
+
+  const deleteJobApplication = async (id: string) => {
+    if (confirm("Are you sure you want to delete this job application? This action cannot be undone.")) {
+      try {
+        await remove(ref(db, `jobApplications/${id}`));
+        triggerToast("Job application deleted!");
+        setApplicationsList(prev => prev.filter(app => app.id !== id));
+        if (viewingApp?.id === id) setViewingApp(null);
+      } catch (err: any) {
+        alert("Error deleting job application: " + err.message);
+      }
+    }
+  };
+
+  const deleteLoanApplication = async (id: string) => {
+    if (confirm("Are you sure you want to delete this loan application? This action cannot be undone.")) {
+      try {
+        await remove(ref(db, `loanApplications/${id}`));
+        triggerToast("Loan application deleted!");
+        setLoanApplicationsList(prev => prev.filter(app => app.id !== id));
+        if (viewingLoanApp?.id === id) setViewingLoanApp(null);
+      } catch (err: any) {
+        alert("Error deleting loan application: " + err.message);
+      }
+    }
   };
 
   const handleLogout = async () => {
@@ -725,6 +761,7 @@ export default function AdminDashboardPage() {
     { id: "home", label: "🏠 Home Page", path: "/" },
     { id: "about", label: "ℹ️ About Us Page", path: "/about" },
     { id: "services", label: "📋 Services Page", path: "/services" },
+    { id: "loans", label: "💰 Loan Applications", path: "" },
     { id: "team", label: "👥 Team Page", path: "/team" },
     { id: "blog", label: "📰 Blog Posts", path: "/blog" },
     { id: "career", label: "💼 Careers Page", path: "/career" },
@@ -2565,8 +2602,20 @@ export default function AdminDashboardPage() {
                               </div>
                               <div className="flex items-center gap-3">
                                 <span className="text-[9px] text-gray-400">{new Date(app.submittedAt).toLocaleDateString()}</span>
-                                <button className="text-xs text-[#C65D2E] hover:underline cursor-pointer">
+                                <button className="text-xs text-[#C65D2E] hover:underline cursor-pointer font-semibold">
                                   {isExpanded ? "Hide Details" : "View Resume"}
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    deleteJobApplication(app.id);
+                                  }}
+                                  className="text-xs text-red-600 hover:text-red-800 font-semibold hover:underline cursor-pointer flex items-center gap-1 border-l border-gray-200 pl-3 ml-1"
+                                  title="Delete Job Application"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5 text-red-500" />
+                                  <span>Delete</span>
                                 </button>
                               </div>
                             </div>
@@ -2658,6 +2707,20 @@ export default function AdminDashboardPage() {
                                     {app.coverLetter}
                                   </p>
                                 </div>
+
+                                <div className="flex justify-between items-center pt-2 border-t border-gray-200">
+                                  <span className="text-[10px] text-gray-400">
+                                    Submitted on: {app.submittedAt ? new Date(app.submittedAt).toLocaleString() : "Unknown"}
+                                  </span>
+                                  <button
+                                    type="button"
+                                    onClick={() => deleteJobApplication(app.id)}
+                                    className="inline-flex items-center gap-1.5 bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                    <span>Delete Application</span>
+                                  </button>
+                                </div>
                               </div>
                             )}
 
@@ -2670,6 +2733,139 @@ export default function AdminDashboardPage() {
                 </div>
               )}
 
+            </div>
+          )}
+
+          {/* LOAN APPLICATIONS SECTION */}
+          {activeSection === "loans" && (
+            <div className="space-y-6 animate-fadeIn">
+              <div className="flex justify-between items-center border-b border-[#1F4A3D]/10 pb-4">
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E]">
+                    Submitted Loan Applications ({loanApplicationsList.length})
+                  </h3>
+                  <p className="text-xs text-gray-500 font-light mt-1">
+                    Realtime applications submitted by borrowers via the Services page online form.
+                  </p>
+                </div>
+              </div>
+
+              {loanApplicationsList.length === 0 ? (
+                <div className="bg-white p-12 rounded-3xl border border-[#1F4A3D]/10 text-center space-y-3">
+                  <div className="w-12 h-12 bg-[#1F4A3D]/5 text-[#1F4A3D] rounded-full flex items-center justify-center mx-auto">
+                    <Briefcase className="w-6 h-6 text-[#C9973B]" />
+                  </div>
+                  <p className="text-sm font-bold text-[#1F4A3D]">No loan applications received yet.</p>
+                  <p className="text-xs text-gray-500 max-w-sm mx-auto">
+                    When visitors submit loan requests on the Services page modal, their applications will appear here automatically.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 gap-4">
+                  {loanApplicationsList.map((app) => {
+                    const isExpanded = viewingLoanApp?.id === app.id;
+                    return (
+                      <div key={app.id} className="bg-white border border-[#1F4A3D]/10 rounded-2xl shadow-xs overflow-hidden">
+                        <div 
+                          onClick={() => setViewingLoanApp(isExpanded ? null : app)}
+                          className="p-5 flex items-center justify-between gap-4 cursor-pointer select-none hover:bg-gray-50/80 transition-colors"
+                        >
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-bold text-[#1F4A3D]">{app.name || "Unnamed Applicant"}</span>
+                              {app.loanType && (
+                                <span className="bg-[#1F4A3D]/10 text-[#1F4A3D] text-[10px] font-bold px-2 py-0.5 rounded-md">
+                                  {app.loanType}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs text-gray-500 font-light">
+                              Amount Requested: <span className="font-bold text-[#C65D2E]">{app.amount ? `BDT ${app.amount}` : "Not specified"}</span> • Phone: <span className="font-semibold text-gray-700">{app.phone || "N/A"}</span> • Location: {app.address || "N/A"}
+                            </p>
+                          </div>
+
+                          <div className="flex items-center gap-3 shrink-0">
+                            <span className="text-[10px] text-gray-400 font-mono">
+                              {app.submittedAt ? new Date(app.submittedAt).toLocaleDateString() : ""}
+                            </span>
+                            <button 
+                              type="button" 
+                              onClick={() => setViewingLoanApp(isExpanded ? null : app)}
+                              className="text-xs font-semibold text-[#1F4A3D] hover:underline cursor-pointer"
+                            >
+                              {isExpanded ? "Hide Details" : "View Application"}
+                            </button>
+                            <button 
+                              type="button" 
+                              onClick={(e) => { e.stopPropagation(); deleteLoanApplication(app.id); }}
+                              className="text-xs text-red-600 hover:text-red-800 font-semibold hover:underline cursor-pointer flex items-center gap-1 border-l border-gray-200 pl-3 ml-1"
+                              title="Delete Loan Application"
+                            >
+                              <Trash2 className="w-3.5 h-3.5 text-red-500" />
+                              <span>Delete</span>
+                            </button>
+                          </div>
+                        </div>
+
+                        {isExpanded && (
+                          <div className="p-6 bg-gray-50/50 border-t border-gray-100 space-y-4 text-xs text-gray-700">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white p-4 rounded-xl border border-gray-200">
+                              <div>
+                                <span className="text-[10px] uppercase font-bold text-gray-400 block">Applicant Name</span>
+                                <span className="font-bold text-sm text-[#1F4A3D]">{app.name}</span>
+                              </div>
+                              <div>
+                                <span className="text-[10px] uppercase font-bold text-gray-400 block">Phone Number</span>
+                                <span className="font-semibold text-gray-800">{app.phone}</span>
+                              </div>
+                              <div>
+                                <span className="text-[10px] uppercase font-bold text-gray-400 block">Email Address</span>
+                                <span className="font-medium text-gray-700">{app.email || "Not provided"}</span>
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white p-4 rounded-xl border border-gray-200">
+                              <div>
+                                <span className="text-[10px] uppercase font-bold text-gray-400 block">Loan Product</span>
+                                <span className="font-bold text-[#1F4A3D]">{app.loanType || "N/A"}</span>
+                              </div>
+                              <div>
+                                <span className="text-[10px] uppercase font-bold text-gray-400 block">Requested Loan Amount</span>
+                                <span className="font-extrabold text-sm text-[#C65D2E]">BDT {app.amount || "N/A"}</span>
+                              </div>
+                              <div>
+                                <span className="text-[10px] uppercase font-bold text-gray-400 block">Branch / Location</span>
+                                <span className="font-semibold text-gray-800">{app.address || "N/A"}</span>
+                              </div>
+                            </div>
+
+                            {app.notes && (
+                              <div className="bg-white p-4 rounded-xl border border-gray-200 space-y-1">
+                                <span className="text-[10px] uppercase font-bold text-gray-400 block">Occupation / Notes</span>
+                                <p className="text-xs text-gray-800 whitespace-pre-wrap leading-relaxed">{app.notes}</p>
+                              </div>
+                            )}
+
+                            <div className="flex justify-between items-center pt-2">
+                              <span className="text-[10px] text-gray-400">
+                                Submitted on: {app.submittedAt ? new Date(app.submittedAt).toLocaleString() : "Unknown"}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => deleteLoanApplication(app.id)}
+                                className="inline-flex items-center gap-1.5 bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                                <span>Delete Application</span>
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           )}
 

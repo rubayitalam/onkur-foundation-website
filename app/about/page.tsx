@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { ref, onValue } from "firebase/database";
 import { db } from "@/lib/firebase";
 import { useLanguage } from "@/context/LanguageContext";
-import { CheckCircle2, ShieldCheck, Heart, Sparkles, Users, TrendingUp, Quote } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Heart, Sparkles, Users, TrendingUp } from "lucide-react";
 
 export default function AboutPage() {
   const { tContent, t } = useLanguage();
@@ -211,19 +211,21 @@ export default function AboutPage() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="space-y-4 relative text-center md:text-left">
-              <Quote className="w-8 h-8 text-[#C65D2E]/20 absolute -top-4 -left-4 hidden md:block" />
-              <p className="text-base sm:text-lg text-[#2B2621] font-normal leading-relaxed italic">
-                "{tContent(
+            <div className="space-y-4 text-center md:text-left">
+              <p 
+                className="text-base sm:text-lg text-[#2B2621] font-medium leading-relaxed opacity-100"
+                style={{ color: "#2B2621", opacity: 1 }}
+              >
+                {tContent(
                   aboutData?.chairman_message_bn || "অঙ্কুর ফাউন্ডেশনের মূল উদ্দেশ্য হলো প্রতিটি প্রান্তিক ও সুবিধাবঞ্চিত পরিবারকে একটি মর্যাদাপূর্ণ জীবনের সুযোগ করে দেওয়া। আমরা কেবল মূলধন সরবরাহ করি না, বরং তাদের সুপ্ত সম্ভাবনার বিকাশ ঘটিয়ে টেকসই অর্থনৈতিক ক্ষমতায়ন নিশ্চিত করতে কাজ করি।",
                   aboutData?.chairman_message_en || "At Onkur, our primary goal is to ensure a life of dignity and self-reliance for every marginalized family. We don't just provide capital; we walk with our borrowers, helping them harness their inner potential."
-                )}"
+                )}
               </p>
               <div>
-                <h4 className="font-bold text-[#1F4A3D] text-sm">
+                <h4 className="font-bold text-[#1F4A3D] text-sm sm:text-base">
                   {tContent(aboutData?.chairman_name_bn || "আরফান আলী", aboutData?.chairman_name_en || "Arfan Ali")}
                 </h4>
-                <p className="text-xs text-[#2B2621] font-semibold tracking-wider uppercase">
+                <p className="text-xs text-[#2B2621] font-semibold tracking-wider uppercase opacity-100">
                   {tContent(aboutData?.chairman_title_bn || "চেয়ারম্যান, অঙ্কুর ফাউন্ডেশন", aboutData?.chairman_title_en || "Chairman, Onkur Foundation")}
                 </p>
               </div>
