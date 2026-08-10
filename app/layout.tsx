@@ -21,6 +21,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Onkur Foundation | Growing Hope, Empowering Lives",
   description: "Affordable, interest-free, or low-interest loans helping rural families in Bangladesh start small businesses, buy tools, and promote financial literacy.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({

@@ -23,7 +23,7 @@ import {
 import Link from "next/link";
 
 export default function ServicesPage() {
-  const { tContent } = useLanguage();
+  const { tContent, t } = useLanguage();
   const [servicesData, setServicesData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -282,24 +282,53 @@ export default function ServicesPage() {
               </div>
 
               <div className="pt-6">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedLoanProduct(tContent(product.title_bn, product.title_en));
-                    setShowApplyModal(true);
-                  }}
+                <Link
+                  href="/contact"
                   className="inline-flex items-center bg-[#1F4A3D] hover:bg-[#15342b] text-white px-5 py-3 rounded-lg text-sm font-semibold transition-colors gap-2 cursor-pointer shadow-xs"
                 >
-                  <span>{tContent("ঋণের আবেদন করুন", "Apply for Loan")}</span>
+                  <span>{t("common.applyNow")}</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
               </div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* 3. Shared Benefits Grid */}
+      {/* 3. Eligibility Checklist */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="bg-white rounded-3xl p-8 md:p-12 border border-[#1F4A3D]/5 shadow-sm space-y-8">
+          <div className="space-y-3 text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start gap-2 text-[#C65D2E]">
+              <FileText className="w-5 h-5" />
+              <span className="text-xs font-bold uppercase tracking-wider">{tContent("ঋণ গ্রহণের নির্দেশিকা", "Guidelines")}</span>
+            </div>
+            <h2 className="text-3xl font-extrabold text-[#1F4A3D]">
+              {tContent(content.eligibility_heading_bn, content.eligibility_heading_en)}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 pt-2">
+            {tContent(content.eligibility_points_bn, content.eligibility_points_en)?.map((point: string, idx: number) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.3, delay: idx * 0.05 }}
+                className="flex items-start gap-3.5"
+              >
+                <CheckCircle2 className="w-5 h-5 text-[#C65D2E] shrink-0 mt-0.5" />
+                <span className="text-[#2B2621] text-sm font-normal leading-relaxed">
+                  {point}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Shared Benefits Grid */}
       <section className="bg-[#FBF6EE]/30 py-20 border-y border-[#1F4A3D]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
@@ -330,39 +359,6 @@ export default function ServicesPage() {
                 <p className="text-xs text-slate-700 leading-relaxed font-normal flex-grow">
                   {tContent(benefit.desc_bn, benefit.desc_en)}
                 </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Eligibility Checklist */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-8 md:p-12 border border-[#1F4A3D]/5 shadow-sm space-y-8">
-          <div className="space-y-3 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-2 text-[#C65D2E]">
-              <FileText className="w-5 h-5" />
-              <span className="text-xs font-bold uppercase tracking-wider">{tContent("ঋণ গ্রহণের নির্দেশিকা", "Guidelines")}</span>
-            </div>
-            <h2 className="text-3xl font-extrabold text-[#1F4A3D]">
-              {tContent(content.eligibility_heading_bn, content.eligibility_heading_en)}
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 pt-2">
-            {tContent(content.eligibility_points_bn, content.eligibility_points_en)?.map((point: string, idx: number) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.3, delay: idx * 0.05 }}
-                className="flex items-start gap-3.5"
-              >
-                <CheckCircle2 className="w-5 h-5 text-[#C65D2E] shrink-0 mt-0.5" />
-                <span className="text-[#2B2621] text-sm font-normal leading-relaxed">
-                  {point}
-                </span>
               </motion.div>
             ))}
           </div>

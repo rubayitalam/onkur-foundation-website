@@ -26,10 +26,15 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-[#1F4A3D]/95 backdrop-blur-md text-[#FBF6EE] border-b border-[#FBF6EE]/10 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo / Org Name */}
-          <Link href="/" className="flex flex-col select-none shrink-0 pr-4">
-            <span className="text-2xl font-bold tracking-tight text-[#C9973B]">অঙ্কুর</span>
-            <span className="text-xs uppercase tracking-widest text-[#FBF6EE] font-semibold">Onkur Foundation</span>
+          {/* Logo */}
+          <Link href="/" className="flex items-center select-none shrink-0 pr-4 group">
+            <div className="bg-white rounded-xl px-3 py-1.5 shadow-md flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
+              <img
+                src="/logo.png"
+                alt="অঙ্কুর - Onkur Foundation"
+                className="h-9 sm:h-11 w-auto object-contain"
+              />
+            </div>
           </Link>
 
           {/* Desktop Navigation */}

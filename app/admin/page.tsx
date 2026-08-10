@@ -54,9 +54,11 @@ export default function AdminLoginPage() {
     <div className="min-h-[80vh] flex items-center justify-center bg-[#FBF6EE] px-4 py-16">
       <div className="max-w-md w-full bg-white rounded-3xl p-8 border border-[#1F4A3D]/5 shadow-lg space-y-6">
         
-        <div className="text-center space-y-2">
-          <div className="bg-[#1F4A3D]/5 text-[#C65D2E] p-4 rounded-full inline-block">
-            <Lock className="w-8 h-8 text-[#C65D2E]" />
+        <div className="text-center space-y-3">
+          <div className="flex justify-center">
+            <div className="bg-white rounded-xl px-4 py-2.5 shadow-md border border-[#1F4A3D]/10 inline-block">
+              <img src="/logo.png" alt="অঙ্কুর লোগো" className="h-11 sm:h-12 w-auto object-contain" />
+            </div>
           </div>
           <h1 className="text-2xl font-bold text-[#1F4A3D]">
             {tContent("অঙ্কুর অ্যাডমিন প্যানেল", "Onkur Admin Portal")}

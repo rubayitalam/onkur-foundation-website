@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { useInView } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface StatCounterProps {
   value: number;
@@ -11,6 +12,7 @@ interface StatCounterProps {
 }
 
 export default function StatCounter({ value, duration = 1.5, prefix = "", suffix = "" }: StatCounterProps) {
+  const { language } = useLanguage();
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -44,7 +46,12 @@ export default function StatCounter({ value, duration = 1.5, prefix = "", suffix
   }, [isInView, value, duration]);
 
   const formatNumber = (num: number) => {
-    return num.toLocaleString();
+    const formatted = num.toLocaleString();
+    if (language === "bn") {
+      const banglaDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+      return formatted.replace(/[0-9]/g, (digit) => banglaDigits[parseInt(digit, 10)]);
+    }
+    return formatted;
   };
 
   return (

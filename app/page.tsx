@@ -186,13 +186,6 @@ export default function HomePage() {
     },
     {
       step_num: 3,
-      title_bn: "কমিটি অনুমোদন",
-      title_en: "Committee Approval",
-      desc_bn: "স্থানীয় ঋণ কমিটির মাধ্যমে আবেদন যাচাই ও যৌক্তিকতা নিশ্চিত করে দ্রুত অনুমোদন প্রদান।",
-      desc_en: "Quick credit approval processed by our localized community loan committee."
-    },
-    {
-      step_num: 4,
       title_bn: "ঋণ বিতরণ",
       title_en: "Disbursement",
       desc_bn: "অনুমোদনের পর সরাসরি ব্রাঞ্চ থেকে অথবা মোবাইল ফাইন্যান্সিয়াল সার্ভিসের মাধ্যমে ঋণ বিতরণ।",
@@ -214,14 +207,6 @@ export default function HomePage() {
             
             {/* Hero Text Content */}
             <div className="lg:col-span-7 space-y-6">
-              <motion.span
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="inline-block bg-[#C65D2E] text-white text-xs font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full"
-              >
-                {tContent("ক্ষুদ্র ঋণ। বড় পরিবর্তন।", "Small Loans. Big Change.")}
-              </motion.span>
               
               <motion.h1
                 initial={{ opacity: 0, y: 25 }}
@@ -272,7 +257,7 @@ export default function HomePage() {
             >
               <div className="aspect-[4/3] rounded-3xl overflow-hidden border-4 border-white/10 shadow-2xl relative">
                 <img
-                  src={homeData?.hero_image_url || "https://images.unsplash.com/photo-1605000797439-75a1500dd8c5?auto=format&fit=crop&q=80&w=800"}
+                  src={homeData?.hero_image_url || "https://i.postimg.cc/g0DQ0M84/98293656829.png"}
                   alt="Rural Bangladesh farming community"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
@@ -347,7 +332,14 @@ export default function HomePage() {
                 {tContent("আমাদের লক্ষ্য", "Our Core Mission")}
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-[#1F4A3D]">
-                {tContent(homeData?.mission_heading_bn || "আর্থিক সেবার মাধ্যমে বাধা দূর করা", homeData?.mission_heading_en || "Breaking Barriers with Access to Finance")}
+                {tContent(
+                  (!homeData?.mission_heading_bn || homeData.mission_heading_bn === "আর্থিক সেবার মাধ্যমে বাধা দূর করা" || homeData.mission_heading_bn === "অর্থায়নের মাধ্যমে বাধা ভাঙা")
+                    ? "ডিজিটাল পদ্ধতিতে ক্ষুদ্র আর্থিক সেবার মাধ্যমে দারিদ্রমুক্ত সুখী সমৃদ্ধ বৈষম্যহীন ন্যায়ভিত্তিক সমাজ প্রতিষ্ঠা"
+                    : homeData.mission_heading_bn,
+                  (!homeData?.mission_heading_en || homeData.mission_heading_en === "Breaking Barriers with Access to Finance")
+                    ? "Establishing a poverty-free, happy, prosperous, and just society without discrimination through digital microfinance services."
+                    : homeData.mission_heading_en
+                )}
               </h2>
               <p className="text-base text-slate-800 leading-relaxed font-normal">
                 {tContent(
@@ -439,7 +431,14 @@ export default function HomePage() {
               {tContent("ঋণ প্রক্রিয়া", "How It Works")}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#1F4A3D]">
-              {tContent(homeData?.process_title_bn || "৪টি সহজ ধাপে ঋণ সুবিধা", homeData?.process_title_en || "Apply in 4 Simple Steps")}
+              {tContent(
+                (!homeData?.process_title_bn || homeData.process_title_bn === "৪টি সহজ ধাপে ঋণ সুবিধা")
+                  ? "৩টি সহজ ধাপে ঋণ সুবিধা"
+                  : homeData.process_title_bn,
+                (!homeData?.process_title_en || homeData.process_title_en === "Apply in 4 Simple Steps")
+                  ? "Apply in 3 Simple Steps"
+                  : homeData.process_title_en
+              )}
             </h2>
             <p className="text-base text-[#2B2621] font-normal">
               {tContent(
@@ -449,27 +448,29 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-            {(homeData?.process_steps || defaultSteps).map((step: any, idx: number) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-white p-8 rounded-2xl border border-[#1F4A3D]/5 shadow-xs space-y-4 relative"
-              >
-                <div className="w-10 h-10 bg-[#1F4A3D] text-white rounded-full flex items-center justify-center text-sm font-bold shadow-xs">
-                  {step.step_num || (idx + 1)}
-                </div>
-                <h3 className="text-lg font-bold text-[#1F4A3D]">
-                  {tContent(step.title_bn, step.title_en)}
-                </h3>
-                <p className="text-xs text-[#2B2621] font-normal leading-relaxed">
-                  {tContent(step.desc_bn, step.desc_en)}
-                </p>
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+            {(homeData?.process_steps || defaultSteps)
+              .filter((step: any) => !(step.title_en?.includes("Committee Approval") || step.title_bn?.includes("কমিটি অনুমোদন")))
+              .map((step: any, idx: number) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="bg-white p-8 rounded-2xl border border-[#1F4A3D]/5 shadow-xs space-y-4 relative"
+                >
+                  <div className="w-10 h-10 bg-[#1F4A3D] text-white rounded-full flex items-center justify-center text-sm font-bold shadow-xs">
+                    {idx + 1}
+                  </div>
+                  <h3 className="text-lg font-bold text-[#1F4A3D]">
+                    {tContent(step.title_bn, step.title_en)}
+                  </h3>
+                  <p className="text-xs text-[#2B2621] font-normal leading-relaxed">
+                    {tContent(step.desc_bn, step.desc_en)}
+                  </p>
+                </motion.div>
+              ))}
           </div>
         </div>
       </section>
@@ -563,13 +564,9 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
             
-            <div className="space-y-2">
-              <p className="text-3xl md:text-5xl font-extrabold text-[#C9973B]">
-                {stats?.amountDistributed ? (
-                  <StatCounter value={stats.amountDistributed} prefix="$" suffix="" />
-                ) : (
-                  "$40,456"
-                )}
+            <div className="space-y-2 flex flex-col justify-center items-center">
+              <p className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-extrabold text-[#C9973B] whitespace-nowrap tracking-tight">
+                {tContent("৳৩ কোটি+", "৳3 Crore+")}
               </p>
               <p className="text-xs md:text-sm text-[#FBF6EE] uppercase tracking-widest font-normal">
                 {tContent("বিতরণকৃত অর্থ", "Amount Distributed")}
@@ -578,11 +575,7 @@ export default function HomePage() {
 
             <div className="space-y-2">
               <p className="text-3xl md:text-5xl font-extrabold text-[#C9973B]">
-                {stats?.peopleServed ? (
-                  <StatCounter value={stats.peopleServed} suffix="" />
-                ) : (
-                  "140,456"
-                )}
+                <StatCounter value={stats?.peopleServed || 3000} suffix="+" />
               </p>
               <p className="text-xs md:text-sm text-[#FBF6EE] uppercase tracking-widest font-normal">
                 {tContent("উপকারভোগী সংখ্যা", "People Served")}
@@ -591,11 +584,7 @@ export default function HomePage() {
 
             <div className="space-y-2">
               <p className="text-3xl md:text-5xl font-extrabold text-[#C9973B]">
-                {stats?.districtsCovered ? (
-                  <StatCounter value={stats.districtsCovered} suffix="+" />
-                ) : (
-                  "12+"
-                )}
+                <StatCounter value={stats?.districtsCovered || 2} suffix="" />
               </p>
               <p className="text-xs md:text-sm text-[#FBF6EE] uppercase tracking-widest font-normal">
                 {tContent("আওতাধীন জেলাসমূহ", "Districts Covered")}
@@ -604,11 +593,7 @@ export default function HomePage() {
 
             <div className="space-y-2">
               <p className="text-3xl md:text-5xl font-extrabold text-[#C9973B]">
-                {stats?.activeBranches ? (
-                  <StatCounter value={stats.activeBranches} suffix="" />
-                ) : (
-                  "14"
-                )}
+                <StatCounter value={stats?.activeBranches || 2} suffix="" />
               </p>
               <p className="text-xs md:text-sm text-[#FBF6EE] uppercase tracking-widest font-normal">
                 {tContent("সক্রিয় শাখা", "Active Branches")}
@@ -617,11 +602,7 @@ export default function HomePage() {
 
             <div className="space-y-2">
               <p className="text-3xl md:text-5xl font-extrabold text-[#C9973B]">
-                {stats?.yearsActive ? (
-                  <StatCounter value={stats.yearsActive} suffix="+" />
-                ) : (
-                  "8+"
-                )}
+                <StatCounter value={stats?.yearsActive || 1} suffix="+" />
               </p>
               <p className="text-xs md:text-sm text-[#FBF6EE] uppercase tracking-widest font-normal">
                 {tContent("সক্রিয় বছর", "Years Active")}
@@ -774,37 +755,6 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* 9. Newsletter Sign-up Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#1F4A3D] rounded-3xl p-8 md:p-12 text-[#FBF6EE] relative overflow-hidden shadow-lg">
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-[#C65D2E] to-transparent"></div>
-          <div className="max-w-2xl relative z-10 space-y-6">
-            <h2 className="text-3xl font-bold">
-              {tContent("আমাদের পাশে থাকুন", "Stay Connected With Us")}
-            </h2>
-            <p className="text-sm sm:text-base text-[#FBF6EE] font-normal leading-relaxed">
-              {tContent(
-                "আমাদের নতুন প্রকল্প, মাঠপর্যায়ের সাফল্য এবং সুবিধাবঞ্চিত পরিবারগুলোর স্বাবলম্বী হওয়ার আপডেট নিয়মিত পেতে আমাদের নিউজলেটারে যুক্ত হোন।",
-                "Join our newsletter to receive periodic updates on field progress, new microloan packages, and social impact stories."
-              )}
-            </p>
-            <form onSubmit={(e) => { e.preventDefault(); alert("Subscription successful!"); }} className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                required
-                placeholder={tContent("আপনার ইমেইল ঠিকানা", "Your email address")}
-                className="bg-[#15342b] border border-[#FBF6EE]/20 rounded-md px-4 py-3 text-sm focus:outline-none focus:border-[#C9973B] grow"
-              />
-              <button
-                type="submit"
-                className="bg-[#C65D2E] hover:bg-[#b04f24] text-white px-6 py-3 rounded-md text-sm font-semibold tracking-wide transition-colors"
-              >
-                {tContent("সাবস্ক্রাইব করুন", "Subscribe")}
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
 
     </div>
   );

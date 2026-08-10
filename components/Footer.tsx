@@ -9,9 +9,8 @@ export default function Footer() {
   const { footerContent, settings, tContent } = useLanguage();
 
   const servicesList = [
-    { labelBn: "রুরাল মাইক্রোলোন", labelEn: "Rural Microloans" },
-    { labelBn: "মাইক্রোক্রেডিট লোন", labelEn: "Microcredit Loan" },
-    { labelBn: "এসএমই লোন", labelEn: "SME Loan" }
+    { labelBn: "ক্ষুদ্র (নারী) ঋণ", labelEn: "Small (Women's) Loan" },
+    { labelBn: "ক্ষুদ্র ব্যবসা ও উদ্যোক্তা ঋণ", labelEn: "Small Business & Entrepreneur Loan" }
   ];
 
   return (
@@ -20,9 +19,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12">
           {/* Brand Col */}
           <div className="space-y-4">
-            <Link href="/" className="flex flex-col select-none">
-              <span className="text-3xl font-bold tracking-tight text-[#C9973B]">অঙ্কুর</span>
-              <span className="text-xs uppercase tracking-widest text-[#FBF6EE] font-semibold">Onkur Foundation</span>
+            <Link href="/" className="inline-flex select-none group">
+              <div className="bg-white rounded-xl px-3.5 py-2 shadow-md flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
+                <img
+                  src="/logo.png"
+                  alt="অঙ্কুর - Onkur Foundation"
+                  className="h-10 sm:h-12 w-auto object-contain"
+                />
+              </div>
             </Link>
             <p className="text-sm text-[#FBF6EE] leading-relaxed font-normal">
               {tContent(
@@ -71,8 +75,13 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               {servicesList.map((service, index) => (
-                <li key={index} className="text-sm text-[#FBF6EE] font-normal">
-                  {tContent(service.labelBn, service.labelEn)}
+                <li key={index}>
+                  <Link
+                    href="/services"
+                    className="text-sm text-[#FBF6EE] hover:text-[#C9973B] transition-colors font-normal"
+                  >
+                    {tContent(service.labelBn, service.labelEn)}
+                  </Link>
                 </li>
               ))}
             </ul>

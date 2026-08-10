@@ -20,7 +20,7 @@ const DEFAULT_POSTS: Record<string, any> = {
     excerpt_bn: "বাংলাদেশের প্রত্যন্ত অঞ্চলে ছোট ঋণ কীভাবে বড় পরিবর্তন আনছে তার একটি ঝলক।",
     excerpt_en: "A glimpse into how small loans are creating big changes in remote areas of Bangladesh.",
     content_bn: "বাংলাদেশের গ্রামীণ এলাকায় আর্থিক সেবার অভাব দীর্ঘদিনের একটি চ্যালেঞ্জ। অঙ্কুর ফাউন্ডেশন এই ব্যবধান কমাতে কাজ করে যাচ্ছে। আমাদের ক্ষুদ্র (জাগরণ) ঋণ প্রোগ্রামের মাধ্যমে হাজারো নারী স্বনির্ভর হয়ে উঠেছেন। জামানতবিহীন স্বল্প সুদের এই ঋণ পরিবারগুলোকে নিজস্ব ব্যবসা শুরু ও প্রসারে সহায়তা করছে।",
-    content_en: "Lack of financial services in rural Bangladesh has long been a challenge. Onkur Foundation is working to bridge this gap. Through our Khudro (Jagoron) loan program, thousands of women have become self-reliant. These collateral-free microloans allow families to launch and expand small enterprises with dignity.",
+    content_en: "Lack of financial services in rural Bangladesh has long been a challenge. Onkur Foundation is working to bridge this gap. Through our Small (Women's) Loan program, thousands of women have become self-reliant. These collateral-free microloans allow families to launch and expand small enterprises with dignity.",
     category: "Impact",
     author: "Onkur Foundation",
     publishedAt: "2026-07-01T10:00:00Z",

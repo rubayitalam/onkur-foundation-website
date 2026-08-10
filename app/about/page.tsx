@@ -162,7 +162,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-md border border-[#1F4A3D]/10 bg-gray-100">
             <img
-              src={aboutData?.about_image_url || "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&q=80&w=800"}
+              src={aboutData?.about_image_url || "https://i.postimg.cc/T1R4vnpB/67585644119.png"}
               alt="Rural enterprise work"
               className="w-full h-full object-cover"
             />
@@ -206,7 +206,7 @@ export default function AboutPage() {
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden shrink-0 border-4 border-[#1F4A3D]/10 bg-gray-100 shadow-md">
               <img 
-                src={aboutData?.chairman_image_url || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"} 
+                src={aboutData?.chairman_image_url || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiW8MJGMyO7QRpm5nG4m3TZDys85f49orluIIZBMnhal0Yi0L2oHvVwYJf&s=10"} 
                 alt="Chairman Arfan Ali" 
                 className="w-full h-full object-cover"
               />

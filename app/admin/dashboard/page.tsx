@@ -39,12 +39,12 @@ const defaultServices = {
   intro_en: "Onkur Foundation operates two loan products under the guidance of the Microcredit Regulatory Authority (MRA). Full terms for each product are detailed below.",
   items: [
     {
-      title_bn: "ক্ষুদ্র (জাগরণ) ঋণ",
-      title_en: "Khudro (Jagoron) Loan",
+      title_bn: "ক্ষুদ্র (নারী) ঋণ",
+      title_en: "Small (Women's) Loan",
       short_desc_bn: "সমিতি-ভিত্তিক সাপ্তাহিক ঋণ, একচেটিয়াভাবে আয়বর্ধক কাজে নিয়োজিত নারীদের জন্য।",
       short_desc_en: "A committee-based weekly loan program exclusively for women engaged in income-generating work.",
-      full_desc_bn: "ক্ষুদ্র (জাগরণ) ঋণ হলো অঙ্কুর ফাউন্ডেশনের মূল ক্ষুদ্রঋণ কর্মসূচি, যা সমিতি-ভিত্তিক পদ্ধতিতে পরিচালিত হয়। এই ঋণ শুধুমাত্র আয়বর্ধক কাজে নিয়োজিত নারীদের জন্য প্রযোজ্য। সদস্যপদের জন্য বয়স ১৮-৬০ বছরের মধ্যে হতে হবে এবং শারীরিক ও মানসিকভাবে সুস্থ থাকতে হবে, এবং শাখার কর্ম এলাকায় স্থায়ীভাবে বসবাস করতে হবে। ভর্তি ফি ১০ টাকা (অফেরতযোগ্য, শুধুমাত্র নতুন ও ফেরত আসা সদস্যদের জন্য)। প্রতিটি সমিতিতে ন্যূনতম ১০ জন এবং সর্বোচ্চ ৩০ জন সদস্য থাকে, যাঁর মধ্যে ১ জন সভানেত্রী, ১ জন সেক্রেটারি ও ১ জন ক্যাশিয়ার নির্বাচিত হন।",
-      full_desc_en: "The Khudro (Jagoron) Loan is Onkur Foundation's core microcredit program, operated through a committee-based (samity) system. It is available exclusively to women engaged in income-generating activities. Members must be between 18-60 years old, physically and mentally fit, and permanently reside within the branch's operating area. The admission fee is BDT 10 (non-refundable, applicable to new and returning members only). Each committee has a minimum of 10 and a maximum of 30 members, with one chairperson, one secretary, and one cashier elected from among the members.",
+      full_desc_bn: "ক্ষুদ্র (নারী) ঋণ হলো অঙ্কুর ফাউন্ডেশনের মূল ক্ষুদ্রঋণ কর্মসূচি, যা সমিতি-ভিত্তিক পদ্ধতিতে পরিচালিত হয়। এই ঋণ শুধুমাত্র আয়বর্ধক কাজে নিয়োজিত নারীদের জন্য প্রযোজ্য। সদস্যপদের জন্য বয়স ১৮-৬০ বছরের মধ্যে হতে হবে এবং শারীরিক ও মানসিকভাবে সুস্থ থাকতে হবে, এবং শাখার কর্ম এলাকায় স্থায়ীভাবে বসবাস করতে হবে। ভর্তি ফি ১০ টাকা (অফেরতযোগ্য, শুধুমাত্র নতুন ও ফেরত আসা সদস্যদের জন্য)। প্রতিটি সমিতিতে ন্যূনতম ১০ জন এবং সর্বোচ্চ ৩০ জন সদস্য থাকে, যাঁর মধ্যে ১ জন সভানেত্রী, ১ জন সেক্রেটারি ও ১ জন ক্যাশিয়ার নির্বাচিত হন।",
+      full_desc_en: "The Small (Women's) Loan is Onkur Foundation's core microcredit program, operated through a committee-based (samity) system. It is available exclusively to women engaged in income-generating activities. Members must be between 18-60 years old, physically and mentally fit, and permanently reside within the branch's operating area. The admission fee is BDT 10 (non-refundable, applicable to new and returning members only). Each committee has a minimum of 10 and a maximum of 30 members, with one chairperson, one secretary, and one cashier elected from among the members.",
       loan_range_bn: "প্রথম দফা ২০,০০০ - ৫০,০০০ টাকা। সর্বোচ্চ সিলিং ১,০০,০০০ টাকা (সরেজমিনে যাচাই ও সদস্যের সক্ষমতার ভিত্তিতে)। ঋণের পরিমাণ হাজারে রাউন্ড ফিগারে হবে।",
       loan_range_en: "First phase BDT 20,000 - 50,000. Maximum ceiling BDT 100,000 (based on field verification and member capacity). Loan amounts are rounded to the nearest thousand.",
       tenure_bn: "১ বছর (৪৬ সপ্তাহ)। সাপ্তাহিক কিস্তি প্রতি হাজারে ২৫ টাকা। ক্রমহ্রাসমান সার্ভিস চার্জ হার বার্ষিক ২২%।",
@@ -53,12 +53,12 @@ const defaultServices = {
       image_url: ""
     },
     {
-      title_bn: "ক্ষুদ্র ব্যবসা ও উদ্যোক্তা (অগ্রসর) ঋণ",
-      title_en: "Small Business & Entrepreneur (Progoshor) Loan",
+      title_bn: "ক্ষুদ্র ব্যবসা ও উদ্যোক্তা ঋণ",
+      title_en: "Small Business & Entrepreneur Loan",
       short_desc_bn: "নারী ও পুরুষ উভয়ের জন্য উন্মুক্ত, ব্যবসা সম্প্রসারণ ও উদ্যোক্তা উন্নয়নের জন্য ডিজাইন করা ঋণ।",
       short_desc_en: "Open to both men and women, designed for business expansion and entrepreneurship development.",
-      full_desc_bn: "ক্ষুদ্র ব্যবসা ও উদ্যোক্তা (অগ্রসর) ঋণ আয়বর্ধক কাজে নিয়োজিত নারী ও পুরুষ উভয়ের জন্য উন্মুক্ত। এই প্রোডাক্টে সমিতি-ভিত্তিক অথবা এককভাবে (উদ্যোক্তা-ভিত্তিক) ঋণ নেওয়া যায়, এবং সাপ্তাহিক বা মাসিক কিস্তিতে পরিশোধ করা যায়। আবেদনকারীর অবশ্যই দৃশ্যমান ও বৈধ ব্যবসা বা প্রকল্প থাকতে হবে। ৫০,০০০ টাকা বা তদূর্ধ্ব ঋণ বিতরণের ক্ষেত্রে অতিরিক্ত ডকুমেন্টেশন (নন-জুডিশিয়াল স্ট্যাম্পে অঙ্গীকারনামা, দুইজন জামিনদার) প্রয়োজন হয়।",
-      full_desc_en: "The Small Business & Entrepreneur (Progoshor) Loan is open to both men and women engaged in income-generating activities. This product can be taken on a committee basis or individually (entrepreneur-based), with weekly or monthly repayment options. Applicants must have a visible and legitimate business or project. Loans of BDT 50,000 or above require additional documentation (a non-judicial stamp declaration and two guarantors).",
+      full_desc_bn: "ক্ষুদ্র ব্যবসা ও উদ্যোক্তা ঋণ আয়বর্ধক কাজে নিয়োজিত নারী ও পুরুষ উভয়ের জন্য উন্মুক্ত। এই প্রোডাক্টে সমিতি-ভিত্তিক অথবা এককভাবে (উদ্যোক্তা-ভিত্তিক) ঋণ নেওয়া যায়, এবং সাপ্তাহিক বা মাসিক কিস্তিতে পরিশোধ করা যায়। আবেদনকারীর অবশ্যই দৃশ্যমান ও বৈধ ব্যবসা বা প্রকল্প থাকতে হবে। ৫০,০০০ টাকা বা তদূর্ধ্ব ঋণ বিতরণের ক্ষেত্রে অতিরিক্ত ডকুমেন্টেশন (নন-জুডিশিয়াল স্ট্যাম্পে অঙ্গীকারনামা, দুইজন জামিনদার) প্রয়োজন হয়।",
+      full_desc_en: "The Small Business & Entrepreneur Loan is open to both men and women engaged in income-generating activities. This product can be taken on a committee basis or individually (entrepreneur-based), with weekly or monthly repayment options. Applicants must have a visible and legitimate business or project. Loans of BDT 50,000 or above require additional documentation (a non-judicial stamp declaration and two guarantors).",
       loan_range_bn: "প্রথম দফা ৫০,০০০ - ২,০০,০০০ টাকা। সর্বোচ্চ সিলিং ১৫,০০,০০০ টাকা (সরেজমিনে যাচাই ও সদস্যের সক্ষমতার ভিত্তিতে)। প্রথম দফা ১,০০,০০০ টাকার বেশি ঋণ বৃদ্ধির ক্ষেত্রে প্রধান কার্যালয়ের পূর্বানুমোদন প্রয়োজন।",
       loan_range_en: "First phase BDT 50,000 - 200,000. Maximum ceiling BDT 1,500,000 (based on field verification and member capacity). Increases beyond BDT 100,000 in subsequent phases require head office pre-approval.",
       tenure_bn: "১ বছর। সাপ্তাহিক কিস্তি প্রতি হাজারে ২৫ টাকা অথবা মাসিক প্রতি হাজারে ৯৫ টাকা। ক্রমহ্রাসমান সার্ভিস চার্জ হার বার্ষিক ২২%।",

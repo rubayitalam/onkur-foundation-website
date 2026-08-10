@@ -13,10 +13,11 @@ export async function runClientSeed() {
 
   // Seed stats
   await set(ref(db, "stats"), {
-    amountDistributed: 40456,
-    peopleServed: 140456,
-    yearsActive: 8,
-    districtsCovered: 12
+    amountDistributed: 30000000,
+    peopleServed: 3000,
+    yearsActive: 1,
+    districtsCovered: 2,
+    activeBranches: 2
   });
 
   // Seed siteContent
@@ -28,29 +29,22 @@ export async function runClientSeed() {
       hero_subtitle_en: "Small Loans. Big Change. Empowering rural communities with inclusive microfinance services.",
       services: [
         {
-          title_bn: "গ্রামীণ ক্ষুদ্রঋণ",
-          title_en: "Rural Microloans",
-          desc_bn: "স্বল্প সুদে বা সুদমুক্ত সহজ কিস্তিতে ঋণ, যা গ্রামীণ পরিবারগুলোকে ছোট ব্যবসা শুরু করতে, উপকরণ কিনতে বা কৃষিতে বিনিয়োগে সাহায্য করে।",
-          desc_en: "Affordable, interest-free or low-interest loans that help rural families start small businesses, buy tools, or invest in farming.",
+          title_bn: "ক্ষুদ্র (নারী) ঋণ",
+          title_en: "Small (Women's) Loan",
+          desc_bn: "সমিতি-ভিত্তিক সাপ্তাহিক ঋণ, একচেটিয়াভাবে আয়বর্ধক কাজে নিয়োজিত নারীদের জন্য।",
+          desc_en: "A committee-based weekly loan program exclusively for women engaged in income-generating work.",
           icon: "Sprout"
         },
         {
-          title_bn: "মাইক্রোক্রেডিট ঋণ",
-          title_en: "Microcredit Loan",
-          desc_bn: "ছোট দোকানদার বা উদ্যোক্তাদের জন্য জামানতবিহীন সহজ কিস্তিতে ঋণ সুবিধা যা দিয়ে তারা ব্যবসা বাড়াতে পারেন।",
-          desc_en: "Designed for small shopkeepers or micro-entrepreneurs who want to start with limited capital, offering quick support without collateral.",
+          title_bn: "ক্ষুদ্র ব্যবসা ও উদ্যোক্তা ঋণ",
+          title_en: "Small Business & Entrepreneur Loan",
+          desc_bn: "নারী ও পুরুষ উভয়ের জন্য উন্মুক্ত, ব্যবসা সম্প্রসারণ ও উদ্যোক্তা উন্নয়নের জন্য তৈরি ঋণ।",
+          desc_en: "Open to both men and women, designed for business expansion and entrepreneurship development.",
           icon: "Store"
-        },
-        {
-          title_bn: "এসএমই ঋণ",
-          title_en: "SME Loan",
-          desc_bn: "মাঝারি আকারের ব্যবসার সম্প্রসারণ, পণ্য ক্রয় বা নতুন উদ্যোগ চালুর জন্য তৈরি ঋণ সুবিধা।",
-          desc_en: "Tailored for medium-sized businesses to help with expansion, product purchase, or launching new ventures.",
-          icon: "TrendingUp"
         }
       ],
-      mission_heading_bn: "আর্থিক সেবার মাধ্যমে বাধা দূর করা",
-      mission_heading_en: "Breaking Barriers with Access to Finance",
+      mission_heading_bn: "ডিজিটাল পদ্ধতিতে ক্ষুদ্র আর্থিক সেবার মাধ্যমে দারিদ্রমুক্ত সুখী সমৃদ্ধ বৈষম্যহীন ন্যায়ভিত্তিক সমাজ প্রতিষ্ঠা",
+      mission_heading_en: "Establishing a poverty-free, happy, prosperous, and just society without discrimination through digital microfinance services.",
       mission_body_bn: "অঙ্কুর ফাউন্ডেশনে আমরা বিশ্বাস করি যে, প্রকৃত ক্ষমতায়ন তখনই শুরু হয় যখন আর্থিক সুযোগগুলো তাদের কাছে পৌঁছায় যাদের এটি সবচেয়ে বেশি প্রয়োজন। দীর্ঘ সময় ধরে গ্রামীণ এবং প্রান্তিক জনগোষ্ঠী আনুষ্ঠানিক আর্থিক ব্যবস্থার বাইরে থেকে গেছে, যা তাদের বৃদ্ধি, বিনিয়োগ এবং ভবিষ্যত সুরক্ষিত করার ক্ষমতাকে সীমিত করেছে। আমরা অর্থায়নে প্রবেশাধিকার সহজ, অন্তর্ভুক্তিমূলক এবং প্রভাবশালী করার মাধ্যমে এই বাধাগুলি ভেঙে দিতে প্রতিশ্রুতিবদ্ধ। আমাদের উদ্যোগের মাধ্যমে আমরা সুবিধাবঞ্চিত ব্যক্তি এবং সম্প্রদায়কে আর্থিক পরিষেবার সাথে সংযুক্ত করি যা শিক্ষা, উদ্যোক্তা, স্বাস্থ্যসেবা এবং টেকসই জীবিকার পথ উন্মুক্ত করে।",
       mission_body_en: "At Onkur Foundation, we believe that true empowerment begins when financial opportunities reach those who need them most. For too long, rural and marginalized communities have been left outside the formal financial system, limiting their ability to grow, invest, and secure their future. We are committed to breaking these barriers by making access to finance simple, inclusive, and impactful. Through our initiatives, we connect underserved individuals and communities with financial services that open doors to education, entrepreneurship, healthcare, and sustainable livelihoods.",
       mission_bullets: [
@@ -88,7 +82,9 @@ export async function runClientSeed() {
       chairman_title_en: "Chairman, Onkur Foundation",
       chairman_message_bn: "অঙ্কুর ফাউন্ডেশনের মূল উদ্দেশ্য হলো প্রতিটি প্রান্তিক ও সুবিধাবঞ্চিত পরিবারকে একটি মর্যাদাপূর্ণ জীবনের সুযোগ করে দেওয়া। আমরা কেবল মূলধন সরবরাহ করি না, বরং তাদের সুপ্ত সম্ভাবনার বিকাশ ঘটিয়ে টেকসই অর্থনৈতিক ক্ষমতায়ন নিশ্চিত করতে কাজ করি।",
       chairman_message_en: "At Onkur, our primary goal is to ensure a life of dignity and self-reliance for every marginalized family. We don't just provide capital; we walk with our borrowers, helping them harness their inner potential.",
-      chairman_image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"
+      chairman_image_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiW8MJGMyO7QRpm5nG4m3TZDys85f49orluIIZBMnhal0Yi0L2oHvVwYJf&s=10",
+      about_image_url: "https://i.postimg.cc/T1R4vnpB/67585644119.png",
+      hero_image_url: "https://i.postimg.cc/g0DQ0M84/98293656829.png",
     },
     nav: {
       home_bn: "হোম", home_en: "Home",
@@ -123,7 +119,7 @@ export async function runClientSeed() {
       role_en: "Chairman",
       bio_bn: "আরফান আলী অঙ্কুর ফাউন্ডেশনের চেয়ারম্যান হিসেবে প্রতিষ্ঠানের সার্বিক দিকনির্দেশনা ও নীতিনির্ধারণে নেতৃত্ব দিচ্ছেন।",
       bio_en: "Arfan Ali leads Onkur Foundation's overall direction and policy-making as Chairman.",
-      imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiW8MJGMyO7QRpm5nG4m3TZDys85f49orluIIZBMnhal0Yi0L2oHvVwYJf&s=10",
       order: 1,
       facebook: "https://facebook.com",
       linkedin: "https://linkedin.com"
@@ -135,7 +131,7 @@ export async function runClientSeed() {
       role_en: "Member",
       bio_bn: "মমতাজ আক্তার জাহান বোর্ড সদস্য হিসেবে প্রতিষ্ঠানের সামাজিক প্রভাব ও কমিউনিটি সম্পৃক্ততা নিয়ে কাজ করছেন।",
       bio_en: "Mamtaz Akhter Jahan works on the organization's social impact and community engagement as a Board Member.",
-      imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400",
+      imageUrl: "https://i.postimg.cc/vTXpS0HL/Whats-App-Image-2026-08-04-at-4-40-14-PM.jpg",
       order: 2,
       facebook: "https://facebook.com",
       linkedin: "https://linkedin.com"
@@ -147,7 +143,7 @@ export async function runClientSeed() {
       role_en: "Member",
       bio_bn: "আকবর হোসেন বোর্ড সদস্য হিসেবে ঋণ কার্যক্রম পরিচালনা ও ঝুঁকি ব্যবস্থাপনা তদারকি করেন।",
       bio_en: "Akber Hossain oversees loan operations and risk management as a Board Member.",
-      imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
+      imageUrl: "https://i.postimg.cc/SRZvGjDt/Whats-App-Image-2026-08-04-at-4-40-15-PM.jpg",
       order: 3,
       facebook: "https://facebook.com",
       linkedin: "https://linkedin.com"
