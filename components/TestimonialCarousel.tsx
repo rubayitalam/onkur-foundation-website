@@ -62,7 +62,7 @@ export default function TestimonialCarousel({ testimonials }: TestimonialCarouse
 
   if (!testimonials || testimonials.length === 0) {
     return (
-      <div className="text-center py-12 text-[#2B2621] font-normal">
+      <div className="text-center py-12 text-text font-normal">
         {tContent("কোনো প্রশংসাপত্র নেই।", "No testimonials available yet.")}
       </div>
     );
@@ -86,8 +86,8 @@ export default function TestimonialCarousel({ testimonials }: TestimonialCarouse
             transition={{ duration: 0.35, ease: "easeInOut" }}
             className="absolute w-full text-center flex flex-col items-center px-10 md:px-16"
           >
-            <Quote className="w-10 h-10 text-[#C9973B] mb-4 opacity-40" />
-            <p className="text-base sm:text-lg text-slate-800 font-medium leading-relaxed mb-6 italic">
+            <Quote className="w-10 h-10 text-primary mb-4 opacity-40" />
+            <p className="text-base sm:text-lg text-secondary font-medium leading-relaxed mb-6 italic">
               "{tContent(current.quote_bn, current.quote_en)}"
             </p>
             <div className="flex items-center gap-3">
@@ -95,10 +95,10 @@ export default function TestimonialCarousel({ testimonials }: TestimonialCarouse
                 <img
                   src={current.imageUrl}
                   alt={tContent(current.name_bn, current.name_en)}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-[#1F4A3D]"
+                  className="w-12 h-12 rounded-full object-cover border-2 border-secondary/10"
                 />
               ) : (
-                <div className="w-12 h-12 rounded-full bg-[#1F4A3D] text-[#FBF6EE] flex items-center justify-center font-bold text-lg">
+                <div className="w-12 h-12 rounded-full bg-white text-text flex items-center justify-center font-bold text-lg">
                   {tContent(current.name_bn, current.name_en).charAt(0)}
                 </div>
               )}
@@ -120,14 +120,14 @@ export default function TestimonialCarousel({ testimonials }: TestimonialCarouse
         <>
           <button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-[#1F4A3D] hover:bg-[#C65D2E] text-white p-2 rounded-full shadow-md transition-colors duration-200 focus:outline-none"
+            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white hover:bg-primary text-white p-2 rounded-full shadow-md transition-colors duration-200 focus:outline-none"
             aria-label="Previous Testimonial"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#1F4A3D] hover:bg-[#C65D2E] text-white p-2 rounded-full shadow-md transition-colors duration-200 focus:outline-none"
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white hover:bg-primary text-white p-2 rounded-full shadow-md transition-colors duration-200 focus:outline-none"
             aria-label="Next Testimonial"
           >
             <ChevronRight className="w-4 h-4" />
@@ -146,7 +146,7 @@ export default function TestimonialCarousel({ testimonials }: TestimonialCarouse
                 setIndex(i);
               }}
               className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-                i === index ? "bg-[#C65D2E]" : "bg-[#1F4A3D]/20 hover:bg-[#1F4A3D]/40"
+                i === index ? "bg-primary" : "bg-white/20 hover:bg-white/40"
               }`}
               aria-label={`Go to testimonial ${i + 1}`}
             />

@@ -1,14 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #C65D2E;   /* terracotta - accent, CTA buttons */
-  --color-secondary: #1F4A3D; /* deep green - headings, dark sections */
-  --color-base: #FBF6EE;      /* warm cream - page background */
-  --color-gold: #C9973B;      /* muted gold - badges/icons */
-  --color-text: #2B2621;      /* warm near-black - body text */
+  --color-primary: #FF7043;
+  /* vibrant orange -  accent, CTA buttons, nav */
+  --color-secondary: #003C40;
+  /* dark teal - primary text, headings */
+  --color-base: #FFFFFF;
+  /* pure white - page background */
+  --color-gold: #C9973B;
+  /* muted gold - badges/icons */
+  --color-text: #000000;
+  /* black - body secondary text */
 
-  --background: #FBF6EE;
-  --foreground: #2B2621;
+  --background: #FFFFFF;
+  --foreground: #003C40;
 }
 
 @theme {
@@ -17,7 +22,7 @@
   --color-base: var(--color-base);
   --color-gold: var(--color-gold);
   --color-text: var(--color-text);
-  
+
   --font-sans: var(--font-inter), var(--font-hind-siliguri), sans-serif;
 }
 
@@ -38,13 +43,16 @@ body {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--color-base);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-secondary);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
 }

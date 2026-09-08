@@ -5,93 +5,125 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Search, ChevronDown } from "lucide-react";
 
 export default function Header() {
   const pathname = usePathname();
   const { language, setLanguage, nav, settings, tContent } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Set `dropdown: true` on any item that should show a chevron (e.g. has sub-links)
   const navItems = [
-    { href: "/", labelBn: nav?.home_bn || "হোম", labelEn: nav?.home_en || "Home" },
-    { href: "/about", labelBn: nav?.about_bn || "আমাদের সম্পর্কে", labelEn: nav?.about_en || "About Us" },
-    { href: "/services", labelBn: nav?.services_bn || "সেবাসমূহ", labelEn: nav?.services_en || "Services" },
-    { href: "/team", labelBn: nav?.team_bn || "আমাদের দল", labelEn: nav?.team_en || "Team" },
-    { href: "/blog", labelBn: nav?.blog_bn || "ব্লগ", labelEn: nav?.blog_en || "Blog" },
-    { href: "/career", labelBn: nav?.career_bn || "ক্যারিয়ার", labelEn: nav?.career_en || "Careers" },
-    { href: "/contact", labelBn: nav?.contact_bn || "যোগাযোগ", labelEn: nav?.contact_en || "Contact" },
+    {
+      href: "/",
+      labelBn: nav?.home_bn || "হোম",
+      labelEn: nav?.home_en || "Home",
+    },
+    {
+      href: "/about",
+      labelBn: nav?.about_bn || "আমাদের সম্পর্কে",
+      labelEn: nav?.about_en || "About Us",
+    },
+    {
+      href: "/services",
+      labelBn: nav?.services_bn || "সেবাসমূহ",
+      labelEn: nav?.services_en || "Services",
+      dropdown: true,
+    },
+    {
+      href: "/team",
+      labelBn: nav?.team_bn || "আমাদের দল",
+      labelEn: nav?.team_en || "Team",
+    },
+    {
+      href: "/blog",
+      labelBn: nav?.blog_bn || "ব্লগ",
+      labelEn: nav?.blog_en || "Blog",
+    },
+    {
+      href: "/career",
+      labelBn: nav?.career_bn || "ক্যারিয়ার",
+      labelEn: nav?.career_en || "Careers",
+    },
+    {
+      href: "/contact",
+      labelBn: nav?.contact_bn || "যোগাযোগ",
+      labelEn: nav?.contact_en || "Contact",
+    },
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#1F4A3D]/95 backdrop-blur-md text-[#FBF6EE] border-b border-[#FBF6EE]/10 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+    <header className="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between h-16 sm:h-[72px] bg-white/95 backdrop-blur-md rounded-full shadow-lg shadow-black/10 px-4 sm:px-6 border border-black/5">
           {/* Logo */}
-          <Link href="/" className="flex items-center select-none shrink-0 pr-4 group">
-            <div className="bg-white rounded-xl px-3 py-1.5 shadow-md flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
-              <img
-                src="/logo.png"
-                alt="অঙ্কুর - Onkur Foundation"
-                className="h-9 sm:h-11 w-auto object-contain"
-              />
-            </div>
+          <Link
+            href="/"
+            className="flex items-center select-none shrink-0 group"
+          >
+            <img
+              src="/logo.png"
+              alt="অঙ্কুর - Onkur Foundation"
+              className="h-8 sm:h-9 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+            />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-4 xl:space-x-8">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative text-sm font-medium tracking-wide transition-colors duration-200 hover:text-[#C9973B] ${
-                    isActive ? "text-[#C9973B]" : "text-[#FBF6EE]"
-                  }`}
+                  className={`flex items-center gap-1 text-sm font-semibold tracking-wide transition-colors duration-200 hover:text-primary ${isActive ? "text-primary" : "text-secondary"
+                    }`}
                 >
                   {tContent(item.labelBn, item.labelEn)}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeNavIndicator"
-                      className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#C9973B]"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
+                  {item.dropdown && (
+                    <ChevronDown className="w-3.5 h-3.5" strokeWidth={2.5} />
                   )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Top Bar Right: Phone and Language Toggle */}
-          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
+          {/* Right side: search, phone, language pill */}
+          <div className="hidden lg:flex items-center gap-5 xl:gap-6 shrink-0">
+
+
             {settings?.phone && (
               <a
                 href={`tel:${settings.phone}`}
-                className="flex items-center text-xs font-semibold tracking-wider text-[#FBF6EE] hover:text-[#C9973B] transition-colors shrink-0"
+                className="flex items-center text-xs font-semibold tracking-wider text-secondary hover:text-primary transition-colors"
               >
-                <Phone className="w-3.5 h-3.5 mr-1.5 text-[#C9973B]" />
+                <Phone className="w-3.5 h-3.5 mr-1.5" />
                 {settings.phone}
               </a>
             )}
 
-            {/* Premium i18n Sliding Switch */}
-            <div className="relative inline-flex items-center bg-[#15342b] p-1 rounded-full cursor-pointer w-24 h-9 shrink-0">
-              <div
-                onClick={() => setLanguage("bn")}
-                className="flex-1 text-center text-xs font-bold z-10 select-none text-white transition-opacity duration-200"
-              >
-                বাং
-              </div>
-              <div
+            {/* Pill language switch (Nagad-style) */}
+            <div className="relative inline-flex items-center bg-[#F1F1F9] p-1 rounded-full h-10">
+              <button
                 onClick={() => setLanguage("en")}
-                className="flex-1 text-center text-xs font-bold z-10 select-none text-white transition-opacity duration-200"
+                className={`relative z-10 px-4 h-8 rounded-full text-xs font-bold transition-colors duration-200 ${language === "en" ? "text-white" : "text-secondary"
+                  }`}
               >
-                EN
-              </div>
+                English
+              </button>
+              <button
+                onClick={() => setLanguage("bn")}
+                className={`relative z-10 px-4 h-8 rounded-full text-xs font-bold transition-colors duration-200 ${language === "bn" ? "text-white" : "text-secondary"
+                  }`}
+              >
+                বাংলা
+              </button>
               <motion.div
-                className="absolute top-1 left-1 bottom-1 w-[44px] bg-[#C65D2E] rounded-full"
+                className="absolute top-1 bottom-1 rounded-full bg-primary"
+                initial={false}
                 animate={{
-                  x: language === "bn" ? 0 : 44,
+                  left: language === "en" ? 4 : "50%",
+                  width: "calc(50% - 4px)",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
               />
@@ -99,63 +131,66 @@ export default function Header() {
           </div>
 
           {/* Mobile Menu Action & Language Toggle */}
-          <div className="flex lg:hidden items-center space-x-4">
-            {/* Simple Small Lang Switcher */}
+          <div className="flex lg:hidden items-center space-x-3">
             <button
               onClick={() => setLanguage(language === "bn" ? "en" : "bn")}
-              className="bg-[#15342b] hover:bg-[#C65D2E] text-[#FBF6EE] font-bold px-3 py-1 rounded-full text-xs transition-colors duration-200"
+              className="bg-[#F1F1F1] hover:bg-primary hover:text-white text-secondary font-bold px-3 py-1.5 rounded-full text-xs transition-colors duration-200"
             >
               {language === "bn" ? "EN" : "বাং"}
             </button>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-[#FBF6EE] focus:outline-none"
+              className="text-secondary focus:outline-none"
               aria-label="Toggle Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Drawer Navigation */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[#1F4A3D] border-t border-[#FBF6EE]/10 overflow-hidden"
-          >
-            <div className="px-4 pt-2 pb-6 space-y-3">
-              {navItems.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block px-3 py-2.5 rounded-md text-base font-medium transition-colors ${
-                      isActive
-                        ? "bg-[#C65D2E] text-white"
-                        : "text-[#FBF6EE] hover:bg-[#15342b] hover:text-[#C9973B]"
-                    }`}
-                  >
-                    {tContent(item.labelBn, item.labelEn)}
-                  </Link>
-                );
-              })}
-              {settings?.phone && (
-                <div className="pt-4 border-t border-[#FBF6EE]/10 px-3 flex items-center text-sm font-semibold tracking-wider text-[#FBF6EE]">
-                  <Phone className="w-4 h-4 mr-2 text-[#C9973B]" />
-                  <a href={`tel:${settings.phone}`}>{settings.phone}</a>
-                </div>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* Mobile Drawer Navigation */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="lg:hidden bg-white/95 backdrop-blur-md rounded-3xl shadow-lg shadow-black/10 border border-black/5 mt-2 overflow-hidden"
+            >
+              <div className="px-4 pt-3 pb-5 space-y-2">
+                {navItems.map((item) => {
+                  const isActive = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-base font-medium transition-colors ${isActive
+                        ? "bg-primary text-white"
+                        : "text-secondary hover:bg-[#F1F1F1]"
+                        }`}
+                    >
+                      {tContent(item.labelBn, item.labelEn)}
+                      {item.dropdown && <ChevronDown className="w-4 h-4" />}
+                    </Link>
+                  );
+                })}
+                {settings?.phone && (
+                  <div className="pt-3 border-t border-black/10 px-3 flex items-center text-sm font-semibold tracking-wider text-secondary">
+                    <Phone className="w-4 h-4 mr-2 text-primary" />
+                    <a href={`tel:${settings.phone}`}>{settings.phone}</a>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </header>
   );
 }

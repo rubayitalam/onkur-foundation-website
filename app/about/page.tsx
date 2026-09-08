@@ -123,17 +123,17 @@ export default function AboutPage() {
 
   const getApproachIcon = (iconName: string) => {
     switch (iconName) {
-      case "ShieldCheck": return <ShieldCheck className="w-6 h-6 text-[#C65D2E]" />;
-      case "Users": return <Users className="w-6 h-6 text-[#C65D2E]" />;
-      case "TrendingUp": return <TrendingUp className="w-6 h-6 text-[#C65D2E]" />;
-      default: return <ShieldCheck className="w-6 h-6 text-[#C65D2E]" />;
+      case "ShieldCheck": return <ShieldCheck className="w-6 h-6 text-primary" />;
+      case "Users": return <Users className="w-6 h-6 text-primary" />;
+      case "TrendingUp": return <TrendingUp className="w-6 h-6 text-primary" />;
+      default: return <ShieldCheck className="w-6 h-6 text-primary" />;
     }
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[50vh] bg-[#FBF6EE] py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#1F4A3D]"></div>
+      <div className="flex items-center justify-center min-h-[50vh] bg-white py-20">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-secondary/10"></div>
       </div>
     );
   }
@@ -143,13 +143,13 @@ export default function AboutPage() {
       
       {/* 1. Header Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-        <span className="text-[#C65D2E] font-semibold text-sm uppercase tracking-wider block mb-2">
+        <span className="text-primary font-semibold text-sm uppercase tracking-wider block mb-2">
           {tContent("আমাদের পরিচয়", "Who We Are")}
         </span>
-        <h1 className="text-4xl md:text-5xl font-bold text-[#1F4A3D] mb-6">
+        <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-6">
           {tContent(aboutData?.heading_bn || "আমাদের পথচলা", aboutData?.heading_en || "Our Journey")}
         </h1>
-        <p className="text-lg md:text-xl text-[#2B2621] leading-relaxed font-normal">
+        <p className="text-lg md:text-xl text-text leading-relaxed font-normal">
           {tContent(
             aboutData?.body_bn || "অঙ্কুর ফাউন্ডেশন গ্রামীণ অঞ্চলের দরিদ্র ও সুবিধাবঞ্চিত জনগোষ্ঠীর অর্থনৈতিক মুক্তির লক্ষ্যে কাজ করে চলেছে। আমরা বিশ্বাস করি, ক্ষুদ্র ঋণের সহায়তায় মানুষ তাদের সুপ্ত প্রতিভার বিকাশ ঘটিয়ে স্বাবলম্বী হতে পারে।",
             aboutData?.body_en || "Onkur Foundation operates with the goal of economic liberation for poor and underserved communities in rural areas. We believe that with small loans, people can unlock their potential and achieve self-reliance."
@@ -160,7 +160,7 @@ export default function AboutPage() {
       {/* 2. Visual Narrative Grid - Mapped approach points */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-md border border-[#1F4A3D]/10 bg-gray-100">
+          <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-md border border-secondary/10 bg-gray-100">
             <img
               src={aboutData?.about_image_url || "https://i.postimg.cc/T1R4vnpB/67585644119.png"}
               alt="Rural enterprise work"
@@ -168,10 +168,10 @@ export default function AboutPage() {
             />
           </div>
           <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-[#1F4A3D]">
+            <h2 className="text-3xl font-bold text-secondary">
               {tContent("আমাদের কাজের পদ্ধতি", "Our Operational Approach")}
             </h2>
-            <p className="text-base text-[#2B2621] leading-relaxed font-normal">
+            <p className="text-base text-text leading-relaxed font-normal">
               {tContent(
                 aboutData?.approach_bn || "আমাদের পদ্ধতিটি সহজ: আমরা মাঠপর্যায়ে গিয়ে আবেদনকারীদের প্রয়োজনীয়তা মূল্যায়ন করি, জামানতবিহীন ঋণের সুবিধা দিই এবং ঋণগ্রহীতাদের অর্থনৈতিক উন্নয়ন তদারকি করি।",
                 aboutData?.approach_en || "Our approach is simple: we assess applicants' needs directly on the ground, offer collateral-free loan options, and guide borrowers to ensure sustainable growth."
@@ -180,15 +180,15 @@ export default function AboutPage() {
             
             <div className="space-y-4 pt-2">
               {(aboutData?.approach_points || defaultApproachPoints).map((pt: any, idx: number) => (
-                <div key={idx} className="flex gap-3.5 items-start p-4 rounded-xl hover:bg-[#1F4A3D]/5 transition-colors border border-[#1F4A3D]/5 bg-white">
-                  <div className="bg-[#1F4A3D]/5 p-2.5 rounded-lg text-[#C65D2E] shrink-0 mt-0.5">
+                <div key={idx} className="flex gap-3.5 items-start p-4 rounded-xl hover:bg-secondary/5 transition-colors border border-secondary/10 bg-white">
+                  <div className="bg-white/5 p-2.5 rounded-lg text-primary shrink-0 mt-0.5">
                     {getApproachIcon(pt.icon)}
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#1F4A3D] text-sm">
+                    <h4 className="font-bold text-secondary text-sm">
                       {tContent(pt.title_bn, pt.title_en)}
                     </h4>
-                    <p className="text-xs text-[#2B2621] font-normal mt-0.5 leading-relaxed">
+                    <p className="text-xs text-text font-normal mt-0.5 leading-relaxed">
                       {tContent(pt.desc_bn, pt.desc_en)}
                     </p>
                   </div>
@@ -201,10 +201,10 @@ export default function AboutPage() {
       </section>
 
       {/* Leadership Message Block */}
-      <section className="bg-[#FBF6EE]/30 py-16 border-y border-[#1F4A3D]/5">
+      <section className="bg-white py-16 border-y border-secondary/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden shrink-0 border-4 border-[#1F4A3D]/10 bg-gray-100 shadow-md">
+            <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden shrink-0 border-4 border-secondary/10 bg-gray-100 shadow-md">
               <img 
                 src={aboutData?.chairman_image_url || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiW8MJGMyO7QRpm5nG4m3TZDys85f49orluIIZBMnhal0Yi0L2oHvVwYJf&s=10"} 
                 alt="Chairman Arfan Ali" 
@@ -213,7 +213,7 @@ export default function AboutPage() {
             </div>
             <div className="space-y-4 text-center md:text-left">
               <p 
-                className="text-base sm:text-lg text-[#2B2621] font-medium leading-relaxed opacity-100"
+                className="text-base sm:text-lg text-text font-medium leading-relaxed opacity-100"
                 style={{ color: "#2B2621", opacity: 1 }}
               >
                 {tContent(
@@ -222,10 +222,10 @@ export default function AboutPage() {
                 )}
               </p>
               <div>
-                <h4 className="font-bold text-[#1F4A3D] text-sm sm:text-base">
+                <h4 className="font-bold text-secondary text-sm sm:text-base">
                   {tContent(aboutData?.chairman_name_bn || "আরফান আলী", aboutData?.chairman_name_en || "Arfan Ali")}
                 </h4>
-                <p className="text-xs text-[#2B2621] font-semibold tracking-wider uppercase opacity-100">
+                <p className="text-xs text-text font-semibold tracking-wider uppercase opacity-100">
                   {tContent(aboutData?.chairman_title_bn || "চেয়ারম্যান, অঙ্কুর ফাউন্ডেশন", aboutData?.chairman_title_en || "Chairman, Onkur Foundation")}
                 </p>
               </div>
@@ -237,30 +237,30 @@ export default function AboutPage() {
       {/* History timeline Section */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-[#C65D2E] font-semibold text-sm uppercase tracking-wider block">
+          <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
             {tContent("ইতিহাস ও মাইলফলক", "Timeline & Milestones")}
           </span>
-          <h2 className="text-3xl font-bold text-[#1F4A3D]">
+          <h2 className="text-3xl font-bold text-secondary">
             {tContent(aboutData?.history_title_bn || "আমাদের পথচলার ইতিহাস", aboutData?.history_title_en || "Our History & Achievements")}
           </h2>
         </div>
 
-        <div className="relative border-l-2 border-[#1F4A3D]/10 pl-6 ml-4 space-y-10">
+        <div className="relative border-l-2 border-secondary/10 pl-6 ml-4 space-y-10">
           {(aboutData?.timeline || defaultTimeline).map((milestone: any, idx: number) => (
             <div key={idx} className="relative space-y-1.5">
               {/* Timeline dot */}
-              <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-[#C65D2E] border-4 border-white shadow-xs"></div>
+              <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-primary border-4 border-white shadow-xs"></div>
               
               <div className="flex items-center gap-3">
-                <span className="text-lg font-bold text-[#C65D2E]">
+                <span className="text-lg font-bold text-primary">
                   {tContent(milestone.year, milestone.year_en)}
                 </span>
-                <span className="h-px bg-[#1F4A3D]/10 w-8"></span>
-                <h3 className="text-base font-bold text-[#1F4A3D]">
+                <span className="h-px bg-white/10 w-8"></span>
+                <h3 className="text-base font-bold text-secondary">
                   {tContent(milestone.title_bn, milestone.title_en)}
                 </h3>
               </div>
-              <p className="text-sm text-[#2B2621]/70 font-light leading-relaxed max-w-2xl">
+              <p className="text-sm text-text font-light leading-relaxed max-w-2xl">
                 {tContent(milestone.desc_bn, milestone.desc_en)}
               </p>
             </div>
@@ -269,20 +269,20 @@ export default function AboutPage() {
       </section>
 
       {/* 3. Deep Dive into Mission/Vision/Values */}
-      <section className="bg-white py-16 border-y border-[#1F4A3D]/5">
+      <section className="bg-white py-16 border-y border-secondary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
             {/* Mission Panel */}
-            <div className="bg-[#FBF6EE]/40 p-8 rounded-2xl border border-[#1F4A3D]/5 space-y-6">
-              <h3 className="text-2xl font-bold text-[#1F4A3D] border-b border-[#1F4A3D]/10 pb-3">
+            <div className="bg-white p-8 rounded-2xl border border-secondary/10 space-y-6">
+              <h3 className="text-2xl font-bold text-secondary border-b border-secondary/10 pb-3">
                 {tContent("আমাদের লক্ষ্য (Mission)", "Our Mission")}
               </h3>
               <ul className="space-y-3.5">
                 {(homeData?.mission_bullets || defaultMissionBullets).map((bullet: any, idx: number) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[#C65D2E] shrink-0 mt-0.5" />
-                    <span className="text-sm font-normal text-[#2B2621]">
+                    <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                    <span className="text-sm font-normal text-text">
                       {tContent(bullet.text_bn, bullet.text_en)}
                     </span>
                   </li>
@@ -291,15 +291,15 @@ export default function AboutPage() {
             </div>
 
             {/* Vision Panel */}
-            <div className="bg-[#FBF6EE]/40 p-8 rounded-2xl border border-[#1F4A3D]/5 space-y-6">
-              <h3 className="text-2xl font-bold text-[#1F4A3D] border-b border-[#1F4A3D]/10 pb-3">
+            <div className="bg-white p-8 rounded-2xl border border-secondary/10 space-y-6">
+              <h3 className="text-2xl font-bold text-secondary border-b border-secondary/10 pb-3">
                 {tContent("আমাদের স্বপ্ন (Vision)", "Our Vision")}
               </h3>
               <ul className="space-y-3.5">
                 {(homeData?.vision_bullets || defaultVisionBullets).map((bullet: any, idx: number) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[#C9973B] shrink-0 mt-0.5" />
-                    <span className="text-sm font-normal text-[#2B2621]">
+                    <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                    <span className="text-sm font-normal text-text">
                       {tContent(bullet.text_bn, bullet.text_en)}
                     </span>
                   </li>
@@ -308,15 +308,15 @@ export default function AboutPage() {
             </div>
 
             {/* Values Panel */}
-            <div className="bg-[#FBF6EE]/40 p-8 rounded-2xl border border-[#1F4A3D]/5 space-y-6">
-              <h3 className="text-2xl font-bold text-[#1F4A3D] border-b border-[#1F4A3D]/10 pb-3">
+            <div className="bg-white p-8 rounded-2xl border border-secondary/10 space-y-6">
+              <h3 className="text-2xl font-bold text-secondary border-b border-secondary/10 pb-3">
                 {tContent("মূল্যবোধ (Values)", "Our Values")}
               </h3>
               <ul className="space-y-3.5">
                 {(homeData?.values_bullets || defaultValuesBullets).map((bullet: any, idx: number) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[#1F4A3D] shrink-0 mt-0.5" />
-                    <span className="text-sm font-normal text-[#2B2621]">
+                    <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
+                    <span className="text-sm font-normal text-text">
                       {tContent(bullet.text_bn, bullet.text_en)}
                     </span>
                   </li>

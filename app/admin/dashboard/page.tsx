@@ -726,11 +726,11 @@ export default function AdminDashboardPage() {
 
   if (checkingAuth || dbLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-[#FBF6EE] p-6 text-center space-y-4">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-white p-6 text-center space-y-4">
         {loadError ? (
-          <div className="max-w-md bg-white p-8 rounded-3xl border border-[#1F4A3D]/10 shadow-lg space-y-4">
+          <div className="max-w-md bg-white p-8 rounded-3xl border border-secondary/10 shadow-lg space-y-4">
             <p className="text-sm text-red-600 font-semibold">{loadError}</p>
-            <p className="text-xs text-[#2B2621]/60 font-light leading-relaxed">
+            <p className="text-xs text-text font-light leading-relaxed">
               If this is the first deployment, database nodes might be completely unseeded. You can force access to trigger seeding.
             </p>
             <div className="pt-2">
@@ -740,7 +740,7 @@ export default function AdminDashboardPage() {
                   setCheckingAuth(false);
                   setDbLoading(false);
                 }}
-                className="bg-[#1F4A3D] hover:bg-[#15342b] text-white px-6 py-3 rounded-lg text-xs font-semibold shadow-sm hover:shadow-md transition-all cursor-pointer"
+                className="bg-white hover:bg-gray-100 text-white px-6 py-3 rounded-lg text-xs font-semibold shadow-sm hover:shadow-md transition-all cursor-pointer"
               >
                 Force Access Dashboard
               </button>
@@ -748,8 +748,8 @@ export default function AdminDashboardPage() {
           </div>
         ) : (
           <>
-            <Loader2 className="w-8 h-8 text-[#1F4A3D] animate-spin" />
-            <p className="text-xs tracking-wider text-[#2B2621]/60">LOADING SECURE DASHBOARD...</p>
+            <Loader2 className="w-8 h-8 text-secondary animate-spin" />
+            <p className="text-xs tracking-wider text-text">LOADING SECURE DASHBOARD...</p>
           </>
         )}
       </div>
@@ -770,22 +770,22 @@ export default function AdminDashboardPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FBF6EE]/30 flex flex-col md:flex-row">
+    <div className="min-h-screen bg-white flex flex-col md:flex-row">
       
       {/* Toast Notice */}
       {toastMessage && (
-        <div className="fixed top-24 right-8 bg-[#1F4A3D] text-[#FBF6EE] px-6 py-4 rounded-xl shadow-lg border border-[#C9973B]/20 flex items-center gap-2.5 z-50 animate-bounce">
-          <CheckCircle className="w-5 h-5 text-[#C9973B]" />
+        <div className="fixed top-24 right-8 bg-white text-text px-6 py-4 rounded-xl shadow-lg border border-primary flex items-center gap-2.5 z-50 animate-bounce">
+          <CheckCircle className="w-5 h-5 text-primary" />
           <span className="text-sm font-semibold">{toastMessage}</span>
         </div>
       )}
 
       {/* Left Sidebar */}
-      <aside className="w-full md:w-72 bg-[#1F4A3D] text-[#FBF6EE] shrink-0 flex flex-col justify-between p-6 border-r border-[#FBF6EE]/10">
+      <aside className="w-full md:w-72 bg-white text-text shrink-0 flex flex-col justify-between p-6 border-r border-[#FBF6EE]/10">
         <div className="space-y-8">
           <div>
-            <h2 className="text-2xl font-bold text-[#C9973B]">অঙ্কুর কন্ট্রোল</h2>
-            <p className="text-[10px] tracking-widest text-[#FBF6EE]/60 uppercase font-bold mt-1">Admin Dashboard Panel</p>
+            <h2 className="text-2xl font-bold text-primary">অঙ্কুর কন্ট্রোল</h2>
+            <p className="text-[10px] tracking-widest text-text/60 uppercase font-bold mt-1">Admin Dashboard Panel</p>
           </div>
 
           <nav className="space-y-1">
@@ -795,8 +795,8 @@ export default function AdminDashboardPage() {
                 onClick={() => setActiveSection(item.id as Section)}
                 className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer ${
                   activeSection === item.id
-                    ? "bg-[#C65D2E] text-white shadow-md"
-                    : "hover:bg-white/5 text-[#FBF6EE]/80"
+                    ? "bg-primary text-white shadow-md"
+                    : "hover:bg-secondary/5 text-text/80"
                 }`}
               >
                 <span>{item.label}</span>
@@ -806,7 +806,7 @@ export default function AdminDashboardPage() {
                     target="_blank" 
                     rel="noreferrer"
                     onClick={(e) => e.stopPropagation()} 
-                    className="text-[10px] bg-white/10 hover:bg-white/20 text-[#FBF6EE] px-2 py-0.5 rounded-md transition-all ml-2"
+                    className="text-[10px] bg-white/10 hover:bg-white/20 text-text px-2 py-0.5 rounded-md transition-all ml-2"
                   >
                     View Live
                   </a>
@@ -819,11 +819,11 @@ export default function AdminDashboardPage() {
         <div className="pt-6 border-t border-white/10 flex items-center justify-between">
           <div className="space-y-0.5">
             <p className="text-xs font-semibold text-white truncate max-w-[120px]">{user?.email}</p>
-            <p className="text-[9px] text-[#FBF6EE]/60">Authorized Session</p>
+            <p className="text-[9px] text-text/60">Authorized Session</p>
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-1 text-xs text-[#C9973B] hover:text-[#C65D2E] font-bold cursor-pointer"
+            className="flex items-center gap-1 text-xs text-primary hover:text-primary font-bold cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
             <span>Logout</span>
@@ -835,19 +835,19 @@ export default function AdminDashboardPage() {
       <main className="flex-1 p-6 md:p-10 max-h-screen overflow-y-auto">
         <div className="max-w-5xl mx-auto space-y-8">
           
-          <div className="flex justify-between items-center border-b border-[#1F4A3D]/10 pb-4">
+          <div className="flex justify-between items-center border-b border-secondary/10 pb-4">
             <div>
-              <h1 className="text-3xl font-extrabold text-[#1F4A3D] capitalize">
+              <h1 className="text-3xl font-extrabold text-secondary capitalize">
                 {activeSection === "settings" ? "Site Settings & Stats" : activeSection + " Page Editor"}
               </h1>
-              <p className="text-xs text-[#2B2621]/60 font-light mt-1">Configure bilingual settings and database components in real-time.</p>
+              <p className="text-xs text-text font-light mt-1">Configure bilingual settings and database components in real-time.</p>
             </div>
             {sidebarItems.find(i => i.id === activeSection)?.path && (
               <a
                 href={sidebarItems.find(i => i.id === activeSection)?.path}
                 target="_blank"
                 rel="noreferrer"
-                className="bg-[#1F4A3D] hover:bg-[#15342b] text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+                className="bg-white hover:bg-gray-100 text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
               >
                 <span>View Live Page →</span>
               </a>
@@ -861,27 +861,27 @@ export default function AdminDashboardPage() {
                 
                 {/* Visual Sub-header: Hero Section */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     Hero Section
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Hero Title (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Hero Title (Bangla)</label>
                       <input
                         type="text" required
                         value={homeData.hero_title_bn || ""}
                         onChange={(e) => setHomeData({ ...homeData, hero_title_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">হোমপেজের ওপরে বড় ব্যানার শিরোনাম হিসেবে প্রদর্শিত হবে।</p>
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Hero Title (English)</label>
+                      <label className="text-xs font-semibold text-text">Hero Title (English)</label>
                       <input
                         type="text" required
                         value={homeData.hero_title_en || ""}
                         onChange={(e) => setHomeData({ ...homeData, hero_title_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">Appears as the large heading in the hero banner of the homepage.</p>
                     </div>
@@ -889,34 +889,34 @@ export default function AdminDashboardPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Hero Subtitle (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Hero Subtitle (Bangla)</label>
                       <textarea
                         rows={2} required
                         value={homeData.hero_subtitle_bn || ""}
                         onChange={(e) => setHomeData({ ...homeData, hero_subtitle_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">হোমপেজ ব্যানারের শিরোনামের ঠিক নিচে প্রদর্শিত প্যারগ্রাফ।</p>
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Hero Subtitle (English)</label>
+                      <label className="text-xs font-semibold text-text">Hero Subtitle (English)</label>
                       <textarea
                         rows={2} required
                         value={homeData.hero_subtitle_en || ""}
                         onChange={(e) => setHomeData({ ...homeData, hero_subtitle_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">Appears underneath the main title text in the hero banner.</p>
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Hero Image URL</label>
+                    <label className="text-xs font-semibold text-text">Hero Image URL</label>
                     <input
                       type="url" required
                       value={homeData.hero_image_url || ""}
                       onChange={(e) => setHomeData({ ...homeData, hero_image_url: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                      className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                     />
                     <p className="text-[10px] text-gray-500 mt-0.5">Appears as the side picture in the hero banner section of the homepage.</p>
                   </div>
@@ -924,37 +924,37 @@ export default function AdminDashboardPage() {
 
                 {/* Visual Sub-header: Why Choose Us Section */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     Why Choose Us Section
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Section Title (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Section Title (Bangla)</label>
                       <input
                         type="text" required
                         value={homeData.why_title_bn || ""}
                         onChange={(e) => setHomeData({ ...homeData, why_title_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Section Title (English)</label>
+                      <label className="text-xs font-semibold text-text">Section Title (English)</label>
                       <input
                         type="text" required
                         value={homeData.why_title_en || ""}
                         onChange={(e) => setHomeData({ ...homeData, why_title_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                   </div>
 
                   {/* Why Choose Us Cards Editor */}
                   <div className="space-y-4 pt-2">
-                    <label className="text-xs font-semibold text-[#2B2621]/80 block">Why Choose Us Cards (Fixed 4 Cards)</label>
+                    <label className="text-xs font-semibold text-text block">Why Choose Us Cards (Fixed 4 Cards)</label>
                     <div className="grid grid-cols-1 gap-6">
                       {(whyCards.length > 0 ? whyCards : defaultWhyCards).map((card, idx) => (
-                        <div key={idx} className="p-4 bg-white rounded-xl border border-[#1F4A3D]/10 space-y-3">
-                          <p className="text-xs font-bold text-[#1F4A3D]">Card #{idx + 1}</p>
+                        <div key={idx} className="p-4 bg-white rounded-xl border border-secondary/10 space-y-3">
+                          <p className="text-xs font-bold text-secondary">Card #{idx + 1}</p>
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <input
                               type="text" required
@@ -1025,37 +1025,37 @@ export default function AdminDashboardPage() {
 
                 {/* Visual Sub-header: How It Works Process */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     How It Works Process Section
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Process Section Title (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Process Section Title (Bangla)</label>
                       <input
                         type="text" required
                         value={homeData.process_title_bn || ""}
                         onChange={(e) => setHomeData({ ...homeData, process_title_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Process Section Title (English)</label>
+                      <label className="text-xs font-semibold text-text">Process Section Title (English)</label>
                       <input
                         type="text" required
                         value={homeData.process_title_en || ""}
                         onChange={(e) => setHomeData({ ...homeData, process_title_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                   </div>
 
                   {/* Repeatable steps cards */}
                   <div className="space-y-4 pt-2">
-                    <label className="text-xs font-semibold text-[#2B2621]/80 block">Workflow Steps (Fixed 4 Steps)</label>
+                    <label className="text-xs font-semibold text-text block">Workflow Steps (Fixed 4 Steps)</label>
                     <div className="grid grid-cols-1 gap-6">
                       {(processSteps.length > 0 ? processSteps : defaultSteps).map((step, idx) => (
-                        <div key={idx} className="p-4 bg-white rounded-xl border border-[#1F4A3D]/10 space-y-3">
-                          <p className="text-xs font-bold text-[#1F4A3D]">Step #{idx + 1}</p>
+                        <div key={idx} className="p-4 bg-white rounded-xl border border-secondary/10 space-y-3">
+                          <p className="text-xs font-bold text-secondary">Step #{idx + 1}</p>
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <input
                               type="text" required
@@ -1123,37 +1123,37 @@ export default function AdminDashboardPage() {
 
                 {/* Visual Sub-header: Mission / Vision / Values Tabs */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     Mission / Vision / Values Bullets
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Mission Bullets (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Mission Bullets (Bangla)</label>
                       <textarea
                         rows={6}
                         value={homeBullets.mission_bn}
                         onChange={(e) => setHomeBullets({ ...homeBullets, mission_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs font-mono"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs font-mono"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">প্রতি লাইনে ১টি করে বুলেট পয়েন্ট লিখুন (বাংলা)।</p>
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Vision Bullets (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Vision Bullets (Bangla)</label>
                       <textarea
                         rows={6}
                         value={homeBullets.vision_bn}
                         onChange={(e) => setHomeBullets({ ...homeBullets, vision_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs font-mono"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs font-mono"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">প্রতি লাইনে ১টি করে স্বপ্ন বুলেট পয়েন্ট (বাংলা)।</p>
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Values Bullets (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Values Bullets (Bangla)</label>
                       <textarea
                         rows={6}
                         value={homeBullets.values_bn}
                         onChange={(e) => setHomeBullets({ ...homeBullets, values_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs font-mono"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs font-mono"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">প্রতি লাইনে ১টি করে মূল্যবোধ বুলেট (বাংলা)।</p>
                     </div>
@@ -1161,41 +1161,41 @@ export default function AdminDashboardPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Mission Bullets (English)</label>
+                      <label className="text-xs font-semibold text-text">Mission Bullets (English)</label>
                       <textarea
                         rows={6}
                         value={homeBullets.mission_en}
                         onChange={(e) => setHomeBullets({ ...homeBullets, mission_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs font-mono"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs font-mono"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Vision Bullets (English)</label>
+                      <label className="text-xs font-semibold text-text">Vision Bullets (English)</label>
                       <textarea
                         rows={6}
                         value={homeBullets.vision_en}
                         onChange={(e) => setHomeBullets({ ...homeBullets, vision_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs font-mono"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs font-mono"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Values Bullets (English)</label>
+                      <label className="text-xs font-semibold text-text">Values Bullets (English)</label>
                       <textarea
                         rows={6}
                         value={homeBullets.values_en}
                         onChange={(e) => setHomeBullets({ ...homeBullets, values_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs font-mono"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs font-mono"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Mission/Vision/Values Section Image URL</label>
+                    <label className="text-xs font-semibold text-text">Mission/Vision/Values Section Image URL</label>
                     <input
                       type="url" required
                       value={homeData.mission_image_url || ""}
                       onChange={(e) => setHomeData({ ...homeData, mission_image_url: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                      className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                     />
                     <p className="text-[10px] text-gray-500 mt-0.5">Appears next to the Mission/Vision/Values tabs on the homepage.</p>
                   </div>
@@ -1204,7 +1204,7 @@ export default function AdminDashboardPage() {
                 <div className="pt-4">
                   <button
                     type="submit" disabled={saving}
-                    className="bg-[#1F4A3D] text-[#FBF6EE] px-6 py-3 rounded-lg text-xs font-semibold hover:bg-[#15342b] disabled:bg-gray-400 cursor-pointer shadow-sm"
+                    className="bg-white text-text px-6 py-3 rounded-lg text-xs font-semibold hover:bg-gray-100 disabled:bg-gray-400 cursor-pointer shadow-sm"
                   >
                     {saving ? "Saving Changes..." : "Save Homepage Content"}
                   </button>
@@ -1212,25 +1212,25 @@ export default function AdminDashboardPage() {
               </form>
 
               {/* Testimonials Panel Integrated here */}
-              <div className="border-t border-[#1F4A3D]/10 pt-10 space-y-6">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E]">
+              <div className="border-t border-secondary/10 pt-10 space-y-6">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
                   Testimonials Management (Homepage Component)
                 </h3>
                 
-                <form onSubmit={saveTestimonial} className="bg-white p-6 rounded-2xl border border-[#1F4A3D]/10 space-y-4">
-                  <h4 className="text-xs font-bold text-[#1F4A3D]">{activeTestimonial.id ? "Edit Testimonial Profile" : "Add Testimonial Profile"}</h4>
+                <form onSubmit={saveTestimonial} className="bg-white p-6 rounded-2xl border border-secondary/10 space-y-4">
+                  <h4 className="text-xs font-bold text-secondary">{activeTestimonial.id ? "Edit Testimonial Profile" : "Add Testimonial Profile"}</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
                       type="text" required placeholder="Borrower Name (Bangla)"
                       value={activeTestimonial.name_bn || ""}
                       onChange={(e) => setActiveTestimonial({ ...activeTestimonial, name_bn: e.target.value })}
-                      className="px-3 py-2 bg-[#FBF6EE]/10 border border-[#1F4A3D]/10 rounded-lg text-xs"
+                      className="px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                     />
                     <input
                       type="text" required placeholder="Borrower Name (English)"
                       value={activeTestimonial.name_en || ""}
                       onChange={(e) => setActiveTestimonial({ ...activeTestimonial, name_en: e.target.value })}
-                      className="px-3 py-2 bg-[#FBF6EE]/10 border border-[#1F4A3D]/10 rounded-lg text-xs"
+                      className="px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                     />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1238,43 +1238,43 @@ export default function AdminDashboardPage() {
                       type="text" required placeholder="Location (Bangla) e.g. নরসিংদী"
                       value={activeTestimonial.location_bn || ""}
                       onChange={(e) => setActiveTestimonial({ ...activeTestimonial, location_bn: e.target.value })}
-                      className="px-3 py-2 bg-[#FBF6EE]/10 border border-[#1F4A3D]/10 rounded-lg text-xs"
+                      className="px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                     />
                     <input
                       type="text" required placeholder="Location (English)"
                       value={activeTestimonial.location_en || ""}
                       onChange={(e) => setActiveTestimonial({ ...activeTestimonial, location_en: e.target.value })}
-                      className="px-3 py-2 bg-[#FBF6EE]/10 border border-[#1F4A3D]/10 rounded-lg text-xs"
+                      className="px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                     />
                     <input
                       type="number" required placeholder="Order"
                       value={activeTestimonial.order ?? 1}
                       onChange={(e) => setActiveTestimonial({ ...activeTestimonial, order: Number(e.target.value) })}
-                      className="px-3 py-2 bg-[#FBF6EE]/10 border border-[#1F4A3D]/10 rounded-lg text-xs"
+                      className="px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                     />
                   </div>
                   <input
                     type="url" required placeholder="Avatar Image URL (Unsplash/Static link)"
                     value={activeTestimonial.imageUrl || ""}
                     onChange={(e) => setActiveTestimonial({ ...activeTestimonial, imageUrl: e.target.value })}
-                    className="w-full px-3 py-2 bg-[#FBF6EE]/10 border border-[#1F4A3D]/10 rounded-lg text-xs"
+                    className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                   />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <textarea
                       rows={3} required placeholder="Quote (Bangla)"
                       value={activeTestimonial.quote_bn || ""}
                       onChange={(e) => setActiveTestimonial({ ...activeTestimonial, quote_bn: e.target.value })}
-                      className="px-3 py-2 bg-[#FBF6EE]/10 border border-[#1F4A3D]/10 rounded-lg text-xs w-full"
+                      className="px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs w-full"
                     />
                     <textarea
                       rows={3} required placeholder="Quote (English)"
                       value={activeTestimonial.quote_en || ""}
                       onChange={(e) => setActiveTestimonial({ ...activeTestimonial, quote_en: e.target.value })}
-                      className="px-3 py-2 bg-[#FBF6EE]/10 border border-[#1F4A3D]/10 rounded-lg text-xs w-full"
+                      className="px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs w-full"
                     />
                   </div>
                   <div className="flex gap-2">
-                    <button type="submit" disabled={saving} className="bg-[#1F4A3D] text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-[#15342b] cursor-pointer">
+                    <button type="submit" disabled={saving} className="bg-white text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-gray-100 cursor-pointer">
                       Save Testimonial
                     </button>
                     <button type="button" onClick={() => setActiveTestimonial({ id: "", name_bn: "", name_en: "", location_bn: "", location_en: "", quote_bn: "", quote_en: "", imageUrl: "", order: 1 })} className="border border-gray-200 text-gray-700 px-4 py-2 rounded-lg text-xs hover:bg-gray-50 cursor-pointer">
@@ -1289,12 +1289,12 @@ export default function AdminDashboardPage() {
                       <div className="flex items-center gap-3">
                         <img src={t.imageUrl} alt={t.name_en} className="w-10 h-10 rounded-full object-cover shrink-0" />
                         <div>
-                          <p className="text-xs font-bold text-[#1F4A3D]">{tContent(t.name_bn, t.name_en)}</p>
+                          <p className="text-xs font-bold text-secondary">{tContent(t.name_bn, t.name_en)}</p>
                           <p className="text-[10px] text-gray-500 font-light">{tContent(t.location_bn, t.location_en)}</p>
                         </div>
                       </div>
                       <div className="flex gap-1">
-                        <button onClick={() => setActiveTestimonial(t)} className="text-[#C65D2E] hover:bg-[#C65D2E]/5 p-2 rounded-md transition-colors"><Edit className="w-3.5 h-3.5" /></button>
+                        <button onClick={() => setActiveTestimonial(t)} className="text-primary hover:bg-primary/5 p-2 rounded-md transition-colors"><Edit className="w-3.5 h-3.5" /></button>
                         <button onClick={() => deleteTestimonial(t.id)} className="text-red-500 hover:bg-red-50 p-2 rounded-md transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
@@ -1312,79 +1312,79 @@ export default function AdminDashboardPage() {
                 
                 {/* Visual Sub-header: Journey Copy */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     About Heading & Journey Narrative
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">About Page Heading (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">About Page Heading (Bangla)</label>
                       <input
                         type="text" required
                         value={aboutData.heading_bn || ""}
                         onChange={(e) => setAboutData({ ...aboutData, heading_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">About Page Heading (English)</label>
+                      <label className="text-xs font-semibold text-text">About Page Heading (English)</label>
                       <input
                         type="text" required
                         value={aboutData.heading_en || ""}
                         onChange={(e) => setAboutData({ ...aboutData, heading_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Main Body Narrative (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Main Body Narrative (Bangla)</label>
                       <textarea
                         rows={4} required
                         value={aboutData.body_bn || ""}
                         onChange={(e) => setAboutData({ ...aboutData, body_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs leading-relaxed"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs leading-relaxed"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Main Body Narrative (English)</label>
+                      <label className="text-xs font-semibold text-text">Main Body Narrative (English)</label>
                       <textarea
                         rows={4} required
                         value={aboutData.body_en || ""}
                         onChange={(e) => setAboutData({ ...aboutData, body_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs leading-relaxed"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs leading-relaxed"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Operational Approach Text (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Operational Approach Text (Bangla)</label>
                       <textarea
                         rows={3} required
                         value={aboutData.approach_bn || ""}
                         onChange={(e) => setAboutData({ ...aboutData, approach_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Operational Approach Text (English)</label>
+                      <label className="text-xs font-semibold text-text">Operational Approach Text (English)</label>
                       <textarea
                         rows={3} required
                         value={aboutData.approach_en || ""}
                         onChange={(e) => setAboutData({ ...aboutData, approach_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Journey Section Image URL</label>
+                    <label className="text-xs font-semibold text-text">Journey Section Image URL</label>
                     <input
                       type="url" required
                       value={aboutData.about_image_url || ""}
                       onChange={(e) => setAboutData({ ...aboutData, about_image_url: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                      className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                     />
                     <p className="text-[10px] text-gray-500 mt-0.5">Appears as the illustration photo in the Our Journey section of the about page.</p>
                   </div>
@@ -1392,13 +1392,13 @@ export default function AdminDashboardPage() {
 
                 {/* Sub-header: Operational Approach Detailed Points */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     Operational Approach Sub-points
                   </h3>
                   <div className="grid grid-cols-1 gap-6">
                     {(approachPoints.length > 0 ? approachPoints : defaultApproachPoints).map((pt, idx) => (
                       <div key={idx} className="p-4 bg-white rounded-xl border border-gray-200 space-y-3">
-                        <p className="text-xs font-bold text-[#1F4A3D]">Approach Point #{idx + 1}</p>
+                        <p className="text-xs font-bold text-secondary">Approach Point #{idx + 1}</p>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                           <input
                             type="text" required placeholder="Heading (Bangla)"
@@ -1463,79 +1463,79 @@ export default function AdminDashboardPage() {
 
                 {/* Sub-header: Chairman Message */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     Leadership Message from Chairman
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Chairman Name (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Chairman Name (Bangla)</label>
                       <input
                         type="text" required
                         value={aboutData.chairman_name_bn || ""}
                         onChange={(e) => setAboutData({ ...aboutData, chairman_name_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Chairman Name (English)</label>
+                      <label className="text-xs font-semibold text-text">Chairman Name (English)</label>
                       <input
                         type="text" required
                         value={aboutData.chairman_name_en || ""}
                         onChange={(e) => setAboutData({ ...aboutData, chairman_name_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Chairman Post / Title (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Chairman Post / Title (Bangla)</label>
                       <input
                         type="text" required
                         value={aboutData.chairman_title_bn || ""}
                         onChange={(e) => setAboutData({ ...aboutData, chairman_title_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Chairman Post / Title (English)</label>
+                      <label className="text-xs font-semibold text-text">Chairman Post / Title (English)</label>
                       <input
                         type="text" required
                         value={aboutData.chairman_title_en || ""}
                         onChange={(e) => setAboutData({ ...aboutData, chairman_title_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Chairman Message (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Chairman Message (Bangla)</label>
                       <textarea
                         rows={3} required
                         value={aboutData.chairman_message_bn || ""}
                         onChange={(e) => setAboutData({ ...aboutData, chairman_message_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Chairman Message (English)</label>
+                      <label className="text-xs font-semibold text-text">Chairman Message (English)</label>
                       <textarea
                         rows={3} required
                         value={aboutData.chairman_message_en || ""}
                         onChange={(e) => setAboutData({ ...aboutData, chairman_message_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Chairman Portrait Image URL</label>
+                    <label className="text-xs font-semibold text-text">Chairman Portrait Image URL</label>
                     <input
                       type="url" required
                       value={aboutData.chairman_image_url || ""}
                       onChange={(e) => setAboutData({ ...aboutData, chairman_image_url: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                      className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                     />
                     <p className="text-[10px] text-gray-500 mt-0.5">Appears as the round avatar picture next to the Chairman's message statement quote block.</p>
                   </div>
@@ -1543,14 +1543,14 @@ export default function AdminDashboardPage() {
 
                 {/* Sub-header: Timeline Milestones */}
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between border-b border-[#1F4A3D]/10 pb-2">
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E]">
+                  <div className="flex items-center justify-between border-b border-secondary/10 pb-2">
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
                       Chronological History Timeline
                     </h3>
                     <button
                       type="button"
                       onClick={() => setTimelineItems([...timelineItems, { year: "", year_en: "", title_bn: "", title_en: "", desc_bn: "", desc_en: "" }])}
-                      className="text-[#C65D2E] hover:text-[#b04f24] text-xs font-bold flex items-center gap-1 cursor-pointer"
+                      className="text-primary hover:text-[#b04f24] text-xs font-bold flex items-center gap-1 cursor-pointer"
                     >
                       <Plus className="w-4 h-4" /> Add Milestone
                     </button>
@@ -1566,7 +1566,7 @@ export default function AdminDashboardPage() {
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
-                        <p className="text-xs font-bold text-[#1F4A3D]">Milestone #{idx + 1}</p>
+                        <p className="text-xs font-bold text-secondary">Milestone #{idx + 1}</p>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                           <input
                             type="text" required placeholder="Year (Bangla) e.g. ২০১৮"
@@ -1641,7 +1641,7 @@ export default function AdminDashboardPage() {
                 <div className="pt-4">
                   <button
                     type="submit" disabled={saving}
-                    className="bg-[#1F4A3D] text-[#FBF6EE] px-6 py-3 rounded-lg text-xs font-semibold hover:bg-[#15342b] disabled:bg-gray-400 cursor-pointer shadow-sm"
+                    className="bg-white text-text px-6 py-3 rounded-lg text-xs font-semibold hover:bg-gray-100 disabled:bg-gray-400 cursor-pointer shadow-sm"
                   >
                     {saving ? "Saving Changes..." : "Save About Us Content"}
                   </button>
@@ -1657,47 +1657,47 @@ export default function AdminDashboardPage() {
                 
                 {/* Visual Sub-header: Services Heading & Intro */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     Services Page Titles & Intro
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Heading (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Heading (Bangla)</label>
                       <input
                         type="text" required
                         value={servicesData.heading_bn || ""}
                         onChange={(e) => setServicesData({ ...servicesData, heading_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Heading (English)</label>
+                      <label className="text-xs font-semibold text-text">Heading (English)</label>
                       <input
                         type="text" required
                         value={servicesData.heading_en || ""}
                         onChange={(e) => setServicesData({ ...servicesData, heading_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Introduction Description (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Introduction Description (Bangla)</label>
                       <textarea
                         rows={3} required
                         value={servicesData.intro_bn || ""}
                         onChange={(e) => setServicesData({ ...servicesData, intro_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs leading-relaxed"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs leading-relaxed"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Introduction Description (English)</label>
+                      <label className="text-xs font-semibold text-text">Introduction Description (English)</label>
                       <textarea
                         rows={3} required
                         value={servicesData.intro_en || ""}
                         onChange={(e) => setServicesData({ ...servicesData, intro_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs leading-relaxed"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs leading-relaxed"
                       />
                     </div>
                   </div>
@@ -1705,7 +1705,7 @@ export default function AdminDashboardPage() {
 
                 {/* Sub-header: Loan Products */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     Loan Products Terms & Policy Settings
                   </h3>
                   
@@ -1718,7 +1718,7 @@ export default function AdminDashboardPage() {
 
                     return (
                       <div key={idx} className="p-6 bg-white rounded-2xl border border-gray-200 space-y-4">
-                        <h4 className="text-xs font-bold text-[#1F4A3D] uppercase tracking-wide">
+                        <h4 className="text-xs font-bold text-secondary uppercase tracking-wide">
                           Loan Product #{idx + 1}: {tContent(product.title_bn, product.title_en)}
                         </h4>
                         
@@ -1833,26 +1833,26 @@ export default function AdminDashboardPage() {
 
                 {/* Sub-header: Shared Benefits */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     Shared Benefits Grid
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Shared Benefits Title (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Shared Benefits Title (Bangla)</label>
                       <input
                         type="text" required
                         value={servicesData.shared_benefits_heading_bn || ""}
                         onChange={(e) => setServicesData({ ...servicesData, shared_benefits_heading_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Shared Benefits Title (English)</label>
+                      <label className="text-xs font-semibold text-text">Shared Benefits Title (English)</label>
                       <input
                         type="text" required
                         value={servicesData.shared_benefits_heading_en || ""}
                         onChange={(e) => setServicesData({ ...servicesData, shared_benefits_heading_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                   </div>
@@ -1867,7 +1867,7 @@ export default function AdminDashboardPage() {
 
                       return (
                         <div key={idx} className="p-4 bg-white rounded-xl border border-gray-200 space-y-3">
-                          <p className="text-xs font-bold text-[#1F4A3D]">Benefit Card #{idx + 1}</p>
+                          <p className="text-xs font-bold text-secondary">Benefit Card #{idx + 1}</p>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <input
                               type="text" required placeholder="Benefit Title (Bangla)"
@@ -1904,48 +1904,48 @@ export default function AdminDashboardPage() {
 
                 {/* Sub-header: Eligibility General Checklist */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     General Eligibility Checklist
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Eligibility Title (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Eligibility Title (Bangla)</label>
                       <input
                         type="text" required
                         value={servicesData.eligibility_heading_bn || ""}
                         onChange={(e) => setServicesData({ ...servicesData, eligibility_heading_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Eligibility Title (English)</label>
+                      <label className="text-xs font-semibold text-text">Eligibility Title (English)</label>
                       <input
                         type="text" required
                         value={servicesData.eligibility_heading_en || ""}
                         onChange={(e) => setServicesData({ ...servicesData, eligibility_heading_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Checklist Bullets (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Checklist Bullets (Bangla)</label>
                       <textarea
                         rows={6}
                         value={eligibilityPoints.bn}
                         onChange={(e) => setEligibilityPoints({ ...eligibilityPoints, bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs font-mono"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs font-mono"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">প্রতি লাইনে ১টি করে বুলেটের শর্ত লিখুন (বাংলা)।</p>
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Checklist Bullets (English)</label>
+                      <label className="text-xs font-semibold text-text">Checklist Bullets (English)</label>
                       <textarea
                         rows={6}
                         value={eligibilityPoints.en}
                         onChange={(e) => setEligibilityPoints({ ...eligibilityPoints, en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs font-mono"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-xs font-mono"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">Enter one point per line for english conditions.</p>
                     </div>
@@ -1955,7 +1955,7 @@ export default function AdminDashboardPage() {
                 <div className="pt-4">
                   <button
                     type="submit" disabled={saving}
-                    className="bg-[#1F4A3D] text-[#FBF6EE] px-6 py-3 rounded-lg text-xs font-semibold hover:bg-[#15342b] disabled:bg-gray-400 cursor-pointer shadow-sm"
+                    className="bg-white text-text px-6 py-3 rounded-lg text-xs font-semibold hover:bg-gray-100 disabled:bg-gray-400 cursor-pointer shadow-sm"
                   >
                     {saving ? "Saving Changes..." : "Save Services Content"}
                   </button>
@@ -1969,13 +1969,13 @@ export default function AdminDashboardPage() {
             <div className="space-y-12">
               
               {/* Heading settings form */}
-              <form onSubmit={saveTeamLanding} className="bg-white p-6 rounded-2xl border border-[#1F4A3D]/10 space-y-6">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+              <form onSubmit={saveTeamLanding} className="bg-white p-6 rounded-2xl border border-secondary/10 space-y-6">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                   Team Landing Copy
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Title (Bangla)</label>
+                    <label className="text-xs font-semibold text-text">Title (Bangla)</label>
                     <input
                       type="text" required
                       value={teamContent.title_bn || ""}
@@ -1984,7 +1984,7 @@ export default function AdminDashboardPage() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Title (English)</label>
+                    <label className="text-xs font-semibold text-text">Title (English)</label>
                     <input
                       type="text" required
                       value={teamContent.title_en || ""}
@@ -1996,7 +1996,7 @@ export default function AdminDashboardPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Heading (Bangla)</label>
+                    <label className="text-xs font-semibold text-text">Heading (Bangla)</label>
                     <input
                       type="text" required
                       value={teamContent.heading_bn || ""}
@@ -2005,7 +2005,7 @@ export default function AdminDashboardPage() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Heading (English)</label>
+                    <label className="text-xs font-semibold text-text">Heading (English)</label>
                     <input
                       type="text" required
                       value={teamContent.heading_en || ""}
@@ -2017,7 +2017,7 @@ export default function AdminDashboardPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Introduction (Bangla)</label>
+                    <label className="text-xs font-semibold text-text">Introduction (Bangla)</label>
                     <textarea
                       rows={2} required
                       value={teamContent.intro_bn || ""}
@@ -2026,7 +2026,7 @@ export default function AdminDashboardPage() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Introduction (English)</label>
+                    <label className="text-xs font-semibold text-text">Introduction (English)</label>
                     <textarea
                       rows={2} required
                       value={teamContent.intro_en || ""}
@@ -2037,7 +2037,7 @@ export default function AdminDashboardPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-[#2B2621]/80">Team Page Banner Image URL</label>
+                  <label className="text-xs font-semibold text-text">Team Page Banner Image URL</label>
                   <input
                     type="url" required
                     value={teamContent.banner_image_url || ""}
@@ -2047,19 +2047,19 @@ export default function AdminDashboardPage() {
                   <p className="text-[10px] text-gray-500 mt-0.5">Appears as the header banner image above the team grid on the live site.</p>
                 </div>
 
-                <button type="submit" disabled={saving} className="bg-[#1F4A3D] text-white px-5 py-2.5 rounded-lg text-xs font-semibold hover:bg-[#15342b] cursor-pointer">
+                <button type="submit" disabled={saving} className="bg-white text-white px-5 py-2.5 rounded-lg text-xs font-semibold hover:bg-gray-100 cursor-pointer">
                   Save Landing Heading
                 </button>
               </form>
 
               {/* Grid CRUD */}
-              <div className="space-y-6 pt-4 border-t border-[#1F4A3D]/10">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E]">
+              <div className="space-y-6 pt-4 border-t border-secondary/10">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
                   Roster: Executives & Board Members Grid
                 </h3>
                 
-                <form onSubmit={saveTeamMember} className="bg-white p-6 rounded-2xl border border-[#1F4A3D]/10 space-y-4">
-                  <h4 className="text-xs font-bold text-[#1F4A3D]">{activeTeamMember.id ? "Edit Team Member" : "Add Team Member"}</h4>
+                <form onSubmit={saveTeamMember} className="bg-white p-6 rounded-2xl border border-secondary/10 space-y-4">
+                  <h4 className="text-xs font-bold text-secondary">{activeTeamMember.id ? "Edit Team Member" : "Add Team Member"}</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
                       type="text" required placeholder="Name (Bangla)"
@@ -2129,7 +2129,7 @@ export default function AdminDashboardPage() {
                     />
                   </div>
                   <div className="flex gap-2">
-                    <button type="submit" disabled={saving} className="bg-[#1F4A3D] text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-[#15342b] cursor-pointer">
+                    <button type="submit" disabled={saving} className="bg-white text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-gray-100 cursor-pointer">
                       Save Member
                     </button>
                     <button type="button" onClick={() => setActiveTeamMember({ id: "", name_bn: "", name_en: "", role_bn: "", role_en: "", imageUrl: "", order: 1, facebook: "", linkedin: "", bio_bn: "", bio_en: "" })} className="border border-gray-200 text-gray-700 px-4 py-2 rounded-lg text-xs hover:bg-gray-50 cursor-pointer">
@@ -2142,16 +2142,16 @@ export default function AdminDashboardPage() {
                   {teamList.map((m) => (
                     <div key={m.id} className="p-4 bg-white border border-gray-200 rounded-xl flex items-center justify-between shadow-xs">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-[#1F4A3D]/5 flex items-center justify-center font-bold text-[#1F4A3D] overflow-hidden shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center font-bold text-secondary overflow-hidden shrink-0">
                           {m.imageUrl ? <img src={m.imageUrl} alt="" className="w-full h-full object-cover" /> : m.name_en.charAt(0)}
                         </div>
                         <div>
-                          <p className="text-xs font-bold text-[#1F4A3D]">{tContent(m.name_bn, m.name_en)}</p>
+                          <p className="text-xs font-bold text-secondary">{tContent(m.name_bn, m.name_en)}</p>
                           <p className="text-[10px] text-gray-500 font-light">{tContent(m.role_bn, m.role_en)}</p>
                         </div>
                       </div>
                       <div className="flex gap-1">
-                        <button onClick={() => setActiveTeamMember(m)} className="text-[#C65D2E] hover:bg-[#C65D2E]/5 p-2 rounded-md transition-colors"><Edit className="w-3.5 h-3.5" /></button>
+                        <button onClick={() => setActiveTeamMember(m)} className="text-primary hover:bg-primary/5 p-2 rounded-md transition-colors"><Edit className="w-3.5 h-3.5" /></button>
                         <button onClick={() => deleteTeamMember(m.id)} className="text-red-500 hover:bg-red-50 p-2 rounded-md transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
@@ -2167,13 +2167,13 @@ export default function AdminDashboardPage() {
             <div className="space-y-12">
               
               {/* Heading settings form */}
-              <form onSubmit={saveBlogLanding} className="bg-white p-6 rounded-2xl border border-[#1F4A3D]/10 space-y-6">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+              <form onSubmit={saveBlogLanding} className="bg-white p-6 rounded-2xl border border-secondary/10 space-y-6">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                   Blog Page Intros
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Title (Bangla)</label>
+                    <label className="text-xs font-semibold text-text">Title (Bangla)</label>
                     <input
                       type="text" required
                       value={blogContent.title_bn || ""}
@@ -2182,7 +2182,7 @@ export default function AdminDashboardPage() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Title (English)</label>
+                    <label className="text-xs font-semibold text-text">Title (English)</label>
                     <input
                       type="text" required
                       value={blogContent.title_en || ""}
@@ -2194,7 +2194,7 @@ export default function AdminDashboardPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Heading (Bangla)</label>
+                    <label className="text-xs font-semibold text-text">Heading (Bangla)</label>
                     <input
                       type="text" required
                       value={blogContent.heading_bn || ""}
@@ -2203,7 +2203,7 @@ export default function AdminDashboardPage() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Heading (English)</label>
+                    <label className="text-xs font-semibold text-text">Heading (English)</label>
                     <input
                       type="text" required
                       value={blogContent.heading_en || ""}
@@ -2215,7 +2215,7 @@ export default function AdminDashboardPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Introduction (Bangla)</label>
+                    <label className="text-xs font-semibold text-text">Introduction (Bangla)</label>
                     <textarea
                       rows={2} required
                       value={blogContent.intro_bn || ""}
@@ -2224,7 +2224,7 @@ export default function AdminDashboardPage() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Introduction (English)</label>
+                    <label className="text-xs font-semibold text-text">Introduction (English)</label>
                     <textarea
                       rows={2} required
                       value={blogContent.intro_en || ""}
@@ -2235,7 +2235,7 @@ export default function AdminDashboardPage() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-[#2B2621]/80">Blog Page Banner Image URL</label>
+                  <label className="text-xs font-semibold text-text">Blog Page Banner Image URL</label>
                   <input
                     type="url" required
                     value={blogContent.banner_image_url || ""}
@@ -2245,19 +2245,19 @@ export default function AdminDashboardPage() {
                   <p className="text-[10px] text-gray-500 mt-0.5">Appears as the header banner image above the blog listing intro on the live site.</p>
                 </div>
 
-                <button type="submit" disabled={saving} className="bg-[#1F4A3D] text-white px-5 py-2.5 rounded-lg text-xs font-semibold hover:bg-[#15342b] cursor-pointer">
+                <button type="submit" disabled={saving} className="bg-white text-white px-5 py-2.5 rounded-lg text-xs font-semibold hover:bg-gray-100 cursor-pointer">
                   Save Landing Heading
                 </button>
               </form>
 
               {/* Posts CRUD */}
-              <div className="space-y-6 pt-4 border-t border-[#1F4A3D]/10">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E]">
+              <div className="space-y-6 pt-4 border-t border-secondary/10">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
                   Articles: Blog Post Listings & Editor
                 </h3>
                 
-                <form onSubmit={saveBlog} className="bg-white p-6 rounded-2xl border border-[#1F4A3D]/10 space-y-4">
-                  <h4 className="text-xs font-bold text-[#1F4A3D]">{activeBlog.id ? "Edit Blog Article" : "Write Blog Article"}</h4>
+                <form onSubmit={saveBlog} className="bg-white p-6 rounded-2xl border border-secondary/10 space-y-4">
+                  <h4 className="text-xs font-bold text-secondary">{activeBlog.id ? "Edit Blog Article" : "Write Blog Article"}</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
                       type="text" required placeholder="Title (Bangla)"
@@ -2346,7 +2346,7 @@ export default function AdminDashboardPage() {
                     />
                   </div>
                   <div className="flex gap-2">
-                    <button type="submit" disabled={saving} className="bg-[#1F4A3D] text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-[#15342b] cursor-pointer">
+                    <button type="submit" disabled={saving} className="bg-white text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-gray-100 cursor-pointer">
                       Save Article
                     </button>
                     <button type="button" onClick={() => setActiveBlog({ id: "", title_bn: "", title_en: "", excerpt_bn: "", excerpt_en: "", content_bn: "", content_en: "", coverImageUrl: "", slug: "", publishedAt: "", author: "", category: "News" })} className="border border-gray-200 text-gray-700 px-4 py-2 rounded-lg text-xs hover:bg-gray-50 cursor-pointer">
@@ -2362,14 +2362,14 @@ export default function AdminDashboardPage() {
                         {post.coverImageUrl && <img src={post.coverImageUrl} alt="" className="w-16 h-10 object-cover rounded-md shrink-0 bg-gray-100" />}
                         <div>
                           <div className="flex items-center gap-1.5">
-                            <p className="text-xs font-bold text-[#1F4A3D]">{tContent(post.title_bn, post.title_en)}</p>
+                            <p className="text-xs font-bold text-secondary">{tContent(post.title_bn, post.title_en)}</p>
                             {post.category && <span className="bg-gray-100 text-[8px] font-bold px-1.5 py-0.5 rounded text-gray-600 uppercase">{post.category}</span>}
                           </div>
                           <p className="text-[9px] text-gray-500 font-light mt-0.5">{new Date(post.publishedAt).toLocaleDateString()}</p>
                         </div>
                       </div>
                       <div className="flex gap-1">
-                        <button onClick={() => setActiveBlog(post)} className="text-[#C65D2E] hover:bg-[#C65D2E]/5 p-2 rounded-md transition-colors"><Edit className="w-3.5 h-3.5" /></button>
+                        <button onClick={() => setActiveBlog(post)} className="text-primary hover:bg-primary/5 p-2 rounded-md transition-colors"><Edit className="w-3.5 h-3.5" /></button>
                         <button onClick={() => deleteBlog(post.id)} className="text-red-500 hover:bg-red-50 p-2 rounded-md transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
@@ -2385,12 +2385,12 @@ export default function AdminDashboardPage() {
             <div className="space-y-8">
               
               {/* Career Banner Editor Form */}
-              <form onSubmit={saveCareerContent} className="bg-white p-6 rounded-2xl border border-[#1F4A3D]/10 space-y-4">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+              <form onSubmit={saveCareerContent} className="bg-white p-6 rounded-2xl border border-secondary/10 space-y-4">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                   Careers Page Banner Image
                 </h3>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-[#2B2621]/80">Careers Banner Image URL</label>
+                  <label className="text-xs font-semibold text-text">Careers Banner Image URL</label>
                   <input
                     type="url" required
                     value={careerContent?.banner_image_url || ""}
@@ -2399,7 +2399,7 @@ export default function AdminDashboardPage() {
                   />
                   <p className="text-[10px] text-gray-500 mt-0.5">Appears as the large header banner image at the top of the Careers page.</p>
                 </div>
-                <button type="submit" disabled={saving} className="bg-[#1F4A3D] text-white px-5 py-2.5 rounded-lg text-xs font-semibold hover:bg-[#15342b] cursor-pointer">
+                <button type="submit" disabled={saving} className="bg-white text-white px-5 py-2.5 rounded-lg text-xs font-semibold hover:bg-gray-100 cursor-pointer">
                   Save Banner Image
                 </button>
               </form>
@@ -2410,7 +2410,7 @@ export default function AdminDashboardPage() {
                   onClick={() => setCareerSubTab("postings")}
                   className={`px-6 py-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer ${
                     careerSubTab === "postings"
-                      ? "border-[#C65D2E] text-[#1F4A3D]"
+                      ? "border-primary text-secondary"
                       : "border-transparent text-gray-400 hover:text-gray-600"
                   }`}
                 >
@@ -2420,7 +2420,7 @@ export default function AdminDashboardPage() {
                   onClick={() => setCareerSubTab("applications")}
                   className={`px-6 py-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer ${
                     careerSubTab === "applications"
-                      ? "border-[#C65D2E] text-[#1F4A3D]"
+                      ? "border-primary text-secondary"
                       : "border-transparent text-gray-400 hover:text-gray-600"
                   }`}
                 >
@@ -2432,8 +2432,8 @@ export default function AdminDashboardPage() {
                 <div className="space-y-8 animate-fadeIn">
                   
                   {/* Job Add/Edit Form */}
-                  <form onSubmit={saveJob} className="bg-white p-6 rounded-2xl border border-[#1F4A3D]/10 space-y-4">
-                    <h4 className="text-xs font-bold text-[#1F4A3D]">{activeJob.id ? "Edit Job Posting" : "Add Job Posting"}</h4>
+                  <form onSubmit={saveJob} className="bg-white p-6 rounded-2xl border border-secondary/10 space-y-4">
+                    <h4 className="text-xs font-bold text-secondary">{activeJob.id ? "Edit Job Posting" : "Add Job Posting"}</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <input
                         type="text" required placeholder="Job Title (Bangla)"
@@ -2532,13 +2532,13 @@ export default function AdminDashboardPage() {
                         id="jobActive" type="checkbox"
                         checked={activeJob.isActive}
                         onChange={(e) => setActiveJob({ ...activeJob, isActive: e.target.checked })}
-                        className="rounded text-[#1F4A3D] focus:ring-[#1F4A3D]"
+                        className="rounded text-secondary focus:ring-[#1F4A3D]"
                       />
-                      <label htmlFor="jobActive" className="text-xs font-semibold text-[#2B2621]/80 select-none">Show Posting Publicly</label>
+                      <label htmlFor="jobActive" className="text-xs font-semibold text-text select-none">Show Posting Publicly</label>
                     </div>
 
                     <div className="flex gap-2">
-                      <button type="submit" disabled={saving} className="bg-[#1F4A3D] text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-[#15342b] cursor-pointer">
+                      <button type="submit" disabled={saving} className="bg-white text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-gray-100 cursor-pointer">
                         Save Job
                       </button>
                       <button type="button" onClick={() => setActiveJob({ id: "", title_bn: "", title_en: "", department_bn: "", department_en: "", location_bn: "", location_en: "", type_bn: "", type_en: "Full-time", deadline: "", description_bn: "", description_en: "", requirements_bn: "", requirements_en: "", isActive: true })} className="border border-gray-200 text-gray-700 px-4 py-2 rounded-lg text-xs hover:bg-gray-50 cursor-pointer">
@@ -2549,13 +2549,13 @@ export default function AdminDashboardPage() {
 
                   {/* Listings Table */}
                   <div className="space-y-4 pt-4 border-t border-gray-200">
-                    <h4 className="text-xs font-bold text-[#1F4A3D] uppercase tracking-wider">Current Postings</h4>
+                    <h4 className="text-xs font-bold text-secondary uppercase tracking-wider">Current Postings</h4>
                     <div className="grid grid-cols-1 gap-4">
                       {jobsList.map((job) => (
                         <div key={job.id} className="p-4 bg-white border border-gray-200 rounded-xl flex items-center justify-between shadow-xs">
                           <div>
                             <div className="flex items-center gap-2">
-                              <p className="text-xs font-bold text-[#1F4A3D]">{tContent(job.title_bn, job.title_en)}</p>
+                              <p className="text-xs font-bold text-secondary">{tContent(job.title_bn, job.title_en)}</p>
                               <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded uppercase ${job.isActive ? "bg-green-50 text-green-700" : "bg-red-50 text-red-600"}`}>
                                 {job.isActive ? "Active" : "Inactive"}
                               </span>
@@ -2565,7 +2565,7 @@ export default function AdminDashboardPage() {
                             </p>
                           </div>
                           <div className="flex gap-1">
-                            <button onClick={() => setActiveJob(job)} className="text-[#C65D2E] hover:bg-[#C65D2E]/5 p-2 rounded-md transition-colors"><Edit className="w-3.5 h-3.5" /></button>
+                            <button onClick={() => setActiveJob(job)} className="text-primary hover:bg-primary/5 p-2 rounded-md transition-colors"><Edit className="w-3.5 h-3.5" /></button>
                             <button onClick={() => deleteJob(job.id)} className="text-red-500 hover:bg-red-50 p-2 rounded-md transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                           </div>
                         </div>
@@ -2578,7 +2578,7 @@ export default function AdminDashboardPage() {
 
               {careerSubTab === "applications" && (
                 <div className="space-y-6 animate-fadeIn">
-                  <h4 className="text-xs font-bold text-[#1F4A3D] uppercase tracking-wider">Submitted Applications (Sorted by Date)</h4>
+                  <h4 className="text-xs font-bold text-secondary uppercase tracking-wider">Submitted Applications (Sorted by Date)</h4>
                   
                   {applicationsList.length === 0 ? (
                     <div className="text-center py-12 text-gray-400 font-light text-sm">
@@ -2595,14 +2595,14 @@ export default function AdminDashboardPage() {
                               className="p-4 flex items-center justify-between gap-4 cursor-pointer select-none hover:bg-gray-50"
                             >
                               <div className="space-y-1">
-                                <p className="text-xs font-bold text-[#1F4A3D]">{app.fullName}</p>
+                                <p className="text-xs font-bold text-secondary">{app.fullName}</p>
                                 <p className="text-[10px] text-gray-500 font-light">
                                   Applied for: <span className="font-semibold text-gray-700">{tContent(app.jobTitle_bn, app.jobTitle_en)}</span> • Phone: {app.phone}
                                 </p>
                               </div>
                               <div className="flex items-center gap-3">
                                 <span className="text-[9px] text-gray-400">{new Date(app.submittedAt).toLocaleDateString()}</span>
-                                <button className="text-xs text-[#C65D2E] hover:underline cursor-pointer font-semibold">
+                                <button className="text-xs text-primary hover:underline cursor-pointer font-semibold">
                                   {isExpanded ? "Hide Details" : "View Resume"}
                                 </button>
                                 <button
@@ -2629,11 +2629,11 @@ export default function AdminDashboardPage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                  <p className="font-bold text-sm text-[#1F4A3D]">Education Background</p>
+                                  <p className="font-bold text-sm text-secondary">Education Background</p>
                                   <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
                                     <table className="w-full text-left border-collapse">
                                       <thead>
-                                        <tr className="bg-[#1F4A3D]/5 text-[10px] uppercase font-bold text-[#1F4A3D] border-b border-gray-200">
+                                        <tr className="bg-white/5 text-[10px] uppercase font-bold text-secondary border-b border-gray-200">
                                           <th className="p-3">Degree</th>
                                           <th className="p-3">Institution</th>
                                           <th className="p-3">Passing Year</th>
@@ -2655,14 +2655,14 @@ export default function AdminDashboardPage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                  <p className="font-bold text-sm text-[#1F4A3D]">Work Experience</p>
+                                  <p className="font-bold text-sm text-secondary">Work Experience</p>
                                   {app.isFirstJob ? (
                                     <p className="text-gray-500 font-light italic">Applicant's first job (no prior experience entries).</p>
                                   ) : (
                                     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
                                       <table className="w-full text-left border-collapse">
                                         <thead>
-                                          <tr className="bg-[#1F4A3D]/5 text-[10px] uppercase font-bold text-[#1F4A3D] border-b border-gray-200">
+                                          <tr className="bg-white/5 text-[10px] uppercase font-bold text-secondary border-b border-gray-200">
                                             <th className="p-3">Organization</th>
                                             <th className="p-3">Role</th>
                                             <th className="p-3">Duration</th>
@@ -2685,16 +2685,16 @@ export default function AdminDashboardPage() {
                                 </div>
 
                                 {app.cvLink && (
-                                  <div className="bg-[#1F4A3D]/5 p-3 rounded-lg flex items-center justify-between border border-[#1F4A3D]/10">
+                                  <div className="bg-white/5 p-3 rounded-lg flex items-center justify-between border border-secondary/10">
                                     <div className="flex items-center gap-2">
-                                      <Link2 className="w-4 h-4 text-[#C65D2E]" />
-                                      <span className="font-semibold text-[#1F4A3D]">External CV / Portfolio Link:</span>
+                                      <Link2 className="w-4 h-4 text-primary" />
+                                      <span className="font-semibold text-secondary">External CV / Portfolio Link:</span>
                                     </div>
                                     <a 
                                       href={app.cvLink} 
                                       target="_blank" 
                                       rel="noreferrer" 
-                                      className="text-[#C65D2E] hover:underline font-bold"
+                                      className="text-primary hover:underline font-bold"
                                     >
                                       Open CV Link &rarr;
                                     </a>
@@ -2702,7 +2702,7 @@ export default function AdminDashboardPage() {
                                 )}
 
                                 <div className="space-y-2">
-                                  <p className="font-bold text-sm text-[#1F4A3D]">Cover Letter / Statement of Purpose</p>
+                                  <p className="font-bold text-sm text-secondary">Cover Letter / Statement of Purpose</p>
                                   <p className="p-4 bg-white border border-gray-200 rounded-lg whitespace-pre-wrap leading-relaxed">
                                     {app.coverLetter}
                                   </p>
@@ -2739,9 +2739,9 @@ export default function AdminDashboardPage() {
           {/* LOAN APPLICATIONS SECTION */}
           {activeSection === "loans" && (
             <div className="space-y-6 animate-fadeIn">
-              <div className="flex justify-between items-center border-b border-[#1F4A3D]/10 pb-4">
+              <div className="flex justify-between items-center border-b border-secondary/10 pb-4">
                 <div>
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E]">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
                     Submitted Loan Applications ({loanApplicationsList.length})
                   </h3>
                   <p className="text-xs text-gray-500 font-light mt-1">
@@ -2751,11 +2751,11 @@ export default function AdminDashboardPage() {
               </div>
 
               {loanApplicationsList.length === 0 ? (
-                <div className="bg-white p-12 rounded-3xl border border-[#1F4A3D]/10 text-center space-y-3">
-                  <div className="w-12 h-12 bg-[#1F4A3D]/5 text-[#1F4A3D] rounded-full flex items-center justify-center mx-auto">
-                    <Briefcase className="w-6 h-6 text-[#C9973B]" />
+                <div className="bg-white p-12 rounded-3xl border border-secondary/10 text-center space-y-3">
+                  <div className="w-12 h-12 bg-white/5 text-secondary rounded-full flex items-center justify-center mx-auto">
+                    <Briefcase className="w-6 h-6 text-primary" />
                   </div>
-                  <p className="text-sm font-bold text-[#1F4A3D]">No loan applications received yet.</p>
+                  <p className="text-sm font-bold text-secondary">No loan applications received yet.</p>
                   <p className="text-xs text-gray-500 max-w-sm mx-auto">
                     When visitors submit loan requests on the Services page modal, their applications will appear here automatically.
                   </p>
@@ -2765,22 +2765,22 @@ export default function AdminDashboardPage() {
                   {loanApplicationsList.map((app) => {
                     const isExpanded = viewingLoanApp?.id === app.id;
                     return (
-                      <div key={app.id} className="bg-white border border-[#1F4A3D]/10 rounded-2xl shadow-xs overflow-hidden">
+                      <div key={app.id} className="bg-white border border-secondary/10 rounded-2xl shadow-xs overflow-hidden">
                         <div 
                           onClick={() => setViewingLoanApp(isExpanded ? null : app)}
                           className="p-5 flex items-center justify-between gap-4 cursor-pointer select-none hover:bg-gray-50/80 transition-colors"
                         >
                           <div className="space-y-1">
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-bold text-[#1F4A3D]">{app.name || "Unnamed Applicant"}</span>
+                              <span className="text-sm font-bold text-secondary">{app.name || "Unnamed Applicant"}</span>
                               {app.loanType && (
-                                <span className="bg-[#1F4A3D]/10 text-[#1F4A3D] text-[10px] font-bold px-2 py-0.5 rounded-md">
+                                <span className="bg-white/10 text-secondary text-[10px] font-bold px-2 py-0.5 rounded-md">
                                   {app.loanType}
                                 </span>
                               )}
                             </div>
                             <p className="text-xs text-gray-500 font-light">
-                              Amount Requested: <span className="font-bold text-[#C65D2E]">{app.amount ? `BDT ${app.amount}` : "Not specified"}</span> • Phone: <span className="font-semibold text-gray-700">{app.phone || "N/A"}</span> • Location: {app.address || "N/A"}
+                              Amount Requested: <span className="font-bold text-primary">{app.amount ? `BDT ${app.amount}` : "Not specified"}</span> • Phone: <span className="font-semibold text-gray-700">{app.phone || "N/A"}</span> • Location: {app.address || "N/A"}
                             </p>
                           </div>
 
@@ -2791,7 +2791,7 @@ export default function AdminDashboardPage() {
                             <button 
                               type="button" 
                               onClick={() => setViewingLoanApp(isExpanded ? null : app)}
-                              className="text-xs font-semibold text-[#1F4A3D] hover:underline cursor-pointer"
+                              className="text-xs font-semibold text-secondary hover:underline cursor-pointer"
                             >
                               {isExpanded ? "Hide Details" : "View Application"}
                             </button>
@@ -2812,7 +2812,7 @@ export default function AdminDashboardPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white p-4 rounded-xl border border-gray-200">
                               <div>
                                 <span className="text-[10px] uppercase font-bold text-gray-400 block">Applicant Name</span>
-                                <span className="font-bold text-sm text-[#1F4A3D]">{app.name}</span>
+                                <span className="font-bold text-sm text-secondary">{app.name}</span>
                               </div>
                               <div>
                                 <span className="text-[10px] uppercase font-bold text-gray-400 block">Phone Number</span>
@@ -2827,11 +2827,11 @@ export default function AdminDashboardPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white p-4 rounded-xl border border-gray-200">
                               <div>
                                 <span className="text-[10px] uppercase font-bold text-gray-400 block">Loan Product</span>
-                                <span className="font-bold text-[#1F4A3D]">{app.loanType || "N/A"}</span>
+                                <span className="font-bold text-secondary">{app.loanType || "N/A"}</span>
                               </div>
                               <div>
                                 <span className="text-[10px] uppercase font-bold text-gray-400 block">Requested Loan Amount</span>
-                                <span className="font-extrabold text-sm text-[#C65D2E]">BDT {app.amount || "N/A"}</span>
+                                <span className="font-extrabold text-sm text-primary">BDT {app.amount || "N/A"}</span>
                               </div>
                               <div>
                                 <span className="text-[10px] uppercase font-bold text-gray-400 block">Branch / Location</span>
@@ -2874,13 +2874,13 @@ export default function AdminDashboardPage() {
             <div className="space-y-12">
               <form onSubmit={saveContactLanding} className="space-y-8">
                 
-                <div className="space-y-4 bg-white p-6 rounded-2xl border border-[#1F4A3D]/10">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-gray-200 pb-2">
+                <div className="space-y-4 bg-white p-6 rounded-2xl border border-secondary/10">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-gray-200 pb-2">
                     Contact Header Copy
                   </h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Heading (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Heading (Bangla)</label>
                       <input
                         type="text" required
                         value={contactContent.heading_bn || ""}
@@ -2889,7 +2889,7 @@ export default function AdminDashboardPage() {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Heading (English)</label>
+                      <label className="text-xs font-semibold text-text">Heading (English)</label>
                       <input
                         type="text" required
                         value={contactContent.heading_en || ""}
@@ -2901,7 +2901,7 @@ export default function AdminDashboardPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Subtitle / Description (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Subtitle / Description (Bangla)</label>
                       <textarea
                         rows={2} required
                         value={contactContent.body_bn || ""}
@@ -2910,7 +2910,7 @@ export default function AdminDashboardPage() {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Subtitle / Description (English)</label>
+                      <label className="text-xs font-semibold text-text">Subtitle / Description (English)</label>
                       <textarea
                         rows={2} required
                         value={contactContent.body_en || ""}
@@ -2921,7 +2921,7 @@ export default function AdminDashboardPage() {
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Contact Page Banner Image URL</label>
+                    <label className="text-xs font-semibold text-text">Contact Page Banner Image URL</label>
                     <input
                       type="url" required
                       value={contactContent.banner_image_url || ""}
@@ -2932,13 +2932,13 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
 
-                <div className="space-y-4 bg-white p-6 rounded-2xl border border-[#1F4A3D]/10">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-gray-200 pb-2">
+                <div className="space-y-4 bg-white p-6 rounded-2xl border border-secondary/10">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-gray-200 pb-2">
                     Office Timings
                   </h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Hours (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Hours (Bangla)</label>
                       <input
                         type="text" required
                         value={contactContent.hours_bn || ""}
@@ -2947,7 +2947,7 @@ export default function AdminDashboardPage() {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Hours (English)</label>
+                      <label className="text-xs font-semibold text-text">Hours (English)</label>
                       <input
                         type="text" required
                         value={contactContent.hours_en || ""}
@@ -2959,15 +2959,15 @@ export default function AdminDashboardPage() {
                 </div>
 
                 {/* Department Contacts repeatable list */}
-                <div className="space-y-4 bg-white p-6 rounded-2xl border border-[#1F4A3D]/10">
+                <div className="space-y-4 bg-white p-6 rounded-2xl border border-secondary/10">
                   <div className="flex items-center justify-between border-b border-gray-200 pb-2">
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E]">
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
                       Department-Specific Contact Information
                     </h3>
                     <button
                       type="button"
                       onClick={() => setContactDepts([...contactDepts, { name_bn: "", name_en: "", phone: "", email: "" }])}
-                      className="text-[#C65D2E] hover:text-[#b04f24] text-xs font-bold flex items-center gap-1 cursor-pointer"
+                      className="text-primary hover:text-[#b04f24] text-xs font-bold flex items-center gap-1 cursor-pointer"
                     >
                       <Plus className="w-4 h-4" /> Add Contact Point
                     </button>
@@ -2983,7 +2983,7 @@ export default function AdminDashboardPage() {
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
-                        <p className="text-xs font-bold text-[#1F4A3D]">Department #{idx + 1}</p>
+                        <p className="text-xs font-bold text-secondary">Department #{idx + 1}</p>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                           <input
                             type="text" required placeholder="Dept Name (Bangla)"
@@ -3034,7 +3034,7 @@ export default function AdminDashboardPage() {
                 <div className="pt-4">
                   <button
                     type="submit" disabled={saving}
-                    className="bg-[#1F4A3D] text-[#FBF6EE] px-6 py-3 rounded-lg text-xs font-semibold hover:bg-[#15342b] disabled:bg-gray-400 cursor-pointer shadow-sm"
+                    className="bg-white text-text px-6 py-3 rounded-lg text-xs font-semibold hover:bg-gray-100 disabled:bg-gray-400 cursor-pointer shadow-sm"
                   >
                     {saving ? "Saving Changes..." : "Save Contact Info"}
                   </button>
@@ -3050,27 +3050,27 @@ export default function AdminDashboardPage() {
                 
                 {/* Visual Sub-header: Contact info */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     Site Contact Settings
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Primary Hotline Phone</label>
+                      <label className="text-xs font-semibold text-text">Primary Hotline Phone</label>
                       <input
                         type="text" required
                         value={settingsData.phone || ""}
                         onChange={(e) => setSettingsData({ ...settingsData, phone: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">অফিসের মূল ফোন নম্বর, যা হেডার ও ফুটারে প্রদর্শিত হবে।</p>
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Primary Email Address</label>
+                      <label className="text-xs font-semibold text-text">Primary Email Address</label>
                       <input
                         type="email" required
                         value={settingsData.email || ""}
                         onChange={(e) => setSettingsData({ ...settingsData, email: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">অফিসের ইমেইল অ্যাড্রেস, যা ফুটারে প্রদর্শিত হবে।</p>
                     </div>
@@ -3078,34 +3078,34 @@ export default function AdminDashboardPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Physical Office Address (Bangla)</label>
+                      <label className="text-xs font-semibold text-text">Physical Office Address (Bangla)</label>
                       <textarea
                         rows={2} required
                         value={settingsData.address_bn || ""}
                         onChange={(e) => setSettingsData({ ...settingsData, address_bn: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">অফিসের পূর্ণ ঠিকানা (বাংলা)।</p>
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold text-[#2B2621]/80">Physical Office Address (English)</label>
+                      <label className="text-xs font-semibold text-text">Physical Office Address (English)</label>
                       <textarea
                         rows={2} required
                         value={settingsData.address_en || ""}
                         onChange={(e) => setSettingsData({ ...settingsData, address_en: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                        className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                       />
                       <p className="text-[10px] text-gray-500 mt-0.5">Physical office address used for text display and Google Map coordinates query.</p>
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-[#2B2621]/80">Facebook Link URL</label>
+                    <label className="text-xs font-semibold text-text">Facebook Link URL</label>
                     <input
                       type="url" required
                       value={settingsData.facebookUrl || ""}
                       onChange={(e) => setSettingsData({ ...settingsData, facebookUrl: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-[#1F4A3D]/10 rounded-lg text-sm"
+                      className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
                     />
                     <p className="text-[10px] text-gray-500 mt-0.5">ফুটারে দেওয়া ফেসবুক পেজের লিংক।</p>
                   </div>
@@ -3113,53 +3113,53 @@ export default function AdminDashboardPage() {
 
                 {/* Visual Sub-header: Impact Stats */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E] border-b border-[#1F4A3D]/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
                     Homepage Impact Statistics Counters
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                     <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-[#2B2621]/80">Amount Distributed ($)</label>
+                      <label className="text-[10px] font-semibold text-text">Amount Distributed ($)</label>
                       <input
                         type="number" required
                         value={statsData.amountDistributed || ""}
                         onChange={(e) => setStatsData({ ...statsData, amountDistributed: e.target.value })}
-                        className="w-full px-3 py-2 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs"
+                        className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-[#2B2621]/80">People Served</label>
+                      <label className="text-[10px] font-semibold text-text">People Served</label>
                       <input
                         type="number" required
                         value={statsData.peopleServed || ""}
                         onChange={(e) => setStatsData({ ...statsData, peopleServed: e.target.value })}
-                        className="w-full px-3 py-2 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs"
+                        className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-[#2B2621]/80">Districts Covered</label>
+                      <label className="text-[10px] font-semibold text-text">Districts Covered</label>
                       <input
                         type="number" required
                         value={statsData.districtsCovered || ""}
                         onChange={(e) => setStatsData({ ...statsData, districtsCovered: e.target.value })}
-                        className="w-full px-3 py-2 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs"
+                        className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-[#2B2621]/80">Active Branches</label>
+                      <label className="text-[10px] font-semibold text-text">Active Branches</label>
                       <input
                         type="number" required
                         value={statsData.activeBranches || ""}
                         onChange={(e) => setStatsData({ ...statsData, activeBranches: e.target.value })}
-                        className="w-full px-3 py-2 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs"
+                        className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-[#2B2621]/80">Years Active</label>
+                      <label className="text-[10px] font-semibold text-text">Years Active</label>
                       <input
                         type="number" required
                         value={statsData.yearsActive || ""}
                         onChange={(e) => setStatsData({ ...statsData, yearsActive: e.target.value })}
-                        className="w-full px-3 py-2 bg-white border border-[#1F4A3D]/10 rounded-lg text-xs"
+                        className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                       />
                     </div>
                   </div>
@@ -3168,7 +3168,7 @@ export default function AdminDashboardPage() {
                 <div className="flex justify-between items-center pt-4">
                   <button
                     type="submit" disabled={saving}
-                    className="bg-[#1F4A3D] text-[#FBF6EE] px-6 py-3 rounded-lg text-xs font-semibold hover:bg-[#15342b] disabled:bg-gray-400 cursor-pointer shadow-sm"
+                    className="bg-white text-text px-6 py-3 rounded-lg text-xs font-semibold hover:bg-gray-100 disabled:bg-gray-400 cursor-pointer shadow-sm"
                   >
                     {saving ? "Saving Changes..." : "Save Settings & Stats"}
                   </button>
@@ -3176,7 +3176,7 @@ export default function AdminDashboardPage() {
                   <button
                     type="button"
                     onClick={handleSeedDefaultContent}
-                    className="border border-[#C65D2E]/30 hover:bg-[#C65D2E]/5 text-[#C65D2E] px-4 py-2.5 rounded-lg text-xs font-bold cursor-pointer"
+                    className="border border-primary hover:bg-primary/5 text-primary px-4 py-2.5 rounded-lg text-xs font-bold cursor-pointer"
                   >
                     Seed Default Content
                   </button>
@@ -3184,13 +3184,13 @@ export default function AdminDashboardPage() {
               </form>
 
               {/* FAQs Accordion Panel Integrated here */}
-              <div className="border-t border-[#1F4A3D]/10 pt-10 space-y-6">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-[#C65D2E]">
+              <div className="border-t border-secondary/10 pt-10 space-y-6">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-primary">
                   FAQs Accordion Management
                 </h3>
                 
-                <form onSubmit={saveFaq} className="bg-white p-6 rounded-2xl border border-[#1F4A3D]/10 space-y-4">
-                  <h4 className="text-xs font-bold text-[#1F4A3D]">{activeFaq.id ? "Edit Question" : "Add Question"}</h4>
+                <form onSubmit={saveFaq} className="bg-white p-6 rounded-2xl border border-secondary/10 space-y-4">
+                  <h4 className="text-xs font-bold text-secondary">{activeFaq.id ? "Edit Question" : "Add Question"}</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
                       type="text" required placeholder="Question (Bangla)"
@@ -3226,7 +3226,7 @@ export default function AdminDashboardPage() {
                     />
                   </div>
                   <div className="flex gap-2">
-                    <button type="submit" disabled={saving} className="bg-[#1F4A3D] text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-[#15342b] cursor-pointer">
+                    <button type="submit" disabled={saving} className="bg-white text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-gray-100 cursor-pointer">
                       Save FAQ
                     </button>
                     <button type="button" onClick={() => setActiveFaq({ id: "", question_bn: "", question_en: "", answer_bn: "", answer_en: "", order: 1 })} className="border border-gray-200 text-gray-700 px-4 py-2 rounded-lg text-xs hover:bg-gray-50 cursor-pointer">
@@ -3239,11 +3239,11 @@ export default function AdminDashboardPage() {
                   {faqList.map((f) => (
                     <div key={f.id} className="p-4 bg-white border border-gray-200 rounded-xl flex items-center justify-between shadow-xs">
                       <div>
-                        <p className="text-xs font-bold text-[#1F4A3D]">{tContent(f.question_bn, f.question_en)}</p>
+                        <p className="text-xs font-bold text-secondary">{tContent(f.question_bn, f.question_en)}</p>
                         <p className="text-[10px] text-gray-500 font-light mt-0.5">Display Order: {f.order || 1}</p>
                       </div>
                       <div className="flex gap-1">
-                        <button onClick={() => setActiveFaq(f)} className="text-[#C65D2E] hover:bg-[#C65D2E]/5 p-2 rounded-md transition-colors"><Edit className="w-3.5 h-3.5" /></button>
+                        <button onClick={() => setActiveFaq(f)} className="text-primary hover:bg-primary/5 p-2 rounded-md transition-colors"><Edit className="w-3.5 h-3.5" /></button>
                         <button onClick={() => deleteFaq(f.id)} className="text-red-500 hover:bg-red-50 p-2 rounded-md transition-colors"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>

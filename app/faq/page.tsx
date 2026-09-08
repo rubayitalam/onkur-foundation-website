@@ -34,8 +34,8 @@ export default function FAQPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[50vh] bg-[#FBF6EE] py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#1F4A3D]"></div>
+      <div className="flex items-center justify-center min-h-[50vh] bg-white py-20">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-secondary/10"></div>
       </div>
     );
   }
@@ -45,13 +45,13 @@ export default function FAQPage() {
       
       {/* Header */}
       <div className="text-center space-y-4">
-        <span className="text-[#C65D2E] font-semibold text-sm uppercase tracking-wider block">
+        <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
           {tContent("জিজ্ঞাসা", "FAQs")}
         </span>
-        <h1 className="text-4xl font-bold text-[#1F4A3D]">
+        <h1 className="text-4xl font-bold text-secondary">
           {tContent("সাধারণ জিজ্ঞাসা ও উত্তর", "Frequently Asked Questions")}
         </h1>
-        <p className="text-base text-[#2B2621] font-normal max-w-xl mx-auto">
+        <p className="text-base text-text font-normal max-w-xl mx-auto">
           {tContent(
             "অঙ্কুর ফাউন্ডেশনের ঋণ কার্যক্রম, সুদের হার এবং নিয়মকানুন সম্পর্কে সাধারণ প্রশ্নের উত্তরসমূহ এখানে পাবেন।",
             "Find quick answers regarding application cycles, no-collateral policies, and documentation."
@@ -61,7 +61,7 @@ export default function FAQPage() {
 
       {/* Accordions */}
       {faqs.length === 0 ? (
-        <div className="text-center text-[#2B2621] font-normal py-12">
+        <div className="text-center text-text font-normal py-12">
           {tContent("কোনো প্রশ্ন পাওয়া যায়নি।", "No questions loaded yet.")}
         </div>
       ) : (
@@ -71,17 +71,17 @@ export default function FAQPage() {
             return (
               <div
                 key={faq.id}
-                className="bg-white rounded-2xl border border-[#1F4A3D]/5 overflow-hidden shadow-sm transition-shadow duration-200 hover:shadow-md"
+                className="bg-white rounded-2xl border border-secondary/10 overflow-hidden shadow-sm transition-shadow duration-200 hover:shadow-md"
               >
                 <button
                   onClick={() => toggleFaq(faq.id)}
-                  className="w-full px-6 py-5 text-left flex items-center justify-between font-semibold text-[#1F4A3D] text-base sm:text-lg focus:outline-none"
+                  className="w-full px-6 py-5 text-left flex items-center justify-between font-semibold text-secondary text-base sm:text-lg focus:outline-none"
                 >
                   <span>{tContent(faq.question_bn, faq.question_en)}</span>
                   {isOpen ? (
-                    <ChevronUp className="w-5 h-5 text-[#C65D2E] shrink-0 ml-4" />
+                    <ChevronUp className="w-5 h-5 text-primary shrink-0 ml-4" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-[#2B2621] shrink-0 ml-4" />
+                    <ChevronDown className="w-5 h-5 text-text shrink-0 ml-4" />
                   )}
                 </button>
 
@@ -93,7 +93,7 @@ export default function FAQPage() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
-                      <div className="px-6 pb-6 text-sm sm:text-base text-[#2B2621] font-normal leading-relaxed border-t border-[#1F4A3D]/5 pt-4">
+                      <div className="px-6 pb-6 text-sm sm:text-base text-text font-normal leading-relaxed border-t border-secondary/10 pt-4">
                         {tContent(faq.answer_bn, faq.answer_en)}
                       </div>
                     </motion.div>

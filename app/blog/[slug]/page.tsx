@@ -135,8 +135,8 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[50vh] bg-[#FBF6EE] py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#1F4A3D]"></div>
+      <div className="flex items-center justify-center min-h-[50vh] bg-white py-20">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-secondary/10"></div>
       </div>
     );
   }
@@ -144,10 +144,10 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) {
     return (
       <div className="py-20 text-center space-y-6">
-        <h1 className="text-2xl font-bold text-[#1F4A3D]">
+        <h1 className="text-2xl font-bold text-secondary">
           {tContent("ব্লগ পোস্টটি খুঁজে পাওয়া যায়নি", "Blog Post Not Found")}
         </h1>
-        <Link href="/blog" className="inline-flex items-center gap-2 text-[#C65D2E] hover:underline">
+        <Link href="/blog" className="inline-flex items-center gap-2 text-primary hover:underline">
           <ArrowLeft className="w-4 h-4" />
           <span>{tContent("ব্লগে ফিরে যান", "Back to Blog")}</span>
         </Link>
@@ -167,7 +167,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     <article className="py-16 md:py-24 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
       
       {/* Back Link */}
-      <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-[#1F4A3D] hover:text-[#C65D2E] transition-colors">
+      <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-secondary hover:text-primary transition-colors">
         <ArrowLeft className="w-4 h-4" />
         <span>{tContent("ব্লগে ফিরে যান", "Back to Blog Listing")}</span>
       </Link>
@@ -175,24 +175,24 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Header */}
       <header className="space-y-4">
         {post.category && (
-          <span className="inline-block bg-[#1F4A3D] text-[#FBF6EE] text-xs font-bold px-3.5 py-1 rounded-md uppercase tracking-wider shadow-xs">
+          <span className="inline-block bg-white text-text text-xs font-bold px-3.5 py-1 rounded-md uppercase tracking-wider shadow-xs">
             {post.category}
           </span>
         )}
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1F4A3D] leading-tight">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-secondary leading-tight">
           {tContent(post.title_bn, post.title_en)}
         </h1>
         
-        <div className="flex items-center text-xs sm:text-sm text-[#2B2621] font-medium gap-4 border-b border-[#1F4A3D]/10 pb-6 flex-wrap">
+        <div className="flex items-center text-xs sm:text-sm text-text font-medium gap-4 border-b border-secondary/10 pb-6 flex-wrap">
           {publishedDateString && (
             <span className="flex items-center gap-1.5">
-              <Calendar className="w-4 h-4 text-[#C9973B]" />
+              <Calendar className="w-4 h-4 text-primary" />
               {publishedDateString}
             </span>
           )}
           {post.author && (
             <span className="flex items-center gap-1.5">
-              <Users className="w-4 h-4 text-[#C9973B]" />
+              <Users className="w-4 h-4 text-primary" />
               {post.author}
             </span>
           )}
@@ -201,7 +201,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
       {/* Cover Image */}
       {post.coverImageUrl && (
-        <div className="aspect-video w-full rounded-3xl overflow-hidden shadow-sm border border-[#1F4A3D]/5 bg-gray-50">
+        <div className="aspect-video w-full rounded-3xl overflow-hidden shadow-sm border border-secondary/10 bg-gray-50">
           <img
             src={post.coverImageUrl}
             alt={tContent(post.title_bn, post.title_en)}
@@ -211,9 +211,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       )}
 
       {/* Body Content */}
-      <div className="pt-6 border-t border-[#1F4A3D]/10">
+      <div className="pt-6 border-t border-secondary/10">
         <p 
-          className="text-base sm:text-lg text-[#2B2621] leading-relaxed font-medium whitespace-pre-wrap opacity-100"
+          className="text-base sm:text-lg text-text leading-relaxed font-medium whitespace-pre-wrap opacity-100"
           style={{ color: "#2B2621", opacity: 1 }}
         >
           {tContent(post.content_bn, post.content_en)}

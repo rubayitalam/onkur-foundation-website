@@ -44,26 +44,26 @@ export default function AdminLoginPage() {
 
   if (checkingAuth) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-[#FBF6EE]">
-        <Loader2 className="w-8 h-8 text-[#1F4A3D] animate-spin" />
+      <div className="flex items-center justify-center min-h-screen bg-white">
+        <Loader2 className="w-8 h-8 text-secondary animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center bg-[#FBF6EE] px-4 py-16">
-      <div className="max-w-md w-full bg-white rounded-3xl p-8 border border-[#1F4A3D]/5 shadow-lg space-y-6">
+    <div className="min-h-[80vh] flex items-center justify-center bg-white px-4 py-16">
+      <div className="max-w-md w-full bg-white rounded-3xl p-8 border border-secondary/10 shadow-lg space-y-6">
         
         <div className="text-center space-y-3">
           <div className="flex justify-center">
-            <div className="bg-white rounded-xl px-4 py-2.5 shadow-md border border-[#1F4A3D]/10 inline-block">
+            <div className="bg-white rounded-xl px-4 py-2.5 shadow-md border border-secondary/10 inline-block">
               <img src="/logo.png" alt="অঙ্কুর লোগো" className="h-11 sm:h-12 w-auto object-contain" />
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-[#1F4A3D]">
+          <h1 className="text-2xl font-bold text-secondary">
             {tContent("অঙ্কুর অ্যাডমিন প্যানেল", "Onkur Admin Portal")}
           </h1>
-          <p className="text-xs text-[#2B2621] font-normal uppercase tracking-wider">
+          <p className="text-xs text-text font-normal uppercase tracking-wider">
             {tContent("অনুমোদিত ব্যক্তিদের জন্য লগইন", "Authorized Personnel Only")}
           </p>
         </div>
@@ -76,11 +76,11 @@ export default function AdminLoginPage() {
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-1">
-            <label className="text-xs font-semibold uppercase text-[#2B2621] block">
+            <label className="text-xs font-semibold uppercase text-text block">
               {tContent("ইমেইল ঠিকানা", "Email Address")}
             </label>
             <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-[#2B2621]">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-text">
                 <Mail className="w-4 h-4" />
               </span>
               <input
@@ -89,17 +89,17 @@ export default function AdminLoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@onkur.net"
-                className="w-full pl-10 pr-4 py-3 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg focus:outline-none focus:border-[#C65D2E] text-sm"
+                className="w-full pl-10 pr-4 py-3 bg-white border border-secondary/10 rounded-lg focus:outline-none focus:border-primary text-sm"
               />
             </div>
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-semibold uppercase text-[#2B2621] block">
+            <label className="text-xs font-semibold uppercase text-text block">
               {tContent("পাসওয়ার্ড", "Password")}
             </label>
             <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-[#2B2621]">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-text">
                 <Lock className="w-4 h-4" />
               </span>
               <input
@@ -108,7 +108,7 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-3 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg focus:outline-none focus:border-[#C65D2E] text-sm"
+                className="w-full pl-10 pr-4 py-3 bg-white border border-secondary/10 rounded-lg focus:outline-none focus:border-primary text-sm"
               />
             </div>
           </div>
@@ -116,7 +116,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#1F4A3D] hover:bg-[#15342b] text-white py-3.5 rounded-lg text-sm font-semibold tracking-wide shadow-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full bg-white hover:bg-gray-100 text-white py-3.5 rounded-lg text-sm font-semibold tracking-wide shadow-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50"
           >
             {loading ? (
               <>
@@ -130,7 +130,7 @@ export default function AdminLoginPage() {
         </form>
 
         <div className="text-center pt-2">
-          <Link href="/" className="text-xs text-[#C65D2E] hover:underline font-light">
+          <Link href="/" className="text-xs text-primary hover:underline font-light">
             {tContent("মূল ওয়েবসাইটে ফিরে যান", "Back to Home Page")}
           </Link>
         </div>

@@ -174,33 +174,33 @@ export default function ServicesPage() {
   const getProductIcon = (iconName: string) => {
     switch (iconName) {
       case "Sprout":
-        return <Sprout className="w-8 h-8 text-[#C65D2E]" />;
+        return <Sprout className="w-8 h-8 text-primary" />;
       case "TrendingUp":
-        return <TrendingUp className="w-8 h-8 text-[#C65D2E]" />;
+        return <TrendingUp className="w-8 h-8 text-primary" />;
       default:
-        return <Sprout className="w-8 h-8 text-[#C65D2E]" />;
+        return <Sprout className="w-8 h-8 text-primary" />;
     }
   };
 
   const getBenefitIcon = (idx: number) => {
     switch (idx) {
       case 0:
-        return <PiggyBank className="w-6 h-6 text-[#1F4A3D]" />;
+        return <PiggyBank className="w-6 h-6 text-secondary" />;
       case 1:
-        return <HeartHandshake className="w-6 h-6 text-[#1F4A3D]" />;
+        return <HeartHandshake className="w-6 h-6 text-secondary" />;
       case 2:
-        return <ShieldCheck className="w-6 h-6 text-[#1F4A3D]" />;
+        return <ShieldCheck className="w-6 h-6 text-secondary" />;
       case 3:
-        return <Coins className="w-6 h-6 text-[#1F4A3D]" />;
+        return <Coins className="w-6 h-6 text-secondary" />;
       default:
-        return <ShieldCheck className="w-6 h-6 text-[#1F4A3D]" />;
+        return <ShieldCheck className="w-6 h-6 text-secondary" />;
     }
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[50vh] bg-[#FBF6EE] py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#1F4A3D]"></div>
+      <div className="flex items-center justify-center min-h-[50vh] bg-white py-20">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-secondary/10"></div>
       </div>
     );
   }
@@ -212,13 +212,13 @@ export default function ServicesPage() {
       
       {/* 1. Header Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl space-y-4">
-        <span className="text-[#C65D2E] font-semibold text-sm uppercase tracking-wider block">
+        <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
           {tContent("আমাদের ঋণ কর্মসূচি", "Loan Programs")}
         </span>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-[#1F4A3D]">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-secondary">
           {tContent(content.heading_bn, content.heading_en)}
         </h1>
-        <p className="text-base sm:text-lg text-[#2B2621] leading-relaxed font-normal">
+        <p className="text-base sm:text-lg text-text leading-relaxed font-normal">
           {tContent(content.intro_bn, content.intro_en)}
         </p>
       </section>
@@ -233,48 +233,48 @@ export default function ServicesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-white rounded-3xl p-8 md:p-10 border border-[#1F4A3D]/5 shadow-sm space-y-6 flex flex-col justify-between hover:shadow-md transition-shadow relative overflow-hidden group"
+              className="bg-white rounded-3xl p-8 md:p-10 border border-secondary/10 shadow-sm space-y-6 flex flex-col justify-between hover:shadow-md transition-shadow relative overflow-hidden group"
             >
-              <div className="absolute top-0 right-0 w-24 h-24 bg-[#1F4A3D]/5 rounded-bl-full flex items-center justify-center transition-colors group-hover:bg-[#C65D2E]/10">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-bl-full flex items-center justify-center transition-colors group-hover:bg-primary/10">
                 {getProductIcon(product.icon)}
               </div>
               
               <div className="space-y-4 pr-12">
-                <h3 className="text-2xl font-bold text-[#1F4A3D]">
+                <h3 className="text-2xl font-bold text-secondary">
                   {tContent(product.title_bn, product.title_en)}
                 </h3>
-                <p className="text-sm font-semibold text-[#C9973B]">
+                <p className="text-sm font-semibold text-primary">
                   {tContent(product.short_desc_bn, product.short_desc_en)}
                 </p>
-                <p className="text-sm text-[#2B2621] leading-relaxed font-normal">
+                <p className="text-sm text-text leading-relaxed font-normal">
                   {tContent(product.full_desc_bn, product.full_desc_en)}
                 </p>
               </div>
 
-              <div className="pt-6 border-t border-[#1F4A3D]/10 space-y-4 mt-6">
+              <div className="pt-6 border-t border-secondary/10 space-y-4 mt-6">
                 <div className="flex items-start gap-3">
-                  <div className="bg-[#1F4A3D]/5 p-2 rounded-lg text-[#1F4A3D] shrink-0 mt-0.5">
+                  <div className="bg-white/5 p-2 rounded-lg text-secondary shrink-0 mt-0.5">
                     <Sparkles className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-[#1F4A3D] uppercase tracking-wider">
+                    <h4 className="text-xs font-bold text-secondary uppercase tracking-wider">
                       {tContent("ঋণ সীমা ও পরিধি", "Loan Range & Limit")}
                     </h4>
-                    <p className="text-sm text-[#2B2621] font-normal mt-0.5">
+                    <p className="text-sm text-text font-normal mt-0.5">
                       {tContent(product.loan_range_bn, product.loan_range_en)}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="bg-[#1F4A3D]/5 p-2 rounded-lg text-[#1F4A3D] shrink-0 mt-0.5">
+                  <div className="bg-white/5 p-2 rounded-lg text-secondary shrink-0 mt-0.5">
                     <CalendarDays className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-[#1F4A3D] uppercase tracking-wider">
+                    <h4 className="text-xs font-bold text-secondary uppercase tracking-wider">
                       {tContent("মেয়াদ ও পরিশোধ পদ্ধতি", "Tenure & Repayment")}
                     </h4>
-                    <p className="text-sm text-[#2B2621] font-normal mt-0.5">
+                    <p className="text-sm text-text font-normal mt-0.5">
                       {tContent(product.tenure_bn, product.tenure_en)}
                     </p>
                   </div>
@@ -284,7 +284,7 @@ export default function ServicesPage() {
               <div className="pt-6">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center bg-[#1F4A3D] hover:bg-[#15342b] text-white px-5 py-3 rounded-lg text-sm font-semibold transition-colors gap-2 cursor-pointer shadow-xs"
+                  className="inline-flex items-center bg-white hover:bg-gray-100 text-white px-5 py-3 rounded-lg text-sm font-semibold transition-colors gap-2 cursor-pointer shadow-xs"
                 >
                   <span>{t("common.applyNow")}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -297,13 +297,13 @@ export default function ServicesPage() {
 
       {/* 3. Eligibility Checklist */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="bg-white rounded-3xl p-8 md:p-12 border border-[#1F4A3D]/5 shadow-sm space-y-8">
+        <div className="bg-white rounded-3xl p-8 md:p-12 border border-secondary/10 shadow-sm space-y-8">
           <div className="space-y-3 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-2 text-[#C65D2E]">
+            <div className="flex items-center justify-center md:justify-start gap-2 text-primary">
               <FileText className="w-5 h-5" />
               <span className="text-xs font-bold uppercase tracking-wider">{tContent("ঋণ গ্রহণের নির্দেশিকা", "Guidelines")}</span>
             </div>
-            <h2 className="text-3xl font-extrabold text-[#1F4A3D]">
+            <h2 className="text-3xl font-extrabold text-secondary">
               {tContent(content.eligibility_heading_bn, content.eligibility_heading_en)}
             </h2>
           </div>
@@ -318,8 +318,8 @@ export default function ServicesPage() {
                 transition={{ duration: 0.3, delay: idx * 0.05 }}
                 className="flex items-start gap-3.5"
               >
-                <CheckCircle2 className="w-5 h-5 text-[#C65D2E] shrink-0 mt-0.5" />
-                <span className="text-[#2B2621] text-sm font-normal leading-relaxed">
+                <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <span className="text-text text-sm font-normal leading-relaxed">
                   {point}
                 </span>
               </motion.div>
@@ -329,13 +329,13 @@ export default function ServicesPage() {
       </section>
 
       {/* 4. Shared Benefits Grid */}
-      <section className="bg-[#FBF6EE]/30 py-20 border-y border-[#1F4A3D]/5">
+      <section className="bg-white py-20 border-y border-secondary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <h2 className="text-3xl font-bold text-[#1F4A3D]">
+            <h2 className="text-3xl font-bold text-secondary">
               {tContent(content.shared_benefits_heading_bn, content.shared_benefits_heading_en)}
             </h2>
-            <p className="text-sm text-[#2B2621] font-normal">
+            <p className="text-sm text-text font-normal">
               {tContent("অঙ্কুরের প্রতিটি ঋণের সাথে আমরা প্রান্তিক মানুষের আর্থ-সামাজিক নিরাপত্তা ও স্বস্তি নিশ্চিত করি।", "With every Onkur loan, we ensure the socio-economic security and comfort of rural borrowers.")}
             </p>
           </div>
@@ -348,9 +348,9 @@ export default function ServicesPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className="bg-white p-6 rounded-2xl border border-[#1F4A3D]/5 shadow-xs space-y-4 flex flex-col justify-start hover:shadow-sm transition-shadow"
+                className="bg-white p-6 rounded-2xl border border-secondary/10 shadow-xs space-y-4 flex flex-col justify-start hover:shadow-sm transition-shadow"
               >
-                <div className="bg-[#1F4A3D]/5 p-3 rounded-xl w-fit">
+                <div className="bg-white/5 p-3 rounded-xl w-fit">
                   {getBenefitIcon(idx)}
                 </div>
                 <h4 className="font-bold text-slate-900 text-base">
@@ -368,7 +368,7 @@ export default function ServicesPage() {
       {/* Loan Application Modal */}
       {showApplyModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl relative border border-[#1F4A3D]/10 max-h-[90vh] overflow-y-auto space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl relative border border-secondary/10 max-h-[90vh] overflow-y-auto space-y-6">
             <button 
               onClick={() => { setShowApplyModal(false); setLoanSuccess(false); }}
               className="absolute top-5 right-5 text-gray-400 hover:text-gray-700 bg-gray-100 p-1.5 rounded-full cursor-pointer transition-colors"
@@ -377,23 +377,23 @@ export default function ServicesPage() {
             </button>
 
             <div>
-              <span className="text-[#C65D2E] font-semibold text-xs uppercase tracking-wider block">
+              <span className="text-primary font-semibold text-xs uppercase tracking-wider block">
                 {tContent("অনলাইন ঋণ আবেদন", "Online Loan Application")}
               </span>
-              <h3 className="text-2xl font-bold text-[#1F4A3D] mt-1">
+              <h3 className="text-2xl font-bold text-secondary mt-1">
                 {selectedLoanProduct || tContent("ঋণের আবেদন করুন", "Apply for Loan")}
               </h3>
             </div>
 
             {loanSuccess ? (
               <div className="text-center py-8 space-y-4">
-                <div className="bg-[#1F4A3D]/10 text-[#1F4A3D] p-4 rounded-full inline-block">
-                  <CheckCircle2 className="w-12 h-12 text-[#C65D2E]" />
+                <div className="bg-white/10 text-secondary p-4 rounded-full inline-block">
+                  <CheckCircle2 className="w-12 h-12 text-primary" />
                 </div>
-                <h4 className="text-xl font-bold text-[#1F4A3D]">
+                <h4 className="text-xl font-bold text-secondary">
                   {tContent("আবেদন সফলভাবে জমা হয়েছে!", "Application Submitted Successfully!")}
                 </h4>
-                <p className="text-xs text-[#2B2621]/70 leading-relaxed max-w-xs mx-auto">
+                <p className="text-xs text-text leading-relaxed max-w-xs mx-auto">
                   {tContent(
                     "আমাদের মাঠ কর্মকর্তা শীঘ্রই আপনার সাথে যোগাযোগ করবেন। ধন্যবাদ!",
                     "Our field officer will contact you shortly regarding your application. Thank you!"
@@ -402,7 +402,7 @@ export default function ServicesPage() {
                 <button
                   type="button"
                   onClick={() => { setShowApplyModal(false); setLoanSuccess(false); }}
-                  className="mt-4 bg-[#1F4A3D] text-white text-xs font-semibold px-6 py-2.5 rounded-lg cursor-pointer hover:bg-[#15342b]"
+                  className="mt-4 bg-white text-white text-xs font-semibold px-6 py-2.5 rounded-lg cursor-pointer hover:bg-gray-100"
                 >
                   {tContent("বন্ধ করুন", "Close")}
                 </button>
@@ -410,7 +410,7 @@ export default function ServicesPage() {
             ) : (
               <form onSubmit={handleLoanSubmit} className="space-y-4">
                 <div>
-                  <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                  <label className="text-xs font-semibold text-text block mb-1">
                     {tContent("আবেদনকারীর নাম", "Applicant Name")} *
                   </label>
                   <input
@@ -418,13 +418,13 @@ export default function ServicesPage() {
                     placeholder={tContent("পূর্ণ নাম লিখুন", "Enter full name")}
                     value={applicantName}
                     onChange={(e) => setApplicantName(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg text-sm focus:outline-none focus:border-[#C65D2E]"
+                    className="w-full px-4 py-2.5 bg-white border border-secondary/10 rounded-lg text-sm focus:outline-none focus:border-primary"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                    <label className="text-xs font-semibold text-text block mb-1">
                       {tContent("মোবাইল নম্বর", "Phone Number")} *
                     </label>
                     <input
@@ -432,11 +432,11 @@ export default function ServicesPage() {
                       placeholder="017XXXXXXXX"
                       value={applicantPhone}
                       onChange={(e) => setApplicantPhone(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg text-sm focus:outline-none focus:border-[#C65D2E]"
+                      className="w-full px-4 py-2.5 bg-white border border-secondary/10 rounded-lg text-sm focus:outline-none focus:border-primary"
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                    <label className="text-xs font-semibold text-text block mb-1">
                       {tContent("ইমেইল (ঐচ্ছিক)", "Email (Optional)")}
                     </label>
                     <input
@@ -444,14 +444,14 @@ export default function ServicesPage() {
                       placeholder="name@example.com"
                       value={applicantEmail}
                       onChange={(e) => setApplicantEmail(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg text-sm focus:outline-none focus:border-[#C65D2E]"
+                      className="w-full px-4 py-2.5 bg-white border border-secondary/10 rounded-lg text-sm focus:outline-none focus:border-primary"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                    <label className="text-xs font-semibold text-text block mb-1">
                       {tContent("আবেদনের ঋণের পরিমাণ (টাকা)", "Requested Amount (BDT)")} *
                     </label>
                     <input
@@ -459,11 +459,11 @@ export default function ServicesPage() {
                       placeholder="e.g. 50,000"
                       value={applicantAmount}
                       onChange={(e) => setApplicantAmount(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg text-sm focus:outline-none focus:border-[#C65D2E]"
+                      className="w-full px-4 py-2.5 bg-white border border-secondary/10 rounded-lg text-sm focus:outline-none focus:border-primary"
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                    <label className="text-xs font-semibold text-text block mb-1">
                       {tContent("ঋণের প্রোডাক্ট", "Loan Product")}
                     </label>
                     <input
@@ -475,7 +475,7 @@ export default function ServicesPage() {
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                  <label className="text-xs font-semibold text-text block mb-1">
                     {tContent("ঠিকানা / শাখা এলাকা", "Address / Branch Area")} *
                   </label>
                   <input
@@ -483,12 +483,12 @@ export default function ServicesPage() {
                     placeholder={tContent("উপজেলা, জেলা লিখুন", "e.g. Narsingdi Branch")}
                     value={applicantAddress}
                     onChange={(e) => setApplicantAddress(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg text-sm focus:outline-none focus:border-[#C65D2E]"
+                    className="w-full px-4 py-2.5 bg-white border border-secondary/10 rounded-lg text-sm focus:outline-none focus:border-primary"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-[#2B2621]/80 block mb-1">
+                  <label className="text-xs font-semibold text-text block mb-1">
                     {tContent("পেশা / মন্তব্য", "Occupation / Business Details")}
                   </label>
                   <textarea
@@ -496,7 +496,7 @@ export default function ServicesPage() {
                     placeholder={tContent("আপনার ব্যবসা বা খামারের সংক্ষিপ্ত বিবরণ...", "Briefly describe your business or farm...")}
                     value={applicantNotes}
                     onChange={(e) => setApplicantNotes(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-[#FBF6EE]/40 border border-[#1F4A3D]/10 rounded-lg text-sm focus:outline-none focus:border-[#C65D2E] resize-none"
+                    className="w-full px-4 py-2.5 bg-white border border-secondary/10 rounded-lg text-sm focus:outline-none focus:border-primary resize-none"
                   />
                 </div>
 
@@ -504,7 +504,7 @@ export default function ServicesPage() {
                   <button
                     type="submit"
                     disabled={submittingLoan}
-                    className="w-full bg-[#C65D2E] hover:bg-[#b04f24] text-white py-3 rounded-lg text-sm font-semibold tracking-wide shadow-xs transition-colors cursor-pointer disabled:opacity-50"
+                    className="w-full bg-primary hover:opacity-90 text-white py-3 rounded-lg text-sm font-semibold tracking-wide shadow-xs transition-colors cursor-pointer disabled:opacity-50"
                   >
                     {submittingLoan ? tContent("জমা হচ্ছে...", "Submitting...") : tContent("আবেদন জমা দিন", "Submit Application")}
                   </button>

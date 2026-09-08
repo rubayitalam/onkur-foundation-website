@@ -48,8 +48,8 @@ export default function TeamPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[50vh] bg-[#FBF6EE] py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#1F4A3D]"></div>
+      <div className="flex items-center justify-center min-h-[50vh] bg-white py-20">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-secondary/10"></div>
       </div>
     );
   }
@@ -58,7 +58,7 @@ export default function TeamPage() {
     <div className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       
       {/* Banner Image */}
-      <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xs border border-[#1F4A3D]/10 relative bg-gray-100">
+      <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xs border border-secondary/10 relative bg-gray-100">
         <img 
           src={teamContent?.banner_image_url || "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"} 
           alt="Onkur Team Banner" 
@@ -68,13 +68,13 @@ export default function TeamPage() {
 
       {/* Page Title */}
       <div className="text-center max-w-2xl mx-auto space-y-4">
-        <span className="text-[#C65D2E] font-semibold text-sm uppercase tracking-wider block">
+        <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
           {tContent(teamContent?.title_bn || "আমাদের পরিষদ", teamContent?.title_en || "Our Team")}
         </span>
-        <h1 className="text-4xl font-bold text-[#1F4A3D]">
+        <h1 className="text-4xl font-bold text-secondary">
           {tContent(teamContent?.heading_bn || "অঙ্কুর ফাউন্ডেশন পরিচালনা পর্ষদ", teamContent?.heading_en || "Board of Directors & Executives")}
         </h1>
-        <p className="text-base text-[#2B2621] font-normal leading-relaxed">
+        <p className="text-base text-text font-normal leading-relaxed">
           {tContent(
             teamContent?.intro_bn || "গ্রামীণ সুবিধাবঞ্চিত মানুষদের সাহায্য করতে এবং আর্থিক অন্তর্ভুক্তির সমাজ গড়ে তুলতে আমাদের সম্মানিত পর্ষদ কাজ করছেন।",
             teamContent?.intro_en || "Our dedicated board coordinates closely to bring hope and financial inclusion across rural regions."
@@ -84,7 +84,7 @@ export default function TeamPage() {
 
       {/* Team Grid */}
       {teamList.length === 0 ? (
-        <div className="text-center text-[#2B2621] font-normal py-12">
+        <div className="text-center text-text font-normal py-12">
           {tContent("কোনো দলীয় সদস্য খুঁজে পাওয়া যায়নি।", "No team members found.")}
         </div>
       ) : (
@@ -97,7 +97,7 @@ export default function TeamPage() {
               transition={{ duration: 0.4, delay: index * 0.05 }}
               whileHover={{ y: -6 }}
               onClick={() => router.push(`/team/${member.id}`)}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#1F4A3D]/5 h-full flex flex-col justify-between group cursor-pointer"
+              className="bg-white rounded-2xl overflow-hidden shadow-sm border border-secondary/10 h-full flex flex-col justify-between group cursor-pointer"
             >
               <div className="aspect-[4/5] bg-gray-100 overflow-hidden relative">
                 {member.imageUrl ? (
@@ -107,20 +107,20 @@ export default function TeamPage() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center font-bold text-3xl bg-[#1F4A3D]/5 text-[#1F4A3D]">
+                  <div className="w-full h-full flex items-center justify-center font-bold text-3xl bg-white/5 text-secondary">
                     {tContent(member.name_bn, member.name_en).charAt(0)}
                   </div>
                 )}
                 
                 {/* Social hover overlays */}
-                <div className="absolute inset-0 bg-[#1F4A3D]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                <div className="absolute inset-0 bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                   {member.facebook && (
                     <a
                       href={member.facebook}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="bg-[#FBF6EE] text-[#1F4A3D] p-3 rounded-full hover:bg-[#C65D2E] hover:text-white transition-colors duration-200"
+                      className="bg-white text-secondary p-3 rounded-full hover:bg-primary hover:text-white transition-colors duration-200"
                       aria-label="Facebook Profile"
                     >
                       <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -134,7 +134,7 @@ export default function TeamPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="bg-[#FBF6EE] text-[#1F4A3D] p-3 rounded-full hover:bg-[#C65D2E] hover:text-white transition-colors duration-200"
+                      className="bg-white text-secondary p-3 rounded-full hover:bg-primary hover:text-white transition-colors duration-200"
                       aria-label="LinkedIn Profile"
                     >
                       <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -146,10 +146,10 @@ export default function TeamPage() {
               </div>
 
               <div className="p-6 text-center space-y-1">
-                <h3 className="font-bold text-lg text-[#1F4A3D] group-hover:text-[#C65D2E] transition-colors">
+                <h3 className="font-bold text-lg text-secondary group-hover:text-primary transition-colors">
                   {tContent(member.name_bn, member.name_en)}
                 </h3>
-                <p className="text-xs uppercase tracking-wider text-[#2B2621] font-semibold">
+                <p className="text-xs uppercase tracking-wider text-text font-semibold">
                   {tContent(member.role_bn, member.role_en)}
                 </p>
               </div>

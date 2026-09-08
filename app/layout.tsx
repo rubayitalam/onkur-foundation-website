@@ -36,7 +36,7 @@ export default function RootLayout({
       lang="bn"
       className={`${hindSiliguri.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#FBF6EE] text-[#2B2621]">
+      <body className="min-h-full flex flex-col bg-white text-text">
         <LanguageProvider>
           <div className="flex flex-col min-h-screen justify-between">
             <Header />
