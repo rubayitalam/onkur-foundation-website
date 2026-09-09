@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
@@ -11,6 +11,15 @@ export default function Header() {
   const pathname = usePathname();
   const { language, setLanguage, nav, settings, tContent } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Set `dropdown: true` on any item that should show a chevron (e.g. has sub-links)
   const navItems = [
@@ -55,7 +64,13 @@ export default function Header() {
   return (
     <header className="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between h-16 sm:h-[72px] bg-white/95 backdrop-blur-md rounded-full shadow-lg shadow-black/10 px-4 sm:px-6 border border-black/5">
+        <div
+          className={`flex items-center justify-between h-16 sm:h-[72px] rounded-full px-4 sm:px-6 border transition-all duration-300 ${
+            isScrolled
+              ? "bg-white/70 backdrop-blur-2xl backdrop-saturate-150 border-white/60 shadow-lg shadow-black/10"
+              : "bg-white/95 backdrop-blur-md border-black/5 shadow-lg shadow-black/10"
+          }`}
+        >
           {/* Logo */}
           <Link
             href="/"
@@ -64,20 +79,25 @@ export default function Header() {
             <img
               src="/logo.png"
               alt="অঙ্কুর - Onkur Foundation"
-              className="h-8 sm:h-9 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+              className="h-10 sm:h-11 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+          <nav className="hidden lg:flex items-center gap-7 xl:gap-9">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-1 text-sm font-semibold tracking-wide transition-colors duration-200 hover:text-primary ${isActive ? "text-primary" : "text-secondary"
-                    }`}
+                  className={`flex items-center gap-1.5 text-base font-semibold tracking-wide transition-colors duration-200 ${isScrolled ? "text-secondary hover:text-primary" : "hover:text-primary"} ${
+                    isActive
+                      ? "text-primary"
+                      : isScrolled
+                        ? "text-secondary"
+                        : "text-secondary"
+                  }`}
                 >
                   {tContent(item.labelBn, item.labelEn)}
                   {item.dropdown && (
@@ -90,12 +110,14 @@ export default function Header() {
 
           {/* Right side: search, phone, language pill */}
           <div className="hidden lg:flex items-center gap-5 xl:gap-6 shrink-0">
-
-
             {settings?.phone && (
               <a
                 href={`tel:${settings.phone}`}
-                className="flex items-center text-xs font-semibold tracking-wider text-secondary hover:text-primary transition-colors"
+                className={`flex items-center text-sm font-semibold tracking-wider transition-colors ${
+                  isScrolled
+                    ? "text-secondary hover:text-primary"
+                    : "text-secondary hover:text-primary"
+                }`}
               >
                 <Phone className="w-3.5 h-3.5 mr-1.5" />
                 {settings.phone}
@@ -103,18 +125,20 @@ export default function Header() {
             )}
 
             {/* Pill language switch (Nagad-style) */}
-            <div className="relative inline-flex items-center bg-[#F1F1F9] p-1 rounded-full h-10">
+            <div className="relative inline-flex items-center bg-white/15 p-1 rounded-full h-10">
               <button
                 onClick={() => setLanguage("en")}
-                className={`relative z-10 px-4 h-8 rounded-full text-xs font-bold transition-colors duration-200 ${language === "en" ? "text-white" : "text-secondary"
-                  }`}
+                className={`relative z-10 px-4 h-8 rounded-full text-sm font-bold transition-colors duration-200 ${
+                  language === "en" ? "text-white" : "text-secondary"
+                }`}
               >
                 English
               </button>
               <button
                 onClick={() => setLanguage("bn")}
-                className={`relative z-10 px-4 h-8 rounded-full text-xs font-bold transition-colors duration-200 ${language === "bn" ? "text-white" : "text-secondary"
-                  }`}
+                className={`relative z-10 px-4 h-8 rounded-full text-sm font-bold transition-colors duration-200 ${
+                  language === "bn" ? "text-white" : "text-secondary"
+                }`}
               >
                 বাংলা
               </button>
@@ -141,7 +165,7 @@ export default function Header() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-secondary focus:outline-none"
+              className="focus:outline-none text-secondary"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? (
@@ -160,7 +184,11 @@ export default function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white/95 backdrop-blur-md rounded-3xl shadow-lg shadow-black/10 border border-black/5 mt-2 overflow-hidden"
+              className={`lg:hidden rounded-3xl backdrop-blur-xl shadow-lg mt-2 overflow-hidden border ${
+                isScrolled
+                  ? "bg-white/70 backdrop-blur-2xl backdrop-saturate-150 border-white/60 shadow-black/10"
+                  : "bg-white/95 shadow-black/10 border-black/5"
+              }`}
             >
               <div className="px-4 pt-3 pb-5 space-y-2">
                 {navItems.map((item) => {
@@ -170,10 +198,11 @@ export default function Header() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-base font-medium transition-colors ${isActive
-                        ? "bg-primary text-white"
-                        : "text-secondary hover:bg-[#F1F1F1]"
-                        }`}
+                      className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-base font-medium transition-colors ${
+                        isActive
+                          ? "bg-primary text-white"
+                          : "text-secondary hover:bg-[#F1F1F1]"
+                      }`}
                     >
                       {tContent(item.labelBn, item.labelEn)}
                       {item.dropdown && <ChevronDown className="w-4 h-4" />}

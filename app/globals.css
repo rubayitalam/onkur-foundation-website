@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
+/*
+#FF7043
+#00df6c
+#C65D2E
+#FFFFFF
+#FBF6EE
+*/
 :root {
-  --color-primary: #FF7043;
+  --color-primary:  #008641;
   /* vibrant orange -  accent, CTA buttons, nav */
   --color-secondary: #003C40;
   /* dark teal - primary text, headings */
@@ -9,8 +16,9 @@
   /* pure white - page background */
   --color-gold: #C9973B;
   /* muted gold - badges/icons */
-  --color-text: #000000;
-  /* black - body secondary text */
+  --color-text: #1F2937;
+  /* dark charcoal - body secondary text */
+  --color-icons: #FF7043; 
 
   --background: #FFFFFF;
   --foreground: #003C40;

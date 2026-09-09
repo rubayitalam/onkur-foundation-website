@@ -15,7 +15,7 @@ export default function ContactPage() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
-  
+
   const [contactData, setContactData] = useState<any>(null);
 
   useEffect(() => {
@@ -31,15 +31,33 @@ export default function ContactPage() {
       name_bn: "সাধারণ জিজ্ঞাসা",
       name_en: "General Inquiries",
       phone: "+8802226617258",
-      email: "info@onkur.net"
+      email: "info@onkur.net",
     },
     {
       name_bn: "ঋণ আবেদন ও মাঠসেবা",
       name_en: "Loan & Field Operations",
       phone: "+8801711000000",
-      email: "loans@onkur.net"
-    }
+      email: "loans@onkur.net",
+    },
   ];
+
+  const officePhoneNumbers = [
+    {
+      label: "General Inquiries",
+      phone: settings?.phone_general || settings?.phone || "+8802226617258",
+    },
+    {
+      label: "Field Operations",
+      phone:
+        settings?.phone_field_operations ||
+        (contactData?.departments || defaultDepartments)[1]?.phone_number ||
+        (contactData?.departments || defaultDepartments)[1]?.phone ||
+        "+8801711000000",
+    },
+  ];
+
+  const formatPhone = (phone: string) =>
+    phone === "+8802226617258" ? "+880 222 661 7258" : phone;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,7 +72,7 @@ export default function ContactPage() {
         email,
         phone,
         message,
-        submittedAt: new Date().toISOString()
+        submittedAt: new Date().toISOString(),
       });
 
       setSuccess(true);
@@ -71,12 +89,14 @@ export default function ContactPage() {
 
   return (
     <div className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-      
       {/* Banner Image */}
       <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xs border border-secondary/10 relative bg-gray-100">
-        <img 
-          src={contactData?.banner_image_url || "https://images.unsplash.com/photo-1423666639041-f56000c29a96?auto=format&fit=crop&q=80&w=1200"} 
-          alt="Onkur Contact Banner" 
+        <img
+          src={
+            contactData?.banner_image_url ||
+            "https://images.unsplash.com/photo-1423666639041-f56000c29a96?auto=format&fit=crop&q=80&w=1200"
+          }
+          alt="Onkur Contact Banner"
           className="w-full h-full object-cover"
         />
       </div>
@@ -84,15 +104,23 @@ export default function ContactPage() {
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-4">
         <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
-          {tContent(contactData?.heading_bn || "যোগাযোগ করুন", contactData?.heading_en || "Contact Us")}
+          {tContent(
+            contactData?.heading_bn || "যোগাযোগ করুন",
+            contactData?.heading_en || "Contact Us",
+          )}
         </span>
         <h1 className="text-4xl font-bold text-secondary">
-          {tContent(contactData?.heading_bn || "আমাদের সাথে যোগাযোগ করুন", contactData?.heading_en || "Get In Touch")}
+          {tContent(
+            contactData?.heading_bn || "আমাদের সাথে যোগাযোগ করুন",
+            contactData?.heading_en || "Get In Touch",
+          )}
         </h1>
         <p className="text-base text-text font-light leading-relaxed">
           {tContent(
-            contactData?.body_bn || "যেকোনো অনুসন্ধান, ঋণের আবেদন বা সহযোগিতার জন্য আমাদের সাথে সরাসরি যোগাযোগ করুন অথবা নিচের ফর্মটি পূরণ করুন।",
-            contactData?.body_en || "Reach out to us for any questions or to apply for a loan."
+            contactData?.body_bn ||
+              "যেকোনো অনুসন্ধান, ঋণের আবেদন বা সহযোগিতার জন্য আমাদের সাথে সরাসরি যোগাযোগ করুন অথবা নিচের ফর্মটি পূরণ করুন।",
+            contactData?.body_en ||
+              "Reach out to us for any questions or to apply for a loan.",
           )}
         </p>
       </div>
@@ -107,7 +135,7 @@ export default function ContactPage() {
             <p className="text-sm font-light text-text/80">
               {tContent(
                 "আমাদের অফিস পরিদর্শনের জন্য ঠিকানা ও যোগাযোগের বিবরণ:",
-                "Below are our direct points of contact for official operations."
+                "Below are our direct points of contact for official operations.",
               )}
             </p>
           </div>
@@ -133,23 +161,31 @@ export default function ContactPage() {
                 </h4>
                 <p className="text-sm font-light leading-relaxed mt-1">
                   {tContent(
-                    contactData?.hours_bn || "রবি-বৃহস্পতি, সকাল ৯টা - বিকাল ৫টা", 
-                    contactData?.hours_en || "Sun-Thu, 9 AM - 5 PM"
+                    contactData?.hours_bn ||
+                      "রবি-বৃহস্পতি, সকাল ৯টা - বিকাল ৫টা",
+                    contactData?.hours_en || "Sun-Thu, 9 AM - 5 PM",
                   )}
                 </p>
               </div>
             </div>
 
-            {settings?.phone && (
+            {officePhoneNumbers.length > 0 && (
               <div className="flex items-start gap-4">
                 <Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-sm tracking-wide uppercase text-text/60">
-                    {tContent("ফোন", "Phone")}
-                  </h4>
-                  <a href={`tel:${settings.phone}`} className="text-sm font-light hover:underline block mt-1">
-                    {settings.phone}
-                  </a>
+                  {officePhoneNumbers.map(({ label, phone }) => (
+                    <div key={phone} className="mb-3 last:mb-0">
+                      <h4 className="font-bold text-sm tracking-wide uppercase text-text/60">
+                        {label}
+                      </h4>
+                      <a
+                        href={`tel:${phone}`}
+                        className="text-sm font-light hover:underline block mt-1"
+                      >
+                        {formatPhone(phone)}
+                      </a>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
@@ -161,7 +197,10 @@ export default function ContactPage() {
                   <h4 className="font-bold text-sm tracking-wide uppercase text-text/60">
                     {tContent("ইমেইল", "Email")}
                   </h4>
-                  <a href={`mailto:${settings.email}`} className="text-sm font-light hover:underline block mt-1">
+                  <a
+                    href={`mailto:${settings.email}`}
+                    className="text-sm font-light hover:underline block mt-1"
+                  >
                     {settings.email}
                   </a>
                 </div>
@@ -175,28 +214,42 @@ export default function ContactPage() {
               {tContent("বিভাগীয় যোগাযোগ", "Departmental Contacts")}
             </h4>
             <div className="space-y-4">
-              {(contactData?.departments || defaultDepartments).map((dept: any, idx: number) => (
-                <div key={idx} className="bg-white/5 p-3.5 rounded-xl border border-white/5 text-xs space-y-1">
-                  <p className="font-bold text-white">
-                    {tContent(dept.name_bn, dept.name_en)}
-                  </p>
-                  {dept.phone && (
-                    <p className="text-text/75 font-light">
-                      {tContent("ফোন: ", "Phone: ")}
-                      <a href={`tel:${dept.phone}`} className="hover:underline">{dept.phone}</a>
+              {(contactData?.departments || defaultDepartments).map(
+                (dept: any, idx: number) => (
+                  <div
+                    key={idx}
+                    className="bg-white/5 p-3.5 rounded-xl border border-white/5 text-xs space-y-1"
+                  >
+                    <p className="font-bold text-white">
+                      {tContent(dept.name_bn, dept.name_en)}
                     </p>
-                  )}
-                  {dept.email && (
-                    <p className="text-text/75 font-light">
-                      {tContent("ইমেইল: ", "Email: ")}
-                      <a href={`mailto:${dept.email}`} className="hover:underline">{dept.email}</a>
-                    </p>
-                  )}
-                </div>
-              ))}
+                    {dept.phone && (
+                      <p className="text-text/75 font-light">
+                        {tContent("ফোন: ", "Phone: ")}
+                        <a
+                          href={`tel:${dept.phone}`}
+                          className="hover:underline"
+                        >
+                          {dept.phone}
+                        </a>
+                      </p>
+                    )}
+                    {dept.email && (
+                      <p className="text-text/75 font-light">
+                        {tContent("ইমেইল: ", "Email: ")}
+                        <a
+                          href={`mailto:${dept.email}`}
+                          className="hover:underline"
+                        >
+                          {dept.email}
+                        </a>
+                      </p>
+                    )}
+                  </div>
+                ),
+              )}
             </div>
           </div>
-
         </div>
 
         {/* Form Column */}
@@ -230,7 +283,10 @@ export default function ContactPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-1">
-                  <label htmlFor="name" className="text-xs font-semibold uppercase text-text">
+                  <label
+                    htmlFor="name"
+                    className="text-xs font-semibold uppercase text-text"
+                  >
                     {t("contactForm.name")}
                   </label>
                   <input
@@ -243,7 +299,10 @@ export default function ContactPage() {
                   />
                 </div>
                 <div className="space-y-1">
-                  <label htmlFor="phone" className="text-xs font-semibold uppercase text-text">
+                  <label
+                    htmlFor="phone"
+                    className="text-xs font-semibold uppercase text-text"
+                  >
                     {t("contactForm.phone")}
                   </label>
                   <input
@@ -258,7 +317,10 @@ export default function ContactPage() {
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="email" className="text-xs font-semibold uppercase text-text">
+                <label
+                  htmlFor="email"
+                  className="text-xs font-semibold uppercase text-text"
+                >
                   {t("contactForm.email")}
                 </label>
                 <input
@@ -272,7 +334,10 @@ export default function ContactPage() {
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="message" className="text-xs font-semibold uppercase text-text">
+                <label
+                  htmlFor="message"
+                  className="text-xs font-semibold uppercase text-text"
+                >
                   {t("contactForm.message")}
                 </label>
                 <textarea
@@ -290,7 +355,9 @@ export default function ContactPage() {
                 disabled={submitting}
                 className="w-full bg-primary hover:opacity-90 text-white py-3.5 rounded-lg text-sm font-semibold tracking-wide shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
-                <span>{submitting ? t("common.saving") : t("common.submit")}</span>
+                <span>
+                  {submitting ? t("common.saving") : t("common.submit")}
+                </span>
                 {!submitting && <Send className="w-4 h-4" />}
               </button>
             </form>
@@ -311,7 +378,6 @@ export default function ContactPage() {
           title="Navana Shaz Sylvania Office Location"
         ></iframe>
       </div>
-
     </div>
   );
 }

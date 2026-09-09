@@ -27,7 +27,7 @@ import {
   PiggyBank,
   HeartHandshake,
   Building2,
-  CalendarDays
+  CalendarDays,
 } from "lucide-react";
 import StatCounter from "@/components/StatCounter";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
@@ -222,15 +222,15 @@ export default function HomePage() {
   const getWhyIcon = (iconName: string) => {
     switch (iconName) {
       case "ShieldCheck":
-        return <ShieldCheck className="w-8 h-8 text-secondary" />;
+        return <ShieldCheck className="w-8 h-8 text-primary" />;
       case "Coins":
-        return <Coins className="w-8 h-8 text-secondary" />;
+        return <Coins className="w-8 h-8 text-primary" />;
       case "PiggyBank":
-        return <PiggyBank className="w-8 h-8 text-secondary" />;
+        return <PiggyBank className="w-8 h-8 text-primary" />;
       case "HeartHandshake":
-        return <HeartHandshake className="w-8 h-8 text-secondary" />;
+        return <HeartHandshake className="w-8 h-8 text-primary" />;
       default:
-        return <ShieldCheck className="w-8 h-8 text-secondary" />;
+        return <ShieldCheck className="w-8 h-8 text-primary" />;
     }
   };
 
@@ -328,7 +328,7 @@ export default function HomePage() {
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/20 rounded-full blur-3xl"></div>
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col items-center text-center space-y-6">
+          <div className="flex flex-col text-green-300 items-center text-center space-y-6">
             <motion.h1
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
@@ -342,7 +342,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg md:text-xl text-white/90 leading-relaxed font-normal max-w-2xl drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
+              className="text-lg md:text-xl text-white leading-relaxed font-normal max-w-2xl drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
             >
               {tContent(homeData?.hero_subtitle_bn, homeData?.hero_subtitle_en)}
             </motion.p>
@@ -372,66 +372,71 @@ export default function HomePage() {
       </section>
 
       {/* 2. What We Do Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
-            {tContent("কার্যক্রম", "What We Do")}
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-secondary">
-            {tContent(
-              "আর্থিক সাহায্য যা জীবন বদলায়",
-              "Financial Support that Transforms Lives",
-            )}
-          </h2>
-          <p className="text-base text-text font-normal">
-            {tContent(
-              "আমাদের তৈরি বিশেষ ঋণ সুবিধাগুলো সুবিধাবঞ্চিত গ্রামীণ জনগোষ্ঠীর প্রয়োজন অনুযায়ী সাজানো হয়েছে।",
-              "Our microloan designs target specific needs of rural populations to foster economic growth.",
-            )}
-          </p>
-        </div>
+      <section className="bg-[radial-gradient(circle_at_center,_rgba(255,237,213,0.7)_0%,_rgba(255,247,237,0.35)_35%,_white_75%)] py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
+            <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
+              {tContent("কার্যক্রম", "What We Do")}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-secondary">
+              {tContent(
+                "আর্থিক সাহায্য যা জীবন বদলায়",
+                "Financial Support that Transforms Lives",
+              )}
+            </h2>
+            <p className="text-base text-text font-normal">
+              {tContent(
+                "আমাদের তৈরি বিশেষ ঋণ সুবিধাগুলো সুবিধাবঞ্চিত গ্রামীণ জনগোষ্ঠীর প্রয়োজন অনুযায়ী সাজানো হয়েছে।",
+                "Our microloan designs target specific needs of rural populations to foster economic growth.",
+              )}
+            </p>
+          </div>
 
-        <div
-          className={`grid grid-cols-1 gap-8 ${(homeData?.services || []).length === 2
-            ? "md:grid-cols-2 max-w-5xl mx-auto"
-            : "md:grid-cols-3"
+          <div
+            className={`grid grid-cols-1 gap-8 ${
+              (homeData?.services || []).length === 2
+                ? "md:grid-cols-2 max-w-5xl mx-auto"
+                : "md:grid-cols-3"
             }`}
-        >
-          {(homeData?.services || []).map((service: any, index: number) => (
-            <motion.div
-              key={index}
-              whileHover={{ y: -8 }}
-              className="bg-white p-8 rounded-2xl shadow-sm border border-secondary/5 flex flex-col justify-between group transition-all"
-            >
-              <div className="space-y-6">
-                <div className="bg-white/5 p-4 rounded-xl inline-block group-hover:bg-white transition-colors">
-                  <div className="group-hover:text-white transition-colors">
-                    {getIcon(service.icon)}
+          >
+            {(homeData?.services || []).map((service: any, index: number) => (
+              <motion.div
+                key={index}
+                whileHover={{ y: -8 }}
+                className="p-8 rounded-2xl shadow-sm border border-[#003C40]/10 flex flex-col justify-between group transition-all hover:shadow-lg"
+              >
+                <div className="space-y-6">
+                  <div
+                    className="p-4 rounded-xl inline-block transition-colors group-hover:bg-[#003C40]"
+                    style={{ backgroundColor: "rgba(0,60,64,0.08)" }}
+                  >
+                    <div className="text-[#003C40] group-hover:text-white transition-colors">
+                      {getIcon(service.icon)}
+                    </div>
                   </div>
+                  <h3 className="text-xl font-bold text-[#003C40]">
+                    {tContent(service.title_bn, service.title_en)}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-text font-normal">
+                    {tContent(service.desc_bn, service.desc_en)}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-secondary">
-                  {tContent(service.title_bn, service.title_en)}
-                </h3>
-                <p className="text-sm leading-relaxed text-text font-normal">
-                  {tContent(service.desc_bn, service.desc_en)}
-                </p>
-              </div>
-              <div className="pt-6">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center text-sm font-semibold text-primary hover:text-secondary transition-colors gap-1 group/link"
-                >
-                  <span>{t("common.applyNow")}</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </motion.div>
-          ))}
+                <div className="pt-6">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center text-sm font-semibold text-[#003C40] hover:text-[#0A5C61] transition-colors gap-1 group/link"
+                  >
+                    <span>{t("common.applyNow")}</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
-
       {/* 3. Breaking Barriers Section */}
-      <section className="bg-white py-20 border-y border-secondary/5">
+      <section className="bg-[radial-gradient(circle_at_center,_rgba(255,237,213,0.9)_0%,_rgba(255,237,213,0.4)_30%,_white_70%)] py-20 border-y border-secondary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Col (Text Content) */}
@@ -443,14 +448,14 @@ export default function HomePage() {
                 {tContent(
                   !homeData?.mission_heading_bn ||
                     homeData.mission_heading_bn ===
-                    "আর্থিক সেবার মাধ্যমে বাধা দূর করা" ||
+                      "আর্থিক সেবার মাধ্যমে বাধা দূর করা" ||
                     homeData.mission_heading_bn ===
-                    "অর্থায়নের মাধ্যমে বাধা ভাঙা"
+                      "অর্থায়নের মাধ্যমে বাধা ভাঙা"
                     ? "ডিজিটাল পদ্ধতিতে ক্ষুদ্র আর্থিক সেবার মাধ্যমে দারিদ্রমুক্ত সুখী সমৃদ্ধ বৈষম্যহীন ন্যায়ভিত্তিক সমাজ প্রতিষ্ঠা"
                     : homeData.mission_heading_bn,
                   !homeData?.mission_heading_en ||
                     homeData.mission_heading_en ===
-                    "Breaking Barriers with Access to Finance"
+                      "Breaking Barriers with Access to Finance"
                     ? "Establishing a poverty-free, happy, prosperous, and just society without discrimination through digital microfinance services."
                     : homeData.mission_heading_en,
                 )}
@@ -458,9 +463,9 @@ export default function HomePage() {
               <p className="text-base text-secondary leading-relaxed font-normal">
                 {tContent(
                   homeData?.mission_body_bn ||
-                  "অঙ্কুর ফাউন্ডেশনে আমরা বিশ্বাস করি যে, প্রকৃত ক্ষমতায়ন তখনই শুরু হয় যখন আর্থিক সুযোগগুলো তাদের কাছে পৌঁছায় যাদের এটি সবচেয়ে বেশি প্রয়োজন। দীর্ঘ সময় ধরে গ্রামীণ এবং প্রান্তিক জনগোষ্ঠী আনুষ্ঠানিক আর্থিক ব্যবস্থার বাইরে থেকে গেছে, যা তাদের বৃদ্ধি, বিনিয়োগ এবং ভবিষ্যত সুরক্ষিত করার ক্ষমতাকে সীমিত করেছে। আমরা অর্থায়নে প্রবেশাধিকার সহজ, অন্তর্ভুক্তিমূলক এবং প্রভাবশালী করার মাধ্যমে এই বাধাগুলি ভেঙে দিতে প্রতিশ্রুতিবদ্ধ। আমাদের উদ্যোগের মাধ্যমে আমরা সুবিধাবঞ্চিত ব্যক্তি এবং সম্প্রদায়কে আর্থিক পরিষেবার সাথে সংযুক্ত করি যা শিক্ষা, উদ্যোক্তা, স্বাস্থ্যসেবা এবং টেকসই জীবিকার পথ উন্মুক্ত করে।",
+                    "অঙ্কুর ফাউন্ডেশনে আমরা বিশ্বাস করি যে, প্রকৃত ক্ষমতায়ন তখনই শুরু হয় যখন আর্থিক সুযোগগুলো তাদের কাছে পৌঁছায় যাদের এটি সবচেয়ে বেশি প্রয়োজন। দীর্ঘ সময় ধরে গ্রামীণ এবং প্রান্তিক জনগোষ্ঠী আনুষ্ঠানিক আর্থিক ব্যবস্থার বাইরে থেকে গেছে, যা তাদের বৃদ্ধি, বিনিয়োগ এবং ভবিষ্যত সুরক্ষিত করার ক্ষমতাকে সীমিত করেছে। আমরা অর্থায়নে প্রবেশাধিকার সহজ, অন্তর্ভুক্তিমূলক এবং প্রভাবশালী করার মাধ্যমে এই বাধাগুলি ভেঙে দিতে প্রতিশ্রুতিবদ্ধ। আমাদের উদ্যোগের মাধ্যমে আমরা সুবিধাবঞ্চিত ব্যক্তি এবং সম্প্রদায়কে আর্থিক পরিষেবার সাথে সংযুক্ত করি যা শিক্ষা, উদ্যোক্তা, স্বাস্থ্যসেবা এবং টেকসই জীবিকার পথ উন্মুক্ত করে।",
                   homeData?.mission_body_en ||
-                  "At Onkur Foundation, we believe that true empowerment begins when financial opportunities reach those who need them most. For too long, rural and marginalized communities have been left outside the formal financial system, limiting their ability to grow, invest, and secure their future. We are committed to breaking these barriers by making access to finance simple, inclusive, and impactful. Through our initiatives, we connect underserved individuals and communities with financial services that open doors to education, entrepreneurship, healthcare, and sustainable livelihoods.",
+                    "At Onkur Foundation, we believe that true empowerment begins when financial opportunities reach those who need them most. For too long, rural and marginalized communities have been left outside the formal financial system, limiting their ability to grow, invest, and secure their future. We are committed to breaking these barriers by making access to finance simple, inclusive, and impactful. Through our initiatives, we connect underserved individuals and communities with financial services that open doors to education, entrepreneurship, healthcare, and sustainable livelihoods.",
                 )}
               </p>
               <div className="pt-4">
@@ -500,7 +505,7 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
             {tContent("অনন্য বৈশিষ্ট্য", "Why Choose Us")}
@@ -511,7 +516,7 @@ export default function HomePage() {
               homeData?.why_title_en || "Why Choose Onkur Foundation?",
             )}
           </h2>
-          <p className="text-base text-text font-normal">
+          <p className="text-base text-gray-700 font-normal">
             {tContent(
               "আমাদের সহজ ও মানবকল্যাণমুখী নীতিমালা গ্রামীণ সুবিধাবঞ্চিত পরিবারের জীবনে মর্যাদাপূর্ণ আর্থিক সচ্ছলতা নিশ্চিত করে।",
               "Our simple and borrower-first credit terms help guarantee dignified livelihoods for rural families.",
@@ -529,17 +534,29 @@ export default function HomePage() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
                 whileHover={{ y: -6 }}
-                className="bg-white p-6 rounded-2xl border border-secondary/5 shadow-xs flex flex-col justify-between"
+                className="bg-white p-6 rounded-2xl border border-secondary/10 shadow-sm flex flex-col justify-between"
               >
                 <div className="space-y-4">
-                  <div className="bg-white/5 p-3 rounded-lg inline-block ">
+                  <div className="bg-secondary/5 p-3.5 rounded-xl inline-block">
                     {getWhyIcon(card.icon)}
                   </div>
                   <h3 className="text-lg font-bold text-secondary">
-                    {tContent(card.title_bn, card.title_en)}
+                    {tContent(
+                      card.title_bn || card.title,
+                      card.title_en || card.title,
+                    )}
                   </h3>
-                  <p className="text-xs text-text font-normal leading-relaxed">
-                    {tContent(card.desc_bn, card.desc_en)}
+                  <p className="text-sm text-gray-700 font-normal leading-relaxed">
+                    {tContent(
+                      card.desc_bn ||
+                        card.description_bn ||
+                        card.desc ||
+                        card.details_bn,
+                      card.desc_en ||
+                        card.description_en ||
+                        card.desc ||
+                        card.details_en,
+                    )}
                   </p>
                 </div>
               </motion.div>
@@ -567,7 +584,7 @@ export default function HomePage() {
                   : homeData.process_title_en,
               )}
             </h2>
-            <p className="text-base text-text font-normal">
+            <p className="text-base text-gray-700 font-normal">
               {tContent(
                 "কোনো জটিল ঝামেলা ছাড়াই দ্রুততম উপায়ে গ্রামীণ প্রান্তিক জনগোষ্ঠীর মাঝে ঋণ বিতরণ করা হয়।",
                 "Designed to get microloans to rural applicants efficiently, without complex bureaucratic barriers.",
@@ -596,13 +613,13 @@ export default function HomePage() {
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   className="relative bg-white p-8 rounded-2xl border border-secondary/10 shadow-sm hover:shadow-md hover:border-secondary/20 transition-all duration-300 space-y-4"
                 >
-                  <div className="relative z-10 w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
+                  <div className="relative z-10 w-10 h-10 bg- text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
                     {idx + 1}
                   </div>
                   <h3 className="text-lg font-bold text-secondary">
                     {tContent(step.title_bn, step.title_en)}
                   </h3>
-                  <p className="text-xs text-text/70 font-normal leading-relaxed">
+                  <p className="text-sm text-gray-700 font-normal leading-relaxed">
                     {tContent(step.desc_bn, step.desc_en)}
                   </p>
                   <div className="absolute bottom-0 left-8 right-8 h-0.5 bg-secondary/10 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform"></div>
@@ -613,7 +630,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. Guided by Purpose Section (Mission/Vision/Values tabs) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className=" bg-[radial-gradient(circle_at_center,_rgba(220,252,231,0.4)_0%,_white_70%)] max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider block mb-2">
             {tContent("মূল দর্শন", "Guided by Purpose")}
@@ -627,15 +644,16 @@ export default function HomePage() {
         </div>
 
         {/* Tab Controls */}
-        <div className="flex justify-center border-b border-secondary/10 max-w-md mx-auto mb-10 p-1 bg-white/5 rounded-full">
+        <div className="flex justify-center border border-secondary/10 max-w-md mx-auto mb-10 p-1 bg-secondary/5 rounded-full">
           {(["mission", "vision", "values"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2.5 px-4 rounded-full text-sm font-semibold uppercase tracking-wider transition-all duration-200 ${activeTab === tab
-                ? "bg-primary text-white shadow-sm"
-                : "text-secondary hover:text-secondary"
-                }`}
+              className={`flex-1 py-2.5 px-4 rounded-full text-sm font-semibold uppercase tracking-wider transition-all duration-200 ${
+                activeTab === tab
+                  ? "bg-primary text-white shadow-sm"
+                  : "text-secondary hover:text-secondary"
+              }`}
             >
               {tab === "mission" && tContent("লক্ষ্য", "Mission")}
               {tab === "vision" && tContent("স্বপ্ন", "Vision")}
@@ -773,11 +791,14 @@ export default function HomePage() {
                     {stat.isStatic ? (
                       stat.value
                     ) : (
-                      <StatCounter value={stat.value as number} suffix={stat.suffix} />
+                      <StatCounter
+                        value={stat.value as number}
+                        suffix={stat.suffix}
+                      />
                     )}
                   </p>
 
-                  <p className="text-xs md:text-sm text-text/70 uppercase tracking-widest font-medium">
+                  <p className="text-xs md:text-sm text-gray-700 uppercase tracking-widest font-medium">
                     {tContent(stat.labelBn, stat.labelEn)}
                   </p>
                 </div>
@@ -828,7 +849,7 @@ export default function HomePage() {
                   <h3 className="text-lg font-bold text-secondary">
                     {tContent(member.name_bn, member.name_en)}
                   </h3>
-                  <p className="text-sm text-text font-normal">
+                  <p className="text-sm text-gray-700 font-normal">
                     {tContent(member.role_bn, member.role_en)}
                   </p>
                 </div>
@@ -867,7 +888,10 @@ export default function HomePage() {
                 {tContent("ব্লগ ও খবর", "Latest News")}
               </span>
               <h2 className="text-3xl font-bold text-secondary">
-                {tContent("আমাদের মাঠপর্যায়ের আপডেট", "Updates from the Ground")}
+                {tContent(
+                  "আমাদের মাঠপর্যায়ের আপডেট",
+                  "Updates from the Ground",
+                )}
               </h2>
             </div>
             <Link
@@ -893,7 +917,7 @@ export default function HomePage() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
-                <span className="text-xs text-text/60 font-medium mb-2">
+                <span className="text-xs text-gray-700 font-medium mb-2">
                   {new Date(blogPosts[0].publishedAt).toLocaleDateString(
                     language === "bn" ? "bn-BD" : "en-US",
                     { year: "numeric", month: "short", day: "numeric" },
@@ -902,7 +926,7 @@ export default function HomePage() {
                 <h3 className="text-2xl md:text-3xl font-bold text-secondary group-hover:text-primary transition-colors leading-snug mb-3">
                   {tContent(blogPosts[0].title_bn, blogPosts[0].title_en)}
                 </h3>
-                <p className="text-sm text-text/70 font-normal line-clamp-2">
+                <p className="text-sm text-gray-700 font-normal line-clamp-2">
                   {tContent(blogPosts[0].excerpt_bn, blogPosts[0].excerpt_en)}
                 </p>
               </Link>
@@ -929,7 +953,7 @@ export default function HomePage() {
                   <h3 className="text-base font-bold text-secondary group-hover:text-primary transition-colors leading-snug line-clamp-2 mb-2">
                     {tContent(post.title_bn, post.title_en)}
                   </h3>
-                  <p className="text-xs text-text/70 font-normal line-clamp-2">
+                  <p className="text-xs text-gray-700 font-normal line-clamp-2">
                     {tContent(post.excerpt_bn, post.excerpt_en)}
                   </p>
                 </Link>
