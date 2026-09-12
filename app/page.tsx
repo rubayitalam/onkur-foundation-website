@@ -12,6 +12,9 @@ import {
 import { db } from "@/lib/firebase";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
+import sproutImg from "../public/sprout.jpg";
+import hero1 from "../public/hero1.jpg";
+import hero2 from "../public/hero2.png";
 import {
   Sprout,
   Store,
@@ -28,9 +31,12 @@ import {
   HeartHandshake,
   Building2,
   CalendarDays,
+  Smartphone,
 } from "lucide-react";
 import StatCounter from "@/components/StatCounter";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
+import HeroImg from "@/onkur-foundation-website/public/hero1.jpg";
+import PhotoMarquee from "@/components/PhotoMarquee";
 
 export default function HomePage() {
   const { language, tContent, t } = useLanguage();
@@ -305,95 +311,200 @@ export default function HomePage() {
 
   return (
     <div className="space-y-24 pb-20">
-      {/* 1. Hero Section */}
-      <section className="relative bg-secondary text-white py-24 md:py-50 overflow-hidden">
-        {/* Background image */}
-        <div className="absolute inset-0">
+      {/* 1. Hero Section - Modern Redesign */}
+      <section className="relative min-h-[90vh] md:min-h-screen flex items-center bg-secondary text-white overflow-hidden">
+        {/* Background image with subtle zoom animation */}
+        <motion.div
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.4, ease: "easeOut" }}
+          className="absolute inset-0"
+        >
           <img
-            src={
-              homeData?.hero_image_url ||
-              "https://i.postimg.cc/g0DQ0M84/98293656829.png"
-            }
+            src={hero2.src}
             alt="Rural Bangladesh farming community"
             className="w-full h-full object-cover"
           />
-          {/* Dark gradient overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
-          {/* Extra vignette toward the center for stronger contrast behind text */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.55),_transparent_70%)]"></div>
+        </motion.div>
+
+        {/* Layered gradient overlays for depth & readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/60 to-black/80" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.5),_transparent_75%)]" />
+
+        {/* Animated grain / noise texture overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.15] mix-blend-overlay pointer-events-none"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          }}
+        />
+
+        {/* Ambient accent blobs with pulse animation */}
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.4, 0.25] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-32 -left-32 w-[28rem] h-[28rem] bg-primary/40 rounded-full blur-[120px]"
+        />
+        <motion.div
+          animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+          className="absolute -top-32 -right-32 w-[28rem] h-[28rem] bg-primary/30 rounded-full blur-[120px]"
+        />
+
+        {/* Decorative grid lines */}
+        <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+              backgroundSize: "80px 80px",
+            }}
+          />
         </div>
 
-        {/* Abstract accent blobs (kept subtle, on top of overlay) */}
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/30 rounded-full blur-3xl"></div>
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/20 rounded-full blur-3xl"></div>
-
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col text-green-300 items-center text-center space-y-6">
-            <motion.h1
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
-            >
-              {tContent(homeData?.hero_title_bn, homeData?.hero_title_en)}
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg md:text-xl text-white leading-relaxed font-normal max-w-2xl drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
-            >
-              {tContent(homeData?.hero_subtitle_bn, homeData?.hero_subtitle_en)}
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="pt-6 flex flex-wrap justify-center gap-4"
-            >
-              <Link
-                href="/contact"
-                className="bg-primary hover:opacity-90 text-white px-8 py-3.5 rounded-md font-medium transition-all shadow-lg flex items-center gap-2 group"
+        {/* Main content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+          <div className="grid lg:grid-cols-12 gap-8 items-center">
+            {/* Left: Text content */}
+            <div className="lg:col-span-8 flex flex-col items-start text-left space-y-8">
+              {/* Eyebrow / badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/40 bg-primary/10 backdrop-blur-sm"
               >
-                <span>{t("common.applyNow")}</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="/about"
-                className="border border-white/40 hover:border-white hover:bg-white/10 text-white px-8 py-3.5 rounded-md font-medium transition-all backdrop-blur-sm"
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+                </span>
+                <span className="text-xs sm:text-sm font-medium tracking-wide text-green-200 uppercase">
+                  {tContent("গ্রামীণ উন্নয়ন", "Rural Development")}
+                </span>
+              </motion.div>
+
+              {/* Heading with gradient highlight */}
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.7)]"
               >
-                {tContent("আমাদের সম্পর্কে জানুন", "Learn More About Us")}
-              </Link>
-            </motion.div>
+                <span className="bg-gradient-to-r from-white via-green-50 to-green-200 bg-clip-text text-transparent">
+                  {tContent(homeData?.hero_title_bn, homeData?.hero_title_en)}
+                </span>
+              </motion.h1>
+
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.35 }}
+                className="text-base sm:text-lg md:text-xl text-white/85 leading-relaxed font-light max-w-2xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+              >
+                {tContent(
+                  homeData?.hero_subtitle_bn,
+                  homeData?.hero_subtitle_en,
+                )}
+              </motion.p>
+
+              {/* CTA buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="flex flex-wrap items-center gap-4 pt-2"
+              >
+                {/* Primary CTA with shine effect */}
+                <Link
+                  href="/contact"
+                  className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.45)] hover:-translate-y-0.5 flex items-center gap-2"
+                >
+                  <span className="relative z-10">{t("common.applyNow")}</span>
+                  <ArrowRight className="relative z-10 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                  {/* Shine sweep */}
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+                </Link>
+
+                {/* Secondary CTA */}
+                <Link
+                  href="/about"
+                  className="group border border-white/30 hover:border-white/70 hover:bg-white/10 text-white px-8 py-4 rounded-xl font-semibold transition-all backdrop-blur-md flex items-center gap-2"
+                >
+                  <span>
+                    {tContent("আমাদের সম্পর্কে জানুন", "Learn More About Us")}
+                  </span>
+                  <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                </Link>
+              </motion.div>
+            </div>
           </div>
         </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
+        >
+          <span className="text-[10px] uppercase tracking-[0.3em] text-white/50">
+            {tContent("স্ক্রোল", "Scroll")}
+          </span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            className="w-[1px] h-8 bg-gradient-to-b from-white/60 to-transparent"
+          />
+        </motion.div>
       </section>
 
       {/* 2. What We Do Section */}
-      <section className="bg-[radial-gradient(circle_at_center,_rgba(255,237,213,0.7)_0%,_rgba(255,247,237,0.35)_35%,_white_75%)] py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
+      <section className="relative  py-24 bg-gradient-to-b from-white via-[#F7FAFA] to-white overflow-hidden">
+        {/* Decorative background blobs */}
+        <div className="absolute top-20 -left-32 w-96 h-96 bg-[#003C40]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-20 -right-32 w-96 h-96 bg-[#0A5C61]/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          {/* ---------- Header ---------- */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center max-w-2xl mx-auto mb-16 space-y-4"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#003C40]/8 text-[#003C40] font-semibold text-xs uppercase tracking-[0.2em]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#003C40] animate-pulse" />
               {tContent("কার্যক্রম", "What We Do")}
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary">
+            <h2 className="text-3xl md:text-5xl font-bold text-secondary leading-tight">
               {tContent(
                 "আর্থিক সাহায্য যা জীবন বদলায়",
                 "Financial Support that Transforms Lives",
               )}
             </h2>
-            <p className="text-base text-text font-normal">
+            <p className="text-base md:text-lg text-text font-normal leading-relaxed">
               {tContent(
                 "আমাদের তৈরি বিশেষ ঋণ সুবিধাগুলো সুবিধাবঞ্চিত গ্রামীণ জনগোষ্ঠীর প্রয়োজন অনুযায়ী সাজানো হয়েছে।",
                 "Our microloan designs target specific needs of rural populations to foster economic growth.",
               )}
             </p>
-          </div>
+          </motion.div>
 
+          {/* ---------- Animated Photo Grid ---------- */}
+          <PhotoMarquee />
+
+          {/* ---------- Service Cards ---------- */}
           <div
-            className={`grid grid-cols-1 gap-8 ${
+            className={`grid grid-cols-1 gap-6 lg:gap-8 mt-20 ${
               (homeData?.services || []).length === 2
                 ? "md:grid-cols-2 max-w-5xl mx-auto"
                 : "md:grid-cols-3"
@@ -402,32 +513,55 @@ export default function HomePage() {
             {(homeData?.services || []).map((service: any, index: number) => (
               <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{
+                  duration: 0.55,
+                  delay: index * 0.12,
+                  ease: "easeOut",
+                }}
                 whileHover={{ y: -8 }}
-                className="p-8 rounded-2xl shadow-sm border border-[#003C40]/10 flex flex-col justify-between group transition-all hover:shadow-lg"
+                className="group relative p-8 rounded-3xl bg-white border border-[#003C40]/10 shadow-[0_4px_24px_-8px_rgba(0,60,64,0.08)] hover:shadow-[0_24px_48px_-16px_rgba(0,60,64,0.18)] transition-all duration-500 flex flex-col justify-between overflow-hidden"
               >
-                <div className="space-y-6">
-                  <div
-                    className="p-4 rounded-xl inline-block transition-colors group-hover:bg-[#003C40]"
-                    style={{ backgroundColor: "rgba(0,60,64,0.08)" }}
-                  >
-                    <div className="text-[#003C40] group-hover:text-white transition-colors">
-                      {getIcon(service.icon)}
+                {/* Hover gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#003C40]/0 via-[#003C40]/0 to-[#0A5C61]/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                <div className="relative space-y-6">
+                  {index < 2 ? (
+                    <div className="aspect-[16/10] w-full overflow-hidden rounded-2xl bg-gray-100">
+                      <img
+                        src={`/img${index + 1}.png`}
+                        alt={tContent(service.title_bn, service.title_en)}
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                      />
                     </div>
-                  </div>
-                  <h3 className="text-xl font-bold text-[#003C40]">
+                  ) : (
+                    <div
+                      className="p-4 rounded-2xl inline-flex items-center justify-center transition-all duration-500 group-hover:bg-[#003C40] group-hover:scale-105"
+                      style={{ backgroundColor: "rgba(0,60,64,0.08)" }}
+                    >
+                      <div className="text-[#003C40] group-hover:text-white transition-colors duration-500">
+                        {getIcon(service.icon)}
+                      </div>
+                    </div>
+                  )}
+
+                  <h3 className="text-xl font-bold text-[#003C40] group-hover:text-[#0A5C61] transition-colors duration-300">
                     {tContent(service.title_bn, service.title_en)}
                   </h3>
                   <p className="text-sm leading-relaxed text-text font-normal">
                     {tContent(service.desc_bn, service.desc_en)}
                   </p>
                 </div>
-                <div className="pt-6">
+
+                <div className="relative pt-6">
                   <Link
                     href="/contact"
-                    className="inline-flex items-center text-sm font-semibold text-[#003C40] hover:text-[#0A5C61] transition-colors gap-1 group/link"
+                    className="inline-flex items-center text-sm font-semibold text-[#003C40] hover:text-[#0A5C61] transition-colors gap-1.5 group/link"
                   >
                     <span>{t("common.applyNow")}</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1.5 transition-transform duration-300" />
                   </Link>
                 </div>
               </motion.div>
@@ -436,7 +570,7 @@ export default function HomePage() {
         </div>
       </section>
       {/* 3. Breaking Barriers Section */}
-      <section className="bg-[radial-gradient(circle_at_center,_rgba(255,237,213,0.9)_0%,_rgba(255,237,213,0.4)_30%,_white_70%)] py-20 border-y border-secondary/5">
+      <section className="py-20 border-y border-secondary/5 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Col (Text Content) */}
@@ -471,7 +605,7 @@ export default function HomePage() {
               <div className="pt-4">
                 <Link
                   href="/about"
-                  className="inline-flex items-center bg-white hover:bg-gray-100 text-white px-6 py-3 rounded-md text-sm font-medium transition-colors gap-2"
+                  className="inline-flex items-center bg-primary hover:bg-green-600 text-white px-6 py-3 rounded-md text-sm font-medium transition-colors gap-2"
                 >
                   <span>
                     {tContent("বিস্তারিত পড়ুন", "Read Full Narrative")}
@@ -523,7 +657,6 @@ export default function HomePage() {
             )}
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {(homeData?.why_cards || defaultWhyCards).map(
             (card: any, idx: number) => (
@@ -533,31 +666,42 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
-                whileHover={{ y: -6 }}
-                className="bg-white p-6 rounded-2xl border border-secondary/10 shadow-sm flex flex-col justify-between"
+                className="group relative bg-white rounded-2xl border border-secondary/10 pl-7 pr-6 py-7 overflow-hidden transition-colors duration-300 hover:border-secondary/20"
               >
-                <div className="space-y-4">
-                  <div className="bg-secondary/5 p-3.5 rounded-xl inline-block">
+                {/* accent rule — thickens on hover */}
+                <span className="absolute left-0 top-0 h-full w-[3px] bg-primary/40 transition-all duration-300 group-hover:w-[6px] group-hover:bg-primary" />
+
+                {/* faded serial tab */}
+                <span className="absolute top-5 right-6 text-[11px] font-semibold tracking-wide text-secondary/20 tabular-nums">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+
+                <div className="flex flex-col gap-4">
+                  <div className="w-14 h-14 rounded-full border-2 border-primary/25 flex items-center justify-center transition-colors duration-300 group-hover:bg-primary group-hover:border-primary [&>svg]:transition-colors [&>svg]:duration-300 [&>svg]:text-primary group-hover:[&>svg]:text-white">
                     {getWhyIcon(card.icon)}
                   </div>
-                  <h3 className="text-lg font-bold text-secondary">
-                    {tContent(
-                      card.title_bn || card.title,
-                      card.title_en || card.title,
-                    )}
-                  </h3>
-                  <p className="text-sm text-gray-700 font-normal leading-relaxed">
-                    {tContent(
-                      card.desc_bn ||
-                        card.description_bn ||
-                        card.desc ||
-                        card.details_bn,
-                      card.desc_en ||
-                        card.description_en ||
-                        card.desc ||
-                        card.details_en,
-                    )}
-                  </p>
+
+                  <div>
+                    <h3 className="text-lg font-bold text-secondary mb-2">
+                      {tContent(
+                        card.title_bn || card.title,
+                        card.title_en || card.title,
+                      )}
+                    </h3>
+                    <span className="block w-8 h-px bg-secondary/15 mb-3" />
+                    <p className="text-sm text-gray-700 font-normal leading-relaxed">
+                      {tContent(
+                        card.desc_bn ||
+                          card.description_bn ||
+                          card.desc ||
+                          card.details_bn,
+                        card.desc_en ||
+                          card.description_en ||
+                          card.desc ||
+                          card.details_en,
+                      )}
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             ),
@@ -566,9 +710,9 @@ export default function HomePage() {
       </section>
 
       {/* How It Works Section */}
-      <section className="bg-white py-20 border-y border-secondary/5">
+      <section className="py-20 border-y border-secondary/5 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
+          <div className="text-center max-w-2xl mx-auto mb-6 space-y-4">
             <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
               {tContent("ঋণ প্রক্রিয়া", "How It Works")}
             </span>
@@ -592,10 +736,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            {/* Connecting line between steps (desktop only) */}
-            <div className="hidden md:block absolute top-9 left-[16.5%] right-[16.5%] h-px bg-secondary/15"></div>
-
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
             {(homeData?.process_steps || defaultSteps)
               .filter(
                 (step: any) =>
@@ -604,33 +745,57 @@ export default function HomePage() {
                     step.title_bn?.includes("কমিটি অনুমোদন")
                   ),
               )
-              .map((step: any, idx: number) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="relative bg-white p-8 rounded-2xl border border-secondary/10 shadow-sm hover:shadow-md hover:border-secondary/20 transition-all duration-300 space-y-4"
-                >
-                  <div className="relative z-10 w-10 h-10 bg- text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
-                    {idx + 1}
-                  </div>
-                  <h3 className="text-lg font-bold text-secondary">
-                    {tContent(step.title_bn, step.title_en)}
-                  </h3>
-                  <p className="text-sm text-gray-700 font-normal leading-relaxed">
-                    {tContent(step.desc_bn, step.desc_en)}
-                  </p>
-                  <div className="absolute bottom-0 left-8 right-8 h-0.5 bg-secondary/10 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform"></div>
-                </motion.div>
-              ))}
+              .map((step: any, idx: number) => {
+                const stepImages = [
+                  "/step1.jpeg",
+                  "/step2.jpeg",
+                  "/step3.jpeg",
+                ];
+                const stepImage = stepImages[idx % stepImages.length];
+
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    className="flex flex-col items-center"
+                  >
+                    {/* Phone mockup illustration */}
+                    <div className="relative w-40 h-52 md:w-44 md:h-56 bg-white rounded-[2rem] shadow-md border border-secondary/10 flex items-center justify-center z-10 -mb-10">
+                      {/* Phone notch */}
+                      <div className="absolute top-3 w-8 h-1 rounded-full bg-secondary/20"></div>
+                      <img
+                        src={stepImage}
+                        alt={tContent(step.title_bn, step.title_en)}
+                        className="h-full w-full rounded-[2rem] object-cover"
+                      />
+                    </div>
+
+                    {/* Card */}
+                    <div className="bg-gradient-to-r from-orange-50/60 via-[#FBF6EE] to-green-50/60 rounded-2xl border border-secondary/10 shadow-sm hover:shadow-md transition-all duration-300 pt-14 pb-8 px-6 text-center space-y-2">
+                      <p className="text-primary font-extrabold ">
+                        {"Step"} {idx + 1}
+                      </p>
+                      <p className="text-secondary font-bold text-base leading-snug">
+                        {tContent(step.title_bn, step.title_en)}
+                      </p>
+                      {step.desc_bn || step.desc_en ? (
+                        <p className="text-sm text-gray-600 font-normal leading-relaxed">
+                          {tContent(step.desc_bn, step.desc_en)}
+                        </p>
+                      ) : null}
+                    </div>
+                  </motion.div>
+                );
+              })}
           </div>
         </div>
       </section>
 
       {/* 4. Guided by Purpose Section (Mission/Vision/Values tabs) */}
-      <section className=" bg-[radial-gradient(circle_at_center,_rgba(220,252,231,0.4)_0%,_white_70%)] max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 bg-[radial-gradient(circle_at_center,_rgba(220,252,231,0.45)_0%,_transparent_65%)]">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider block mb-2">
             {tContent("মূল দর্শন", "Guided by Purpose")}
@@ -723,87 +888,117 @@ export default function HomePage() {
       </section>
 
       {/* 5. Impact Stats Section */}
-      <section className="relative bg-white text-text py-16 md:py-20 overflow-hidden">
-        {/* Subtle background accent */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-primary) 4%, transparent) 0%, transparent 60%)",
+      <section className="relative bg-gradient-to-br from-green-950 via-green-900 to-green-800 text-white py-16 md:py-24 overflow-hidden">
+        {/* decorative diagonal shapes — right */}
+        <motion.div
+          className="absolute -right-22 -top-34 w-80 h-80 bg-white/10 rotate-45 rounded-[2rem]"
+          animate={{ y: [0, -18, 0], x: [0, 10, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute -right-10 top-1/2 -translate-y-1/2 w-40 h-50 bg-white/3 rotate-35 rounded-[4rem]"
+          animate={{ y: [0, 14, 0], x: [0, -8, 0] }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.5,
           }}
-        ></div>
+        />
+
+        {/* decorative diagonal shapes — left */}
+        <motion.div
+          className="absolute -left-24 -bottom-24 w-80 h-80 bg-white/10 rotate-45 rounded-[2rem]"
+          animate={{ y: [0, 18, 0], x: [0, -10, 0] }}
+          transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute -left-10 top-1/3 -translate-y-1/2 w-40 h-50 bg-white/5 rotate-45 rounded-[4rem]"
+          animate={{ y: [0, -14, 0], x: [0, 8, 0] }}
+          transition={{
+            duration: 6.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.3,
+          }}
+        />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-4">
+          <motion.h2
+            className="text-center text-2xl md:text-4xl font-bold mb-12 md:mb-16 bg-clip-text text-transparent"
+            style={{
+              backgroundImage:
+                "linear-gradient(90deg, #ffffff 0%, #ffffff 35%, color-mix(in srgb, var(--color-secondary) 60%, white 40%) 50%, #ffffff 65%, #ffffff 100%)",
+              backgroundSize: "200% 100%",
+              WebkitBackgroundClip: "text",
+            }}
+            animate={{ backgroundPosition: ["200% 0%", "-100% 0%"] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          >
+            {tContent(
+              homeData?.stats_title_bn || "আমাদের সাফল্যের যাত্রা",
+              homeData?.stats_title_en || "Journey of our Success",
+            )}
+          </motion.h2>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-10 gap-x-4">
             {[
               {
                 value: tContent("৳৩ কোটি+", "৳3 Crore+"),
                 isStatic: true,
-                icon: Coins,
                 labelBn: "বিতরণকৃত অর্থ",
                 labelEn: "Amount Distributed",
               },
               {
                 value: stats?.peopleServed || 3000,
                 suffix: "+",
-                icon: Users,
                 labelBn: "উপকারভোগী সংখ্যা",
                 labelEn: "People Served",
               },
               {
                 value: stats?.districtsCovered || 2,
                 suffix: "",
-                icon: MapPin,
                 labelBn: "আওতাধীন জেলাসমূহ",
                 labelEn: "Districts Covered",
               },
               {
                 value: stats?.activeBranches || 2,
                 suffix: "",
-                icon: Building2,
                 labelBn: "সক্রিয় শাখা",
                 labelEn: "Active Branches",
               },
               {
                 value: stats?.yearsActive || 1,
                 suffix: "+",
-                icon: CalendarDays,
                 labelBn: "সক্রিয় বছর",
                 labelEn: "Years Active",
               },
-            ].map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div
-                  key={index}
-                  className="relative flex flex-col items-center text-center gap-3 px-2 py-4 group"
-                >
-                  {/* Vertical divider between columns (desktop only, skip first) */}
-                  {index !== 0 && (
-                    <div className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 h-16 w-px bg-secondary/10"></div>
+            ].map((stat, index) => (
+              <div
+                key={index}
+                className="relative flex flex-col items-center text-center gap-2 px-2"
+              >
+                {/* thin vertical divider between columns (desktop only, skip first) */}
+                {index !== 0 && (
+                  <div className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 h-14 w-px bg-white/15" />
+                )}
+
+                <p className="text-4xl md:text-5xl font-extrabold tracking-tight whitespace-nowrap">
+                  {stat.isStatic ? (
+                    stat.value
+                  ) : (
+                    <StatCounter
+                      value={stat.value as number}
+                      suffix={stat.suffix}
+                    />
                   )}
+                </p>
 
-                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary/10 flex items-center justify-center transition-colors duration-300 group-hover:bg-primary/20">
-                    <Icon className="w-6 h-6 md:w-7 md:h-7 text-primary" />
-                  </div>
-
-                  <p className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary tracking-tight whitespace-nowrap">
-                    {stat.isStatic ? (
-                      stat.value
-                    ) : (
-                      <StatCounter
-                        value={stat.value as number}
-                        suffix={stat.suffix}
-                      />
-                    )}
-                  </p>
-
-                  <p className="text-xs md:text-sm text-gray-700 uppercase tracking-widest font-medium">
-                    {tContent(stat.labelBn, stat.labelEn)}
-                  </p>
-                </div>
-              );
-            })}
+                <p className="text-xs md:text-sm text-white/70 leading-snug max-w-[140px]">
+                  {tContent(stat.labelBn, stat.labelEn)}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -6,6 +6,8 @@
 #C65D2E
 #FFFFFF
 #FBF6EE
+#fffcfc
+#E8EBE0
 */
 :root {
   --color-primary:  #008641;
@@ -20,7 +22,7 @@
   /* dark charcoal - body secondary text */
   --color-icons: #FF7043; 
 
-  --background: #FFFFFF;
+  --background: 	#E8EBE0;
   --foreground: #003C40;
 }
 

@@ -19,46 +19,65 @@ interface LanguageContextProps {
   dbLoading: boolean;
 }
 
-const LanguageContext = createContext<LanguageContextProps | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextProps | undefined>(
+  undefined,
+);
 
 const dictionaries = { bn, en };
 
 const defaultNav = {
-  home_bn: "হোম", home_en: "Home",
-  about_bn: "আমাদের সম্পর্কে", about_en: "About Us",
-  services_bn: "সেবাসমূহ", services_en: "Services",
-  team_bn: "আমাদের দল", team_en: "Team",
-  blog_bn: "ব্লগ", blog_en: "Blog",
-  career_bn: "ক্যারিয়ার", career_en: "Careers",
-  faq_bn: "সাধারণ জিজ্ঞাসা", faq_en: "FAQ",
-  contact_bn: "যোগাযোগ", contact_en: "Contact"
+  home_bn: "হোম",
+  home_en: "Home",
+  about_bn: "আমাদের সম্পর্কে",
+  about_en: "About Us",
+  services_bn: "সেবাসমূহ",
+  services_en: "Services",
+  team_bn: "আমাদের দল",
+  team_en: "Team",
+  blog_bn: "ব্লগ",
+  blog_en: "Blog",
+  career_bn: "ক্যারিয়ার",
+  career_en: "Careers",
+  faq_bn: "সাধারণ জিজ্ঞাসা",
+  faq_en: "FAQ",
+  contact_bn: "যোগাযোগ",
+  contact_en: "Contact",
 };
 
 const defaultSettings = {
   phone: "+8802226617258",
   email: "info@onkur.net",
-  address_bn: "নাভানা সিলভানিয়া (৫ম তলা), হোল্ডিং নং- কা-৬/এ, নদ্দা, গুলশান, ঢাকা, বাংলাদেশ",
-  address_en: "Navana Sylvania (4th Floor), Holding No- Ka-6/A, Nodda, Gulshan, Dhaka, Bangladesh",
-  facebookUrl: "https://www.facebook.com/share/18Z1c45wGT/"
+  address_bn:
+    "নাভানা সিলভানিয়া (৫ম তলা), হোল্ডিং নং- কা-৬/এ, নদ্দা, গুলশান, ঢাকা, বাংলাদেশ",
+  address_en:
+    "Navana Sylvania (4th Floor), Holding No- Ka-6/A, Nodda, Gulshan, Dhaka, Bangladesh",
+  facebookUrl: "https://www.facebook.com/share/18Z1c45wGT/",
 };
 
 const defaultFooter = {
   tagline_bn: "অঙ্কুর – আশা জাগানো, জীবন গড়া। ক্ষুদ্র ঋণ, বড় পরিবর্তন।",
-  tagline_en: "Onkur – Growing Hope, Empowering Lives. Small Loans. Big Change.",
+  tagline_en:
+    "Onkur – Growing Hope, Empowering Lives. Small Loans. Big Change.",
   quickLinks: [
     { label_bn: "হোম", label_en: "Home", url: "/" },
     { label_bn: "আমাদের সম্পর্কে", label_en: "About Us", url: "/about" },
-    { label_bn: "সেবাসমূহ", label_en: "Services", url: "/services" },
-    { label_bn: "আমাদের দল", label_en: "Team", url: "/team" },
-    { label_bn: "ব্লগ", label_en: "Blog", url: "/blog" },
+    {
+      label_bn: " আর্থিক সেবাসমূহ",
+      label_en: "Financial Services",
+      url: "/services",
+    },
+    { label_bn: "আমাদের দল", label_en: "Our Team", url: "/team" },
+    { label_bn: "ব্লগ", label_en: "Insights", url: "/blog" },
     { label_bn: "ক্যারিয়ার", label_en: "Careers", url: "/career" },
-    { label_bn: "যোগাযোগ", label_en: "Contact", url: "/contact" }
+    { label_bn: "যোগাযোগ", label_en: "Contact", url: "/contact" },
   ],
   copyrightText_bn: "© ২০২৬ অঙ্কুর ফাউন্ডেশন। সর্বস্বত্ব সংরক্ষিত।",
-  copyrightText_en: "© 2026 Onkur Foundation. All Rights Reserved."
+  copyrightText_en: "© 2026 Onkur Foundation. All Rights Reserved.",
 };
 
-export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [language, setLanguageState] = useState<Language>("bn");
   const [mounted, setMounted] = useState(false);
   const [nav, setNav] = useState<any>(defaultNav);
@@ -88,23 +107,35 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       }
     };
 
-    const unsubNav = onValue(navRef, (snapshot) => {
-      const val = snapshot.val();
-      if (val) setNav(val);
-      checkLoaded();
-    }, () => checkLoaded());
+    const unsubNav = onValue(
+      navRef,
+      (snapshot) => {
+        const val = snapshot.val();
+        if (val) setNav(val);
+        checkLoaded();
+      },
+      () => checkLoaded(),
+    );
 
-    const unsubSettings = onValue(settingsRef, (snapshot) => {
-      const val = snapshot.val();
-      if (val) setSettings(val);
-      checkLoaded();
-    }, () => checkLoaded());
+    const unsubSettings = onValue(
+      settingsRef,
+      (snapshot) => {
+        const val = snapshot.val();
+        if (val) setSettings(val);
+        checkLoaded();
+      },
+      () => checkLoaded(),
+    );
 
-    const unsubFooter = onValue(footerRef, (snapshot) => {
-      const val = snapshot.val();
-      if (val) setFooterContent(val);
-      checkLoaded();
-    }, () => checkLoaded());
+    const unsubFooter = onValue(
+      footerRef,
+      (snapshot) => {
+        const val = snapshot.val();
+        if (val) setFooterContent(val);
+        checkLoaded();
+      },
+      () => checkLoaded(),
+    );
 
     return () => {
       unsubNav();
@@ -136,9 +167,26 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t, tContent, nav, settings, footerContent, dbLoading }}>
+    <LanguageContext.Provider
+      value={{
+        language,
+        setLanguage,
+        t,
+        tContent,
+        nav,
+        settings,
+        footerContent,
+        dbLoading,
+      }}
+    >
       <div
-        className={mounted ? (language === "bn" ? "font-bengali" : "font-english") : "font-bengali"}
+        className={
+          mounted
+            ? language === "bn"
+              ? "font-bengali"
+              : "font-english"
+            : "font-bengali"
+        }
         style={{ visibility: mounted ? "visible" : "hidden" }}
       >
         {children}
