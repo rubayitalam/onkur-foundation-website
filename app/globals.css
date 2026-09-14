@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+/*
+#FF7043
+#00df6c
+#C65D2E
+#FFFFFF
+#FBF6EE
+#fffcfc
+#E8EBE0
+*/
+:root {
+  --color-primary:  #008641;
+  /* vibrant orange -  accent, CTA buttons, nav */
+  --color-secondary: #003C40;
+  /* dark teal - primary text, headings */
+  --color-base: #FFFFFF;
+  /* pure white - page background */
+  --color-gold: #C9973B;
+  /* muted gold - badges/icons */
+  --color-text: #1F2937;
+  /* dark charcoal - body secondary text */
+  --color-icons: #FF7043; 
+
+  --background: 	#E8EBE0;
+  --foreground: #003C40;
+}
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-base: var(--color-base);
+  --color-gold: var(--color-gold);
+  --color-text: var(--color-text);
+
+  --font-sans: var(--font-inter), var(--font-hind-siliguri), sans-serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.font-bengali {
+  font-family: var(--font-hind-siliguri), Arial, sans-serif;
+}
+
+.font-english {
+  font-family: var(--font-inter), Arial, sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Dynamic slider active track styling */
+.toggle-track-active {
+  transform: translateX(100%);
+}

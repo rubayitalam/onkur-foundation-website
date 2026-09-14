@@ -1,0 +1,141 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { useLanguage } from "@/context/LanguageContext";
+import { Lock, Mail, Loader2 } from "lucide-react";
+
+export default function AdminLoginPage() {
+  const router = useRouter();
+  const { tContent } = useLanguage();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push("/admin/dashboard");
+      } else {
+        setCheckingAuth(false);
+      }
+    });
+    return () => unsub();
+  }, [router]);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push("/admin/dashboard");
+    } catch (err: any) {
+      setError(err.message || "Invalid credentials. Please try again.");
+      setLoading(false);
+    }
+  };
+
+  if (checkingAuth) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-white">
+        <Loader2 className="w-8 h-8 text-secondary animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-[80vh] flex items-center justify-center bg-white px-4 py-16">
+      <div className="max-w-md w-full bg-white rounded-3xl p-8 border border-secondary/10 shadow-lg space-y-6">
+        
+        <div className="text-center space-y-3">
+          <div className="flex justify-center">
+            <div className="bg-white rounded-xl px-4 py-2.5 shadow-md border border-secondary/10 inline-block">
+              <img src="/logo.png" alt="অঙ্কুর লোগো" className="h-11 sm:h-12 w-auto object-contain" />
+            </div>
+          </div>
+          <h1 className="text-2xl font-bold text-secondary">
+            {tContent("অঙ্কুর অ্যাডমিন প্যানেল", "Onkur Admin Portal")}
+          </h1>
+          <p className="text-xs text-text font-normal uppercase tracking-wider">
+            {tContent("অনুমোদিত ব্যক্তিদের জন্য লগইন", "Authorized Personnel Only")}
+          </p>
+        </div>
+
+        {error && (
+          <div className="bg-red-50 text-red-600 text-sm p-4 rounded-md border border-red-100 font-light">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div className="space-y-1">
+            <label className="text-xs font-semibold uppercase text-text block">
+              {tContent("ইমেইল ঠিকানা", "Email Address")}
+            </label>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-text">
+                <Mail className="w-4 h-4" />
+              </span>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@onkur.net"
+                className="w-full pl-10 pr-4 py-3 bg-white border border-secondary/10 rounded-lg focus:outline-none focus:border-primary text-sm"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-1">
+            <label className="text-xs font-semibold uppercase text-text block">
+              {tContent("পাসওয়ার্ড", "Password")}
+            </label>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-text">
+                <Lock className="w-4 h-4" />
+              </span>
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full pl-10 pr-4 py-3 bg-white border border-secondary/10 rounded-lg focus:outline-none focus:border-primary text-sm"
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-white hover:bg-gray-100 text-white py-3.5 rounded-lg text-sm font-semibold tracking-wide shadow-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>{tContent("লগইন করা হচ্ছে...", "Logging in...")}</span>
+              </>
+            ) : (
+              <span>{tContent("লগইন করুন", "Login")}</span>
+            )}
+          </button>
+        </form>
+
+        <div className="text-center pt-2">
+          <Link href="/" className="text-xs text-primary hover:underline font-light">
+            {tContent("মূল ওয়েবসাইটে ফিরে যান", "Back to Home Page")}
+          </Link>
+        </div>
+
+      </div>
+    </div>
+  );
+}
