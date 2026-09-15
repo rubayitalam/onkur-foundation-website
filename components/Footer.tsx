@@ -10,7 +10,10 @@ export default function Footer() {
 
   const servicesList = [
     { labelBn: "ক্ষুদ্র (নারী) ঋণ", labelEn: "Small (Women's) Loan" },
-    { labelBn: "ক্ষুদ্র ব্যবসা ও উদ্যোক্তা ঋণ", labelEn: "Small Business & Entrepreneur Loan" }
+    {
+      labelBn: "ক্ষুদ্র ব্যবসা ও উদ্যোক্তা ঋণ",
+      labelEn: "Small Business & Entrepreneur Loan",
+    },
   ];
 
   return (
@@ -62,16 +65,18 @@ export default function Footer() {
               {tContent("দ্রুত লিংক", "Quick Links")}
             </h3>
             <ul className="space-y-2">
-              {(footerContent?.quickLinks || []).map((link: any, index: number) => (
-                <li key={index}>
-                  <Link
-                    href={link.url}
-                    className="text-sm text-secondary hover:text-primary transition-colors"
-                  >
-                    {tContent(link.label_bn, link.label_en)}
-                  </Link>
-                </li>
-              ))}
+              {(footerContent?.quickLinks || []).map(
+                (link: any, index: number) => (
+                  <li key={index}>
+                    <Link
+                      href={link.url}
+                      className="text-sm text-secondary hover:text-primary transition-colors"
+                    >
+                      {tContent(link.label_bn, link.label_en)}
+                    </Link>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
 
@@ -102,12 +107,17 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-secondary">
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                <span>{tContent(settings?.address_bn, settings?.address_en)}</span>
+                <span>
+                  {tContent(settings?.address_bn, settings?.address_en)}
+                </span>
               </li>
               {settings?.phone && (
                 <li className="flex items-center gap-2">
                   <Phone className="w-3.5 h-3.5 text-primary" />
-                  <a href={`tel:${settings.phone}`} className="hover:text-primary transition-colors">
+                  <a
+                    href={`tel:${settings.phone}`}
+                    className="hover:text-primary transition-colors"
+                  >
                     {settings.phone}
                   </a>
                 </li>
@@ -115,7 +125,10 @@ export default function Footer() {
               {settings?.email && (
                 <li className="flex items-center gap-2">
                   <Mail className="w-3.5 h-3.5 text-primary" />
-                  <a href={`mailto:${settings.email}`} className="hover:text-primary transition-colors">
+                  <a
+                    href={`mailto:${settings.email}`}
+                    className="hover:text-primary transition-colors"
+                  >
                     {settings.email}
                   </a>
                 </li>
@@ -131,7 +144,7 @@ export default function Footer() {
             <p className="text-sm text-secondary/80 leading-relaxed mb-4">
               {tContent(
                 "সহজ শর্তে ক্ষুদ্র ঋণের জন্য আবেদন করুন।",
-                "Apply on easy terms and reach your goals."
+                "Apply on easy terms and reach your goals.",
               )}
             </p>
             <Link
@@ -147,8 +160,10 @@ export default function Footer() {
         <div className="border-t border-secondary/15 pt-5 flex flex-col md:flex-row items-center justify-between text-xs text-secondary/80 gap-3">
           <p>
             {tContent(
-              footerContent?.copyrightText_bn || "© ২০২৬ অঙ্কুর ফাউন্ডেশন। সর্বস্বত্ব সংরক্ষিত।",
-              footerContent?.copyrightText_en || "© 2026 Onkur Foundation. All Rights Reserved."
+              footerContent?.copyrightText_bn ||
+                "© ২০২৬ অঙ্কুর ফাউন্ডেশন। সর্বস্বত্ব সংরক্ষিত।",
+              footerContent?.copyrightText_en ||
+                "© 2026 Onkur Foundation. All Rights Reserved.",
             )}
           </p>
           <Link href="/admin" className="hover:underline hover:text-primary">
@@ -156,6 +171,6 @@ export default function Footer() {
           </Link>
         </div>
       </div>
-    </footer >
+    </footer>
   );
 }

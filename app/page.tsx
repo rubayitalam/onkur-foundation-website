@@ -2,18 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import {
-  ref,
-  onValue,
-  query,
-  orderByChild,
-  limitToLast,
-} from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { db } from "@/lib/firebase";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
-import sproutImg from "../public/sprout.jpg";
-import hero1 from "../public/hero1.jpg";
 import hero2 from "../public/hero2.png";
 import {
   Sprout,
@@ -21,21 +13,13 @@ import {
   TrendingUp,
   ArrowRight,
   CheckCircle2,
-  Award,
-  Calendar,
-  Users,
-  MapPin,
   ShieldCheck,
   Coins,
   PiggyBank,
   HeartHandshake,
-  Building2,
-  CalendarDays,
-  Smartphone,
 } from "lucide-react";
 import StatCounter from "@/components/StatCounter";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
-import HeroImg from "@/onkur-foundation-website/public/hero1.jpg";
 import PhotoMarquee from "@/components/PhotoMarquee";
 
 export default function HomePage() {
@@ -47,7 +31,6 @@ export default function HomePage() {
   const [blogPosts, setBlogPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Active tab state for Mission/Vision/Values
   const [activeTab, setActiveTab] = useState<"mission" | "vision" | "values">(
     "mission",
   );
@@ -91,7 +74,7 @@ export default function HomePage() {
           const arr = Object.keys(val)
             .map((k) => ({ id: k, ...val[k] }))
             .sort((a, b) => (a.order || 0) - (b.order || 0))
-            .slice(0, 3); // Previews top 3
+            .slice(0, 3);
           setTeam(arr);
         }
         checkAllLoaded();
@@ -126,7 +109,7 @@ export default function HomePage() {
                 new Date(b.publishedAt).getTime() -
                 new Date(a.publishedAt).getTime(),
             )
-            .slice(0, 2); // Previews recent 2
+            .slice(0, 2);
           setBlogPosts(arr);
         }
         checkAllLoaded();
@@ -149,16 +132,16 @@ export default function HomePage() {
       text_en: "Provide fair and transparent microloans",
     },
     {
-      text_bn: "নারী ও গ্রামীণ পরিবারের ক্ষমতায়ন",
+      text_bn: "নারী ও গ্রামীণ পরিবারের ক্ষমতায়ন",
       text_en: "Empower women and rural families",
     },
     {
-      text_bn: "কৃষক ও ক্ষুদ্র ব্যবসায়ীদের সহায়তা",
+      text_bn: "কৃষক ও ক্ষুদ্র ব্যবসায়ীদের সহায়তা",
       text_en: "Support farmers and small businesses",
     },
     { text_bn: "আর্থিক সচেতনতা বৃদ্ধি", text_en: "Promote financial literacy" },
     {
-      text_bn: "প্রতিটি সম্পদকে কমিউনিটির কল্যাণে পুনঃবিনিয়োগ",
+      text_bn: "প্রতিটি সম্পদকে কমিউনিটির কল্যাণে পুনঃবিনিয়োগ",
       text_en: "Reinvest every resource into communities",
     },
   ];
@@ -189,7 +172,7 @@ export default function HomePage() {
   const defaultValuesBullets = [
     { text_bn: "প্রতিটি কাজে সততা", text_en: "Integrity in every action" },
     {
-      text_bn: "মানুষ ও নতুন ধারণার ক্ষমতায়ন",
+      text_bn: "মানুষ ও নতুন ধারণার ক্ষমতায়ন",
       text_en: "Empowerment of people and ideas",
     },
     {
@@ -205,21 +188,19 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-screen bg-white py-32">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-secondary"></div>
+      <div className="flex items-center justify-center min-h-[60vh] bg-white py-32">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-secondary" />
       </div>
     );
   }
 
-  // Icons mapper for services
   const getIcon = (iconName: string) => {
     switch (iconName) {
-      case "Sprout":
-        return <Sprout className="w-8 h-8 text-primary" />;
       case "Store":
         return <Store className="w-8 h-8 text-primary" />;
       case "TrendingUp":
         return <TrendingUp className="w-8 h-8 text-primary" />;
+      case "Sprout":
       default:
         return <Sprout className="w-8 h-8 text-primary" />;
     }
@@ -227,14 +208,13 @@ export default function HomePage() {
 
   const getWhyIcon = (iconName: string) => {
     switch (iconName) {
-      case "ShieldCheck":
-        return <ShieldCheck className="w-8 h-8 text-primary" />;
       case "Coins":
         return <Coins className="w-8 h-8 text-primary" />;
       case "PiggyBank":
         return <PiggyBank className="w-8 h-8 text-primary" />;
       case "HeartHandshake":
         return <HeartHandshake className="w-8 h-8 text-primary" />;
+      case "ShieldCheck":
       default:
         return <ShieldCheck className="w-8 h-8 text-primary" />;
     }
@@ -246,7 +226,7 @@ export default function HomePage() {
       title_bn: "স্বচ্ছ নীতিমালা",
       title_en: "Transparent Policies",
       desc_bn:
-        "কোনো গোপন চার্জ বা অতিরিক্ত ফি নেই। আবেদনের সময় সকল শর্তাবলি স্পষ্টভাবে বুঝিয়ে দেওয়া হয়।",
+        "কোনো গোপন চার্জ বা অতিরিক্ত ফি নেই। আবেদনের সময় সকল শর্তাবলি স্পষ্টভাবে বুঝিয়ে দেওয়া হয়।",
       desc_en:
         "No hidden fees or extra charges. All terms are clearly explained during application.",
     },
@@ -255,7 +235,7 @@ export default function HomePage() {
       title_bn: "জামানতবিহীন ঋণ",
       title_en: "Collateral-Free Loans",
       desc_bn:
-        "সুবিধাবঞ্চিত ও প্রান্তিক ঋণগ্রহীতাদের জন্য কোনো প্রকার জামানত বা স্থাবর সম্পত্তি ছাড়াই ঋণের সুযোগ।",
+        "সুবিধাবঞ্চিত ও প্রান্তিক ঋণগ্রহীতাদের জন্য কোনো প্রকার জামানত বা স্থাবর সম্পত্তি ছাড়াই ঋণের সুযোগ।",
       desc_en:
         "Collateral-free microloans designed specifically for underserved rural borrowers without assets.",
     },
@@ -264,7 +244,7 @@ export default function HomePage() {
       title_bn: "সঞ্চয়ী হিসাব (৬% লভ্যাংশ)",
       title_en: "Savings Program (6% Interest)",
       desc_bn:
-        "সহজ সঞ্চয় অভ্যাস গড়ে তোলার জন্য বার্ষিক ৬% লভ্যাংশ সহ নমনীয় সঞ্চয় কর্মসূচি।",
+        "সহজ সঞ্চয় অভ্যাস গড়ে তোলার জন্য বার্ষিক ৬% লভ্যাংশ সহ নমনীয় সঞ্চয় কর্মসূচি।",
       desc_en:
         "Flexible savings scheme yielding 6% annual interest to encourage consistent financial habits.",
     },
@@ -273,7 +253,7 @@ export default function HomePage() {
       title_bn: "ঋণ বীমা সুবিধা",
       title_en: "Borrower Credit Insurance",
       desc_bn:
-        "ঋণগ্রহীতার মৃত্যু বা শারীরিক অক্ষমতায় পরিবারকে ঋণের বোঝা থেকে মুক্তি দিতে বিশেষ বীমা কভারেজ।",
+        "ঋণগ্রহীতার মৃত্যু বা শারীরিক অক্ষমতায় পরিবারকে ঋণের বোঝা থেকে মুক্তি দিতে বিশেষ বীমা কভারেজ।",
       desc_en:
         "Special credit insurance covering outstanding debt in the event of borrower death or disability.",
     },
@@ -291,10 +271,10 @@ export default function HomePage() {
     },
     {
       step_num: 2,
-      title_bn: "মাঠপর্যায়ে যাচাই",
+      title_bn: "মাঠপর্যায়ে যাচাই",
       title_en: "On-Ground Verification",
       desc_bn:
-        "আমাদের মাঠ কর্মকর্তা আপনার ঠিকানা ও কাজের জায়গা পরিদর্শনের মাধ্যমে সাধারণ যাচাই সম্পন্ন করবেন।",
+        "আমাদের মাঠ কর্মকর্তা আপনার ঠিকানা ও কাজের জায়গা পরিদর্শনের মাধ্যমে সাধারণ যাচাই সম্পন্ন করবেন।",
       desc_en:
         "Our field officer visits your home or workplace to perform basic verification.",
     },
@@ -303,17 +283,16 @@ export default function HomePage() {
       title_bn: "ঋণ বিতরণ",
       title_en: "Disbursement",
       desc_bn:
-        "অনুমোদনের পর সরাসরি ব্রাঞ্চ থেকে অথবা মোবাইল ফাইন্যান্সিয়াল সার্ভিসের মাধ্যমে ঋণ বিতরণ।",
+        "অনুমোদনের পর সরাসরি ব্রাঞ্চ থেকে অথবা মোবাইল ফাইন্যান্সিয়াল সার্ভিসের মাধ্যমে ঋণ বিতরণ।",
       desc_en:
         "Funds disbursed directly from our branch office or through Mobile Financial Services.",
     },
   ];
 
   return (
-    <div className="space-y-24 pb-20">
-      {/* 1. Hero Section - Modern Redesign */}
+    <div className="pb-20">
+      {/* 1. Hero Section */}
       <section className="relative min-h-[90vh] md:min-h-screen flex items-center bg-secondary text-white overflow-hidden">
-        {/* Background image with subtle zoom animation */}
         <motion.div
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
@@ -327,24 +306,21 @@ export default function HomePage() {
           />
         </motion.div>
 
-        {/* Layered gradient overlays for depth & readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/60 to-black/80" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.5),_transparent_75%)]" />
 
-        {/* Animated grain / noise texture overlay */}
         <div
-          className="absolute inset-0 opacity-[0.15] mix-blend-overlay pointer-events-none"
+          className="absolute inset-0 opacity-15 mix-blend-overlay pointer-events-none"
           style={{
             backgroundImage:
               "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
           }}
         />
 
-        {/* Ambient accent blobs with pulse animation */}
         <motion.div
           animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.4, 0.25] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-32 -left-32 w-[28rem] h-[28rem] bg-primary/40 rounded-full blur-[120px]"
+          className="absolute -bottom-32 -left-32 w-96 h-96 bg-primary/40 rounded-full blur-3xl pointer-events-none"
         />
         <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
@@ -354,27 +330,12 @@ export default function HomePage() {
             ease: "easeInOut",
             delay: 1,
           }}
-          className="absolute -top-32 -right-32 w-[28rem] h-[28rem] bg-primary/30 rounded-full blur-[120px]"
+          className="absolute -top-32 -right-32 w-96 h-96 bg-primary/30 rounded-full blur-3xl pointer-events-none"
         />
 
-        {/* Decorative grid lines */}
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
-          <div
-            className="w-full h-full"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
-              backgroundSize: "80px 80px",
-            }}
-          />
-        </div>
-
-        {/* Main content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="grid lg:grid-cols-12 gap-8 items-center">
-            {/* Left: Text content */}
             <div className="lg:col-span-8 flex flex-col items-start text-left space-y-8">
-              {/* Eyebrow / badge */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -386,28 +347,26 @@ export default function HomePage() {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
                 </span>
                 <span className="text-xs sm:text-sm font-medium tracking-wide text-green-200 uppercase">
-                  {tContent("গ্রামীণ উন্নয়ন", "Rural Development")}
+                  {tContent("গ্রামীণ উন্নয়ন", "Rural Development")}
                 </span>
               </motion.div>
 
-              {/* Heading with gradient highlight */}
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.7)]"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight drop-shadow-md"
               >
                 <span className="bg-gradient-to-r from-white via-green-50 to-green-200 bg-clip-text text-transparent">
                   {tContent(homeData?.hero_title_bn, homeData?.hero_title_en)}
                 </span>
               </motion.h1>
 
-              {/* Subtitle */}
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.35 }}
-                className="text-base sm:text-lg md:text-xl text-white/85 leading-relaxed font-light max-w-2xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+                className="text-base sm:text-lg md:text-xl text-white/85 leading-relaxed font-light max-w-2xl drop-shadow-sm"
               >
                 {tContent(
                   homeData?.hero_subtitle_bn,
@@ -415,25 +374,21 @@ export default function HomePage() {
                 )}
               </motion.p>
 
-              {/* CTA buttons */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 className="flex flex-wrap items-center gap-4 pt-2"
               >
-                {/* Primary CTA with shine effect */}
                 <Link
                   href="/contact"
-                  className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.45)] hover:-translate-y-0.5 flex items-center gap-2"
+                  className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-lg hover:-translate-y-0.5 flex items-center gap-2"
                 >
                   <span className="relative z-10">{t("common.applyNow")}</span>
                   <ArrowRight className="relative z-10 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                  {/* Shine sweep */}
                   <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
                 </Link>
 
-                {/* Secondary CTA */}
                 <Link
                   href="/about"
                   className="group border border-white/30 hover:border-white/70 hover:bg-white/10 text-white px-8 py-4 rounded-xl font-semibold transition-all backdrop-blur-md flex items-center gap-2"
@@ -448,7 +403,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -461,19 +415,28 @@ export default function HomePage() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            className="w-[1px] h-8 bg-gradient-to-b from-white/60 to-transparent"
+            className="w-px h-8 bg-gradient-to-b from-white/60 to-transparent"
           />
         </motion.div>
       </section>
 
       {/* 2. What We Do Section */}
-      <section className="relative  py-24 bg-gradient-to-b from-white via-[#F7FAFA] to-white overflow-hidden">
-        {/* Decorative background blobs */}
-        <div className="absolute top-20 -left-32 w-96 h-96 bg-[#003C40]/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-20 -right-32 w-96 h-96 bg-[#0A5C61]/5 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none -z-10">
+          <div
+            className="absolute inset-0 w-full h-full opacity-20"
+            style={{
+              backgroundImage: "url('/leaf-1.jpg')",
+              backgroundRepeat: "repeat",
+              backgroundSize: "420px",
+            }}
+          />
+          <div className="absolute inset-0 bg-white/40" />
+          <div className="absolute top-20 -left-32 w-96 h-96 bg-[#003C40]/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 -right-32 w-96 h-96 bg-[#0A5C61]/5 rounded-full blur-3xl" />
+        </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          {/* ---------- Header ---------- */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -481,7 +444,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-center max-w-2xl mx-auto mb-16 space-y-4"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#003C40]/8 text-[#003C40] font-semibold text-xs uppercase tracking-[0.2em]">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#003C40]/10 text-[#003C40] font-semibold text-xs uppercase tracking-[0.2em]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#003C40] animate-pulse" />
               {tContent("কার্যক্রম", "What We Do")}
             </span>
@@ -491,7 +454,7 @@ export default function HomePage() {
                 "Financial Support that Transforms Lives",
               )}
             </h2>
-            <p className="text-base md:text-lg text-text font-normal leading-relaxed">
+            <p className="text-base md:text-lg text-secondary/80 font-normal leading-relaxed">
               {tContent(
                 "আমাদের তৈরি বিশেষ ঋণ সুবিধাগুলো সুবিধাবঞ্চিত গ্রামীণ জনগোষ্ঠীর প্রয়োজন অনুযায়ী সাজানো হয়েছে।",
                 "Our microloan designs target specific needs of rural populations to foster economic growth.",
@@ -499,10 +462,8 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          {/* ---------- Animated Photo Grid ---------- */}
           <PhotoMarquee />
 
-          {/* ---------- Service Cards ---------- */}
           <div
             className={`grid grid-cols-1 gap-6 lg:gap-8 mt-20 ${
               (homeData?.services || []).length === 2
@@ -522,10 +483,9 @@ export default function HomePage() {
                   ease: "easeOut",
                 }}
                 whileHover={{ y: -8 }}
-                className="group relative p-8 rounded-3xl bg-white border border-[#003C40]/10 shadow-[0_4px_24px_-8px_rgba(0,60,64,0.08)] hover:shadow-[0_24px_48px_-16px_rgba(0,60,64,0.18)] transition-all duration-500 flex flex-col justify-between overflow-hidden"
+                className="group relative p-8 rounded-3xl bg-white border border-[#003C40]/10 shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col justify-between overflow-hidden"
               >
-                {/* Hover gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#003C40]/0 via-[#003C40]/0 to-[#0A5C61]/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#003C40]/0 to-[#0A5C61]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                 <div className="relative space-y-6">
                   {index < 2 ? (
@@ -537,10 +497,7 @@ export default function HomePage() {
                       />
                     </div>
                   ) : (
-                    <div
-                      className="p-4 rounded-2xl inline-flex items-center justify-center transition-all duration-500 group-hover:bg-[#003C40] group-hover:scale-105"
-                      style={{ backgroundColor: "rgba(0,60,64,0.08)" }}
-                    >
+                    <div className="p-4 rounded-2xl inline-flex items-center justify-center transition-all duration-500 bg-[#003C40]/10 group-hover:bg-[#003C40] group-hover:scale-105">
                       <div className="text-[#003C40] group-hover:text-white transition-colors duration-500">
                         {getIcon(service.icon)}
                       </div>
@@ -550,7 +507,7 @@ export default function HomePage() {
                   <h3 className="text-xl font-bold text-[#003C40] group-hover:text-[#0A5C61] transition-colors duration-300">
                     {tContent(service.title_bn, service.title_en)}
                   </h3>
-                  <p className="text-sm leading-relaxed text-text font-normal">
+                  <p className="text-sm leading-relaxed text-secondary/80 font-normal">
                     {tContent(service.desc_bn, service.desc_en)}
                   </p>
                 </div>
@@ -569,23 +526,23 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       {/* 3. Breaking Barriers Section */}
       <section className="py-20 border-y border-secondary/5 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Col (Text Content) */}
             <div className="lg:col-span-7 space-y-6">
               <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
                 {tContent("আমাদের লক্ষ্য", "Our Core Mission")}
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-secondary">
+              <h2 className="text-3xl md:text-4xl font-bold text-secondary leading-snug">
                 {tContent(
                   !homeData?.mission_heading_bn ||
                     homeData.mission_heading_bn ===
                       "আর্থিক সেবার মাধ্যমে বাধা দূর করা" ||
                     homeData.mission_heading_bn ===
                       "অর্থায়নের মাধ্যমে বাধা ভাঙা"
-                    ? "ডিজিটাল পদ্ধতিতে ক্ষুদ্র আর্থিক সেবার মাধ্যমে দারিদ্রমুক্ত সুখী সমৃদ্ধ বৈষম্যহীন ন্যায়ভিত্তিক সমাজ প্রতিষ্ঠা"
+                    ? "ডিজিটাল পদ্ধতিতে ক্ষুদ্র আর্থিক সেবার মাধ্যমে দারিদ্রমুক্ত সুখী সমৃদ্ধ বৈষম্যহীন ন্যায়ভিত্তিক সমাজ প্রতিষ্ঠা"
                     : homeData.mission_heading_bn,
                   !homeData?.mission_heading_en ||
                     homeData.mission_heading_en ===
@@ -594,7 +551,7 @@ export default function HomePage() {
                     : homeData.mission_heading_en,
                 )}
               </h2>
-              <p className="text-base text-secondary leading-relaxed font-normal">
+              <p className="text-base text-secondary/80 leading-relaxed font-normal">
                 {tContent(
                   homeData?.mission_body_bn ||
                     "অঙ্কুর ফাউন্ডেশনে আমরা বিশ্বাস করি যে, প্রকৃত ক্ষমতায়ন তখনই শুরু হয় যখন আর্থিক সুযোগগুলো তাদের কাছে পৌঁছায় যাদের এটি সবচেয়ে বেশি প্রয়োজন। দীর্ঘ সময় ধরে গ্রামীণ এবং প্রান্তিক জনগোষ্ঠী আনুষ্ঠানিক আর্থিক ব্যবস্থার বাইরে থেকে গেছে, যা তাদের বৃদ্ধি, বিনিয়োগ এবং ভবিষ্যত সুরক্ষিত করার ক্ষমতাকে সীমিত করেছে। আমরা অর্থায়নে প্রবেশাধিকার সহজ, অন্তর্ভুক্তিমূলক এবং প্রভাবশালী করার মাধ্যমে এই বাধাগুলি ভেঙে দিতে প্রতিশ্রুতিবদ্ধ। আমাদের উদ্যোগের মাধ্যমে আমরা সুবিধাবঞ্চিত ব্যক্তি এবং সম্প্রদায়কে আর্থিক পরিষেবার সাথে সংযুক্ত করি যা শিক্ষা, উদ্যোক্তা, স্বাস্থ্যসেবা এবং টেকসই জীবিকার পথ উন্মুক্ত করে।",
@@ -605,17 +562,16 @@ export default function HomePage() {
               <div className="pt-4">
                 <Link
                   href="/about"
-                  className="inline-flex items-center bg-primary hover:bg-green-600 text-white px-6 py-3 rounded-md text-sm font-medium transition-colors gap-2"
+                  className="inline-flex items-center bg-primary hover:bg-green-600 text-white px-6 py-3 rounded-md text-sm font-medium transition-colors gap-2 shadow-sm"
                 >
                   <span>
-                    {tContent("বিস্তারিত পড়ুন", "Read Full Narrative")}
+                    {tContent("বিস্তারিত পড়ুন", "Read Full Narrative")}
                   </span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
 
-            {/* Right Col (Visual Panel) */}
             <div className="lg:col-span-5 relative">
               <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-lg border border-secondary/10">
                 <img
@@ -638,78 +594,93 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
-            {tContent("অনন্য বৈশিষ্ট্য", "Why Choose Us")}
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-secondary">
-            {tContent(
-              homeData?.why_title_bn || "কেন অঙ্কুর ফাউন্ডেশন?",
-              homeData?.why_title_en || "Why Choose Onkur Foundation?",
-            )}
-          </h2>
-          <p className="text-base text-gray-700 font-normal">
-            {tContent(
-              "আমাদের সহজ ও মানবকল্যাণমুখী নীতিমালা গ্রামীণ সুবিধাবঞ্চিত পরিবারের জীবনে মর্যাদাপূর্ণ আর্থিক সচ্ছলতা নিশ্চিত করে।",
-              "Our simple and borrower-first credit terms help guarantee dignified livelihoods for rural families.",
-            )}
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {(homeData?.why_cards || defaultWhyCards).map(
-            (card: any, idx: number) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className="group relative bg-white rounded-2xl border border-secondary/10 pl-7 pr-6 py-7 overflow-hidden transition-colors duration-300 hover:border-secondary/20"
-              >
-                {/* accent rule — thickens on hover */}
-                <span className="absolute left-0 top-0 h-full w-[3px] bg-primary/40 transition-all duration-300 group-hover:w-[6px] group-hover:bg-primary" />
+      {/* 4. Why Choose Us Section */}
+      <section className="relative overflow-hidden w-full py-16 md:py-24">
+        {/* পুরো সেকশন জুড়ে ব্যাকগ্রাউন্ড প্যাটার্ন */}
+        <div
+          className="absolute inset-0 w-full h-full opacity-10 pointer-events-none -z-10"
+          style={{
+            backgroundImage: "url('/leaf-1.jpg')",
+            backgroundRepeat: "repeat",
+            backgroundSize: "580px", // প্রয়োজনমতো প্যাটার্নের ঘনত্ব নিয়ন্ত্রণ করুন
+            backgroundPosition: "center",
+          }}
+        />
 
-                {/* faded serial tab */}
-                <span className="absolute top-5 right-6 text-[11px] font-semibold tracking-wide text-secondary/20 tabular-nums">
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
+        {/* কনটেন্ট কন্টেইনার (প্যাডিং ও ম্যাক্স-উইডথ সহ) */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* হেডার কনটেন্ট */}
+          <div className="relative z-10 text-center max-w-2xl mx-auto mb-14 md:mb-16 space-y-4">
+            <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
+              {tContent("অনন্য বৈশিষ্ট্য", "Why Choose Us")}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-secondary">
+              {tContent(
+                homeData?.why_title_bn || "কেন অঙ্কুর ফাউন্ডেশন?",
+                homeData?.why_title_en || "Why Choose Onkur Foundation?",
+              )}
+            </h2>
+            <p className="text-base text-gray-600 font-normal">
+              {tContent(
+                "আমাদের সহজ ও মানবকল্যাণমুখী নীতিমালা গ্রামীণ সুবিধাবঞ্চিত পরিবারের জীবনে মর্যাদাপূর্ণ আর্থিক সচ্ছলতা নিশ্চিত করে।",
+                "Our simple and borrower-first credit terms help guarantee dignified livelihoods for rural families.",
+              )}
+            </p>
+          </div>
 
-                <div className="flex flex-col gap-4">
-                  <div className="w-14 h-14 rounded-full border-2 border-primary/25 flex items-center justify-center transition-colors duration-300 group-hover:bg-primary group-hover:border-primary [&>svg]:transition-colors [&>svg]:duration-300 [&>svg]:text-primary group-hover:[&>svg]:text-white">
-                    {getWhyIcon(card.icon)}
+          {/* কার্ড গ্রিড */}
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {(homeData?.why_cards || defaultWhyCards).map(
+              (card: any, idx: number) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.4, delay: idx * 0.05 }}
+                  className="group relative bg-white rounded-2xl border border-secondary/10 pl-7 pr-6 py-7 overflow-hidden transition-colors duration-300 hover:border-secondary/20 shadow-sm"
+                >
+                  <span className="absolute left-0 top-0 h-full w-[3px] bg-primary/40 transition-all duration-300 group-hover:w-[6px] group-hover:bg-primary" />
+
+                  <span className="absolute top-5 right-6 text-[15px] font-semibold tracking-wide text-secondary/10 tabular-nums">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+
+                  <div className="flex flex-col gap-4">
+                    <div className="w-14 h-14 rounded-2xl border border-primary/20 flex items-center justify-center transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:-translate-y-1 [&>svg]:transition-all [&>svg]:duration-300 [&>svg]:text-primary group-hover:[&>svg]:text-white group-hover:[&>svg]:scale-110">
+                      {getWhyIcon(card.icon)}
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold text-secondary mb-2 transition-colors duration-300 group-hover:text-primary">
+                        {tContent(
+                          card.title_bn || card.title,
+                          card.title_en || card.title,
+                        )}
+                      </h3>
+                      <span className="block w-8 h-px bg-secondary/15 mb-3" />
+                      <p className="text-sm text-gray-700 font-normal leading-relaxed">
+                        {tContent(
+                          card.desc_bn ||
+                            card.description_bn ||
+                            card.desc ||
+                            card.details_bn,
+                          card.desc_en ||
+                            card.description_en ||
+                            card.desc ||
+                            card.details_en,
+                        )}
+                      </p>
+                    </div>
                   </div>
-
-                  <div>
-                    <h3 className="text-lg font-bold text-secondary mb-2">
-                      {tContent(
-                        card.title_bn || card.title,
-                        card.title_en || card.title,
-                      )}
-                    </h3>
-                    <span className="block w-8 h-px bg-secondary/15 mb-3" />
-                    <p className="text-sm text-gray-700 font-normal leading-relaxed">
-                      {tContent(
-                        card.desc_bn ||
-                          card.description_bn ||
-                          card.desc ||
-                          card.details_bn,
-                        card.desc_en ||
-                          card.description_en ||
-                          card.desc ||
-                          card.details_en,
-                      )}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ),
-          )}
+                </motion.div>
+              ),
+            )}
+          </div>
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {/* 5. How It Works Section */}
       <section className="py-20 border-y border-secondary/5 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-6 space-y-4">
@@ -762,30 +733,27 @@ export default function HomePage() {
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                     className="flex flex-col items-center"
                   >
-                    {/* Phone mockup illustration */}
                     <div className="relative w-40 h-52 md:w-44 md:h-56 bg-white rounded-[2rem] shadow-md border border-secondary/10 flex items-center justify-center z-10 -mb-10">
-                      {/* Phone notch */}
-                      <div className="absolute top-3 w-8 h-1 rounded-full bg-secondary/20"></div>
+                      <div className="absolute top-3 w-8 h-1 rounded-full bg-secondary/20" />
                       <img
                         src={stepImage}
                         alt={tContent(step.title_bn, step.title_en)}
-                        className="h-full w-full rounded-[2rem] object-cover"
+                        className="h-full w-full rounded-[2rem] object-cover py-2.5"
                       />
                     </div>
 
-                    {/* Card */}
-                    <div className="bg-gradient-to-r from-orange-50/60 via-[#FBF6EE] to-green-50/60 rounded-2xl border border-secondary/10 shadow-sm hover:shadow-md transition-all duration-300 pt-14 pb-8 px-6 text-center space-y-2">
-                      <p className="text-primary font-extrabold ">
-                        {"Step"} {idx + 1}
+                    <div className="bg-gradient-to-r from-orange-50/60 via-[#FBF6EE] to-green-50/60 rounded-2xl border border-secondary/10 shadow-sm hover:shadow-md transition-all duration-300 pt-14 pb-8 px-6 text-center space-y-2 w-full">
+                      <p className="text-primary font-extrabold">
+                        Step {idx + 1}
                       </p>
                       <p className="text-secondary font-bold text-base leading-snug">
                         {tContent(step.title_bn, step.title_en)}
                       </p>
-                      {step.desc_bn || step.desc_en ? (
+                      {(step.desc_bn || step.desc_en) && (
                         <p className="text-sm text-gray-600 font-normal leading-relaxed">
                           {tContent(step.desc_bn, step.desc_en)}
                         </p>
-                      ) : null}
+                      )}
                     </div>
                   </motion.div>
                 );
@@ -794,8 +762,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. Guided by Purpose Section (Mission/Vision/Values tabs) */}
-      <section className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 bg-[radial-gradient(circle_at_center,_rgba(220,252,231,0.45)_0%,_transparent_65%)]">
+      {/* 6. Guided by Purpose Section */}
+      <section className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 bg-[radial-gradient(circle_at_center,_rgba(220,252,231,0.45)_0%,_transparent_65%)]">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider block mb-2">
             {tContent("মূল দর্শন", "Guided by Purpose")}
@@ -808,7 +776,6 @@ export default function HomePage() {
           </h2>
         </div>
 
-        {/* Tab Controls */}
         <div className="flex justify-center border border-secondary/10 max-w-md mx-auto mb-10 p-1 bg-secondary/5 rounded-full">
           {(["mission", "vision", "values"] as const).map((tab) => (
             <button
@@ -817,7 +784,7 @@ export default function HomePage() {
               className={`flex-1 py-2.5 px-4 rounded-full text-sm font-semibold uppercase tracking-wider transition-all duration-200 ${
                 activeTab === tab
                   ? "bg-primary text-white shadow-sm"
-                  : "text-secondary hover:text-secondary"
+                  : "text-secondary hover:text-primary"
               }`}
             >
               {tab === "mission" && tContent("লক্ষ্য", "Mission")}
@@ -827,7 +794,6 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* Tab Content Panels */}
         <div className="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-secondary/5 min-h-[300px]">
           <ul className="space-y-4">
             {activeTab === "mission" &&
@@ -887,16 +853,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. Impact Stats Section */}
+      {/* 7. Impact Stats Section */}
       <section className="relative bg-gradient-to-br from-green-950 via-green-900 to-green-800 text-white py-16 md:py-24 overflow-hidden">
-        {/* decorative diagonal shapes — right */}
         <motion.div
-          className="absolute -right-22 -top-34 w-80 h-80 bg-white/10 rotate-45 rounded-[2rem]"
+          className="absolute -right-20 -top-32 w-80 h-80 bg-white/10 rotate-45 rounded-[2rem] pointer-events-none"
           animate={{ y: [0, -18, 0], x: [0, 10, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute -right-10 top-1/2 -translate-y-1/2 w-40 h-50 bg-white/3 rotate-35 rounded-[4rem]"
+          className="absolute -right-10 top-1/2 -translate-y-1/2 w-40 h-48 bg-white/5 rotate-35 rounded-[4rem] pointer-events-none"
           animate={{ y: [0, 14, 0], x: [0, -8, 0] }}
           transition={{
             duration: 6,
@@ -905,15 +870,13 @@ export default function HomePage() {
             delay: 0.5,
           }}
         />
-
-        {/* decorative diagonal shapes — left */}
         <motion.div
-          className="absolute -left-24 -bottom-24 w-80 h-80 bg-white/10 rotate-45 rounded-[2rem]"
+          className="absolute -left-24 -bottom-24 w-80 h-80 bg-white/10 rotate-45 rounded-[2rem] pointer-events-none"
           animate={{ y: [0, 18, 0], x: [0, -10, 0] }}
           transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute -left-10 top-1/3 -translate-y-1/2 w-40 h-50 bg-white/5 rotate-45 rounded-[4rem]"
+          className="absolute -left-10 top-1/3 -translate-y-1/2 w-40 h-48 bg-white/5 rotate-45 rounded-[4rem] pointer-events-none"
           animate={{ y: [0, -14, 0], x: [0, 8, 0] }}
           transition={{
             duration: 6.5,
@@ -925,7 +888,7 @@ export default function HomePage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.h2
-            className="text-center text-2xl md:text-4xl font-bold mb-12 md:mb-16 bg-clip-text text-transparent"
+            className="text-center text-2xl md:text-6xl font-bold mb-12 md:mb-16 bg-clip-text text-transparent"
             style={{
               backgroundImage:
                 "linear-gradient(90deg, #ffffff 0%, #ffffff 35%, color-mix(in srgb, var(--color-secondary) 60%, white 40%) 50%, #ffffff 65%, #ffffff 100%)",
@@ -944,14 +907,14 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-10 gap-x-4">
             {[
               {
-                value: tContent("৳৩ কোটি+", "৳3 Crore+"),
+                value: tContent("৳ ৩ কোটি +", "৳ 3 Crore +"),
                 isStatic: true,
                 labelBn: "বিতরণকৃত অর্থ",
                 labelEn: "Amount Distributed",
               },
               {
                 value: stats?.peopleServed || 3000,
-                suffix: "+",
+                suffix: " +",
                 labelBn: "উপকারভোগী সংখ্যা",
                 labelEn: "People Served",
               },
@@ -969,7 +932,7 @@ export default function HomePage() {
               },
               {
                 value: stats?.yearsActive || 1,
-                suffix: "+",
+                suffix: " +",
                 labelBn: "সক্রিয় বছর",
                 labelEn: "Years Active",
               },
@@ -978,12 +941,11 @@ export default function HomePage() {
                 key={index}
                 className="relative flex flex-col items-center text-center gap-2 px-2"
               >
-                {/* thin vertical divider between columns (desktop only, skip first) */}
                 {index !== 0 && (
                   <div className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 h-14 w-px bg-white/15" />
                 )}
 
-                <p className="text-4xl md:text-5xl font-extrabold tracking-tight whitespace-nowrap">
+                <p className="text-xl md:text-4xl font-extrabold tracking-tight whitespace-nowrap">
                   {stat.isStatic ? (
                     stat.value
                   ) : (
@@ -1002,9 +964,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {/* 6. Executive Team Preview Section */}
+
+      {/* 8. Executive Team Preview Section */}
       {team.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="max-w-7xl my-16 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
               <span className="text-primary font-semibold text-sm uppercase tracking-wider block mb-2">
@@ -1054,7 +1017,7 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* 7. Testimonials Carousel Section */}
+      {/* 9. Testimonials Carousel Section */}
       {testimonials.length > 0 && (
         <section className="bg-white py-16 border-y border-secondary/5">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1074,9 +1037,9 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* 8. Blog Preview Section */}
+      {/* 10. Blog Preview Section */}
       {blogPosts.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <section className="max-w-7xl mx-auto px-4 my-16 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
               <span className="text-primary font-semibold text-sm uppercase tracking-wider block mb-2">
@@ -1098,8 +1061,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0">
-            {/* Featured post (first item) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {blogPosts[0] && (
               <Link
                 href={`/blog/${blogPosts[0].slug}`}
@@ -1127,11 +1089,7 @@ export default function HomePage() {
               </Link>
             )}
 
-            {/* Vertical divider (desktop only) */}
-            <div className="hidden lg:block absolute"></div>
-
-            {/* Grid of remaining posts */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8 lg:pl-10 lg:border-l lg:border-secondary/10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:pl-10 lg:border-l lg:border-secondary/10">
               {blogPosts.slice(1, 5).map((post) => (
                 <Link
                   href={`/blog/${post.slug}`}
