@@ -11,6 +11,7 @@ export default function ContactPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -39,6 +40,17 @@ export default function ContactPage() {
       phone: "+8801711000000",
       email: "loans@onkur.net",
     },
+  ];
+
+  const subjectOptions = [
+    { bn: "ঋণ ও অর্থায়ন", en: "Loan & Financing" },
+    { bn: "সঞ্চয়", en: "Savings" },
+    { bn: "বীমা", en: "Insurance" },
+    { bn: "ডিজিটাল আর্থিক সেবা", en: "Digital Financial Services" },
+    { bn: "প্রাতিষ্ঠানিক অনুসন্ধান", en: "Institutional Enquiry" },
+    { bn: "গ্রাহক সহায়তা", en: "Customer Support" },
+    { bn: "কর্মসংস্থান", en: "Careers" },
+    { bn: "অন্যান্য", en: "Other" },
   ];
 
   const officePhoneNumbers = [
@@ -71,6 +83,7 @@ export default function ContactPage() {
         name,
         email,
         phone,
+        subject: subject || subjectOptions[0].en,
         message,
         submittedAt: new Date().toISOString(),
       });
@@ -79,6 +92,7 @@ export default function ContactPage() {
       setName("");
       setEmail("");
       setPhone("");
+      setSubject("");
       setMessage("");
     } catch (err: any) {
       setError(err.message || "Failed to submit message.");
@@ -104,15 +118,12 @@ export default function ContactPage() {
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-4">
         <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
-          {tContent(
-            contactData?.heading_bn || "যোগাযোগ করুন",
-            contactData?.heading_en || "Contact Us",
-          )}
+          {tContent("যোগাযোগ করুন", "Get In Touch")}
         </span>
         <h1 className="text-4xl font-bold text-secondary">
           {tContent(
             contactData?.heading_bn || "আমাদের সাথে যোগাযোগ করুন",
-            contactData?.heading_en || "Get In Touch",
+            contactData?.heading_en || "We Are Here To Help",
           )}
         </h1>
         <p className="text-base text-text font-light leading-relaxed">
@@ -127,7 +138,7 @@ export default function ContactPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         {/* Info Column */}
-        <div className="lg:col-span-5 space-y-8 bg-white text-text p-8 md:p-10 rounded-3xl shadow-sm">
+        <div className="lg:col-span-5 space-y-8 bg-white text-text p-8 md:p-10 rounded-3xl border border-secondary/10 shadow-sm">
           <div className="space-y-2">
             <h2 className="text-2xl font-bold text-primary">
               {tContent("কার্যালয়ের ঠিকানা", "Office Contact")}
@@ -209,7 +220,7 @@ export default function ContactPage() {
           </div>
 
           {/* Department Contacts repeatable list */}
-          <div className="border-t border-[#FBF6EE]/15 pt-6 space-y-4">
+          <div className="border-t border-secondary/15 pt-6 space-y-4">
             <h4 className="font-bold text-xs uppercase tracking-widest text-primary">
               {tContent("বিভাগীয় যোগাযোগ", "Departmental Contacts")}
             </h4>
@@ -218,28 +229,28 @@ export default function ContactPage() {
                 (dept: any, idx: number) => (
                   <div
                     key={idx}
-                    className="bg-white/5 p-3.5 rounded-xl border border-white/5 text-xs space-y-1"
+                    className="bg-[#1F4A3D]/5 p-4 rounded-xl border border-[#1F4A3D]/10 text-xs space-y-1.5"
                   >
-                    <p className="font-bold text-white">
+                    <p className="font-bold text-secondary text-sm">
                       {tContent(dept.name_bn, dept.name_en)}
                     </p>
                     {dept.phone && (
-                      <p className="text-text/75 font-light">
+                      <p className="text-text font-medium">
                         {tContent("ফোন: ", "Phone: ")}
                         <a
                           href={`tel:${dept.phone}`}
-                          className="hover:underline"
+                          className="hover:text-primary hover:underline"
                         >
                           {dept.phone}
                         </a>
                       </p>
                     )}
                     {dept.email && (
-                      <p className="text-text/75 font-light">
+                      <p className="text-text font-medium">
                         {tContent("ইমেইল: ", "Email: ")}
                         <a
                           href={`mailto:${dept.email}`}
-                          className="hover:underline"
+                          className="hover:text-primary hover:underline"
                         >
                           {dept.email}
                         </a>
@@ -256,7 +267,7 @@ export default function ContactPage() {
         <div className="lg:col-span-7 bg-white p-8 md:p-10 rounded-3xl border border-secondary/10 shadow-sm">
           {success ? (
             <div className="text-center py-12 space-y-4">
-              <div className="bg-white/5 text-secondary p-4 rounded-full inline-block">
+              <div className="bg-primary/10 text-secondary p-4 rounded-full inline-block">
                 <CheckCircle2 className="w-12 h-12 text-primary" />
               </div>
               <h3 className="text-2xl font-bold text-secondary">
@@ -271,9 +282,17 @@ export default function ContactPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
-              <h3 className="text-xl font-bold text-secondary border-b border-secondary/10 pb-3">
-                {t("contactForm.title")}
-              </h3>
+              <div className="border-b border-secondary/10 pb-3 space-y-1.5">
+                <h3 className="text-xl font-bold text-secondary">
+                  {tContent("বার্তা পাঠান", "Send a Message")}
+                </h3>
+                <p className="text-xs text-text/80 leading-relaxed font-light">
+                  {tContent(
+                    "আপনার কোনো প্রশ্ন আছে বা আমাদের সেবাসমূহ সম্পর্কে আরও জানতে চান? আমাদের বার্তা পাঠান—আমাদের টিম আপনার সঙ্গে যোগাযোগ করবে।",
+                    "Have a question or want to learn more about our services? Send us a message and our team will get back to you.",
+                  )}
+                </p>
+              </div>
 
               {error && (
                 <div className="bg-red-50 text-red-600 text-sm p-4 rounded-md border border-red-100">
@@ -287,7 +306,7 @@ export default function ContactPage() {
                     htmlFor="name"
                     className="text-xs font-semibold uppercase text-text"
                   >
-                    {t("contactForm.name")}
+                    {tContent("পূর্ণ নাম", "Full Name")}
                   </label>
                   <input
                     id="name"
@@ -303,7 +322,7 @@ export default function ContactPage() {
                     htmlFor="phone"
                     className="text-xs font-semibold uppercase text-text"
                   >
-                    {t("contactForm.phone")}
+                    {tContent("ফোন নম্বর", "Phone Number")}
                   </label>
                   <input
                     id="phone"
@@ -316,21 +335,53 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <label
-                  htmlFor="email"
-                  className="text-xs font-semibold uppercase text-text"
-                >
-                  {t("contactForm.email")}
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg focus:outline-none focus:border-primary text-sm"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="space-y-1">
+                  <label
+                    htmlFor="email"
+                    className="text-xs font-semibold uppercase text-text"
+                  >
+                    {tContent("ইমেইল ঠিকানা", "Email Address")}
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg focus:outline-none focus:border-primary text-sm"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label
+                    htmlFor="subject"
+                    className="text-xs font-semibold uppercase text-text"
+                  >
+                    {tContent(
+                      "বিষয় / কীভাবে সাহায্য করতে পারি",
+                      "Subject / How can I Help",
+                    )}
+                  </label>
+                  <select
+                    id="subject"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                    className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg focus:outline-none focus:border-primary text-sm"
+                  >
+                    <option value="">
+                      {tContent(
+                        "-- বিষয় নির্বাচন করুন --",
+                        "-- Select Subject --",
+                      )}
+                    </option>
+                    {subjectOptions.map((opt, idx) => (
+                      <option key={idx} value={opt.en}>
+                        {tContent(opt.bn, opt.en)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div className="space-y-1">
@@ -338,7 +389,7 @@ export default function ContactPage() {
                   htmlFor="message"
                   className="text-xs font-semibold uppercase text-text"
                 >
-                  {t("contactForm.message")}
+                  {tContent("আপনার বার্তা", "Your Message")}
                 </label>
                 <textarea
                   id="message"
@@ -350,16 +401,26 @@ export default function ContactPage() {
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={submitting}
-                className="w-full bg-primary hover:opacity-90 text-white py-3.5 rounded-lg text-sm font-semibold tracking-wide shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-              >
-                <span>
-                  {submitting ? t("common.saving") : t("common.submit")}
-                </span>
-                {!submitting && <Send className="w-4 h-4" />}
-              </button>
+              <div className="space-y-3">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full bg-primary hover:opacity-90 text-white py-3.5 rounded-lg text-sm font-semibold tracking-wide shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  <span>
+                    {submitting
+                      ? tContent("পাঠানো হচ্ছে...", "Sending...")
+                      : tContent("বার্তা পাঠান", "Send Message")}
+                  </span>
+                  {!submitting && <Send className="w-4 h-4" />}
+                </button>
+                <p className="text-[11px] text-[#1F4A3D]/70 text-center italic font-light leading-relaxed">
+                  {tContent(
+                    "আপনার তথ্যের গোপনীয়তা নিশ্চিত করা হবে এবং তা শুধুমাত্র আপনার জিজ্ঞাসার উত্তর প্রদানের উদ্দেশ্যে ব্যবহার করা হবে।",
+                    "Your information is kept confidential and will only be used to respond to your enquiry.",
+                  )}
+                </p>
+              </div>
             </form>
           )}
         </div>

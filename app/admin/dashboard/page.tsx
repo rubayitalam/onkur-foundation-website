@@ -237,6 +237,7 @@ type Section =
   | "blog"
   | "career"
   | "contact"
+  | "messages"
   | "settings";
 
 export default function AdminDashboardPage() {
@@ -279,6 +280,7 @@ export default function AdminDashboardPage() {
   const [jobsList, setJobsList] = useState<any[]>([]);
   const [applicationsList, setApplicationsList] = useState<any[]>([]);
   const [loanApplicationsList, setLoanApplicationsList] = useState<any[]>([]);
+  const [contactMessagesList, setContactMessagesList] = useState<any[]>([]);
   const [viewingLoanApp, setViewingLoanApp] = useState<any | null>(null);
 
   // Sub-items adding/editing forms states
@@ -648,6 +650,24 @@ export default function AdminDashboardPage() {
       () => markLoaded(),
     );
 
+    const contactMessagesRef = ref(db, "contactMessages");
+    const unsubContactMessages = onValue(
+      contactMessagesRef,
+      (snap) => {
+        const val = snap.val() || {};
+        setContactMessagesList(
+          Object.keys(val)
+            .map((k) => ({ id: k, ...val[k] }))
+            .sort(
+              (a, b) =>
+                new Date(b.submittedAt || 0).getTime() -
+                new Date(a.submittedAt || 0).getTime(),
+            ),
+        );
+      },
+      () => {},
+    );
+
     return () => {
       unsubHome();
       unsubAbout();
@@ -665,6 +685,7 @@ export default function AdminDashboardPage() {
       unsubLoanApps();
       unsubCareer();
       unsubServices();
+      unsubContactMessages();
     };
   }, [checkingAuth]);
 
@@ -703,6 +724,22 @@ export default function AdminDashboardPage() {
         if (viewingLoanApp?.id === id) setViewingLoanApp(null);
       } catch (err: any) {
         alert("Error deleting loan application: " + err.message);
+      }
+    }
+  };
+
+  const deleteContactMessage = async (id: string) => {
+    if (
+      confirm(
+        "Are you sure you want to delete this contact message? This action cannot be undone.",
+      )
+    ) {
+      try {
+        await remove(ref(db, `contactMessages/${id}`));
+        triggerToast("Contact message deleted!");
+        setContactMessagesList((prev) => prev.filter((msg) => msg.id !== id));
+      } catch (err: any) {
+        alert("Error deleting contact message: " + err.message);
       }
     }
   };
@@ -1158,7 +1195,6 @@ export default function AdminDashboardPage() {
     );
   }
 
-  // Sidebar Configuration exactly as requested
   const sidebarItems = [
     { id: "home", label: "🏠 Home Page", path: "/" },
     { id: "about", label: "ℹ️ About Us Page", path: "/about" },
@@ -1168,38 +1204,43 @@ export default function AdminDashboardPage() {
     { id: "blog", label: "📰 Blog Posts", path: "/blog" },
     { id: "career", label: "💼 Careers Page", path: "/career" },
     { id: "contact", label: "📞 Contact Page", path: "/contact" },
+    {
+      id: "messages",
+      label: `💬 Contact Messages (${contactMessagesList.length})`,
+      path: "",
+    },
     { id: "settings", label: "⚙️ Site Settings & Stats", path: "" },
   ];
 
   return (
-    <div className="min-h-screen bg-white flex flex-col md:flex-row">
+    <div className="min-h-screen bg-[#F4F6F5] flex flex-col md:flex-row font-sans">
       {/* Toast Notice */}
       {toastMessage && (
-        <div className="fixed top-24 right-8 bg-white text-text px-6 py-4 rounded-xl shadow-lg border border-primary flex items-center gap-2.5 z-50 animate-bounce">
-          <CheckCircle className="w-5 h-5 text-primary" />
-          <span className="text-sm font-semibold">{toastMessage}</span>
+        <div className="fixed top-24 right-8 bg-[#1F4A3D] text-white px-6 py-4 rounded-xl shadow-2xl border border-[#C9973B] flex items-center gap-2.5 z-50 animate-bounce">
+          <CheckCircle className="w-5 h-5 text-[#C9973B]" />
+          <span className="text-sm font-bold">{toastMessage}</span>
         </div>
       )}
 
       {/* Left Sidebar */}
-      <aside className="w-full md:w-72 bg-white text-text shrink-0 flex flex-col justify-between p-6 border-r border-[#FBF6EE]/10">
+      <aside className="w-full md:w-72 bg-[#1F4A3D] text-white shrink-0 flex flex-col justify-between p-6 shadow-xl border-r border-[#1F4A3D]/20">
         <div className="space-y-8">
           <div>
-            <h2 className="text-2xl font-bold text-primary">অঙ্কুর কন্ট্রোল</h2>
-            <p className="text-[10px] tracking-widest text-text/60 uppercase font-bold mt-1">
+            <h2 className="text-2xl font-black text-white tracking-wide">অঙ্কুর কন্ট্রোল</h2>
+            <p className="text-[10px] tracking-widest text-[#C9973B] uppercase font-bold mt-1">
               Admin Dashboard Panel
             </p>
           </div>
 
-          <nav className="space-y-1">
+          <nav className="space-y-1.5">
             {sidebarItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => setActiveSection(item.id as Section)}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
                   activeSection === item.id
-                    ? "bg-primary text-white shadow-md"
-                    : "hover:bg-secondary/5 text-text/80"
+                    ? "bg-[#C65D2E] text-white shadow-md shadow-[#C65D2E]/30"
+                    : "text-white/80 hover:bg-white/10 hover:text-white"
                 }`}
               >
                 <span>{item.label}</span>
@@ -1209,7 +1250,7 @@ export default function AdminDashboardPage() {
                     target="_blank"
                     rel="noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="text-[10px] bg-white/10 hover:bg-white/20 text-text px-2 py-0.5 rounded-md transition-all ml-2"
+                    className="text-[10px] bg-[#C9973B] hover:bg-[#D4A548] text-[#1F4A3D] px-2 py-0.5 rounded font-bold transition-all ml-2 shrink-0 shadow-2xs"
                   >
                     View Live
                   </a>
@@ -1219,18 +1260,18 @@ export default function AdminDashboardPage() {
           </nav>
         </div>
 
-        <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+        <div className="pt-6 border-t border-white/15 flex items-center justify-between mt-8">
           <div className="space-y-0.5">
-            <p className="text-xs font-semibold text-white truncate max-w-[120px]">
+            <p className="text-xs font-semibold text-white truncate max-w-[130px]">
               {user?.email}
             </p>
-            <p className="text-[9px] text-text/60">Authorized Session</p>
+            <p className="text-[9px] text-[#C9973B]">Authorized Session</p>
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-1 text-xs text-primary hover:text-primary font-bold cursor-pointer"
+            className="flex items-center gap-1.5 text-xs bg-[#C65D2E] hover:bg-[#A84C22] text-white px-3 py-1.5 rounded-lg transition-colors cursor-pointer font-bold shadow-xs"
           >
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-3.5 h-3.5" />
             <span>Logout</span>
           </button>
         </div>
@@ -1256,9 +1297,9 @@ export default function AdminDashboardPage() {
                 href={sidebarItems.find((i) => i.id === activeSection)?.path}
                 target="_blank"
                 rel="noreferrer"
-                className="bg-white hover:bg-gray-100 text-white px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+                className="bg-[#1F4A3D] hover:bg-[#15342B] text-white px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm border border-[#1F4A3D]"
               >
-                <span>View Live Page →</span>
+                <span>View Live Page ↗</span>
               </a>
             )}
           </div>
@@ -4934,6 +4975,98 @@ export default function AdminDashboardPage() {
                   </button>
                 </div>
               </form>
+            </div>
+          )}
+
+          {/* 6.1 CONTACT MESSAGES SECTION */}
+          {activeSection === "messages" && (
+            <div className="space-y-8">
+              <div className="bg-white p-6 md:p-8 rounded-2xl border border-gray-200/90 shadow-sm space-y-6">
+                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 pb-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-[#1F4A3D] flex items-center gap-2">
+                      <MessageSquare className="w-6 h-6 text-[#C65D2E]" />
+                      <span>Received Contact Messages ({contactMessagesList.length})</span>
+                    </h3>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Direct inquiries and form submissions received from website visitors.
+                    </p>
+                  </div>
+                </div>
+
+                {contactMessagesList.length === 0 ? (
+                  <div className="text-center py-16 text-gray-400 bg-gray-50/70 rounded-2xl border border-dashed border-gray-300">
+                    <MessageSquare className="w-12 h-12 mx-auto mb-3 opacity-30 text-[#1F4A3D]" />
+                    <p className="text-base font-semibold text-gray-600">No contact messages received yet.</p>
+                    <p className="text-xs text-gray-400 mt-1">Messages submitted from the website Contact page will appear here.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {contactMessagesList.map((msg) => (
+                      <div
+                        key={msg.id}
+                        className="p-6 rounded-2xl border border-gray-200 bg-gray-50/60 hover:bg-white hover:shadow-md transition-all space-y-4"
+                      >
+                        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200/80 pb-3">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-[#1F4A3D] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm">
+                              {(msg.name || "U")[0].toUpperCase()}
+                            </div>
+                            <div>
+                              <h4 className="font-bold text-base text-[#1F4A3D]">
+                                {msg.name}
+                              </h4>
+                              <div className="flex flex-wrap items-center gap-4 text-xs text-gray-600 mt-0.5 font-medium">
+                                {msg.email && (
+                                  <a
+                                    href={`mailto:${msg.email}`}
+                                    className="hover:text-[#C65D2E] hover:underline flex items-center gap-1"
+                                  >
+                                    ✉ {msg.email}
+                                  </a>
+                                )}
+                                {msg.phone && (
+                                  <a
+                                    href={`tel:${msg.phone}`}
+                                    className="hover:text-[#C65D2E] hover:underline flex items-center gap-1"
+                                  >
+                                    📞 {msg.phone}
+                                  </a>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-3">
+                            {msg.subject && (
+                              <span className="bg-[#1F4A3D]/10 text-[#1F4A3D] border border-[#1F4A3D]/20 px-3 py-1 rounded-full text-xs font-bold">
+                                {msg.subject}
+                              </span>
+                            )}
+                            <span className="text-xs text-gray-500 font-medium">
+                              {msg.submittedAt
+                                ? new Date(msg.submittedAt).toLocaleString()
+                                : "Unknown Date"}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => deleteContactMessage(msg.id)}
+                              className="text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 p-2 rounded-lg transition-colors cursor-pointer"
+                              title="Delete Message"
+                            >
+                              <Trash2 className="w-4.5 h-4.5" />
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="text-sm text-gray-800 leading-relaxed bg-white p-4 rounded-xl border border-gray-200/80 whitespace-pre-wrap font-sans">
+                          {msg.message}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           )}
 

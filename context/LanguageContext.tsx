@@ -30,12 +30,12 @@ const defaultNav = {
   home_en: "Home",
   about_bn: "আমাদের সম্পর্কে",
   about_en: "About Us",
-  services_bn: "সেবাসমূহ",
-  services_en: "Services",
+  services_bn: "আর্থিক সেবাসমূহ",
+  services_en: "Financial Services",
   team_bn: "আমাদের দল",
-  team_en: "Team",
-  blog_bn: "ব্লগ",
-  blog_en: "Blog",
+  team_en: "Our Team",
+  blog_bn: "ইনসাইটস",
+  blog_en: "Insights",
   career_bn: "ক্যারিয়ার",
   career_en: "Careers",
   faq_bn: "সাধারণ জিজ্ঞাসা",
@@ -111,7 +111,18 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
       navRef,
       (snapshot) => {
         const val = snapshot.val();
-        if (val) setNav(val);
+        if (val) {
+          setNav({
+            ...defaultNav,
+            ...val,
+            team_en: val.team_en === "Team" ? "Our Team" : (val.team_en || "Our Team"),
+            blog_en: val.blog_en === "Blog" ? "Insights" : (val.blog_en || "Insights"),
+            services_en: val.services_en === "Services" ? "Financial Services" : (val.services_en || "Financial Services"),
+            career_en: val.career_en === "Career" ? "Careers" : (val.career_en || "Careers"),
+          });
+        } else {
+          setNav(defaultNav);
+        }
         checkLoaded();
       },
       () => checkLoaded(),
@@ -131,7 +142,21 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
       footerRef,
       (snapshot) => {
         const val = snapshot.val();
-        if (val) setFooterContent(val);
+        if (val) {
+          setFooterContent({
+            ...defaultFooter,
+            ...val,
+            quickLinks: (val.quickLinks || defaultFooter.quickLinks).map((link: any) => {
+              if (link.url === "/services") return { ...link, label_en: "Financial Services", label_bn: "আর্থিক সেবাসমূহ" };
+              if (link.url === "/team") return { ...link, label_en: "Our Team", label_bn: "আমাদের দল" };
+              if (link.url === "/blog") return { ...link, label_en: "Insights", label_bn: "ইনসাইটস" };
+              if (link.url === "/career") return { ...link, label_en: "Careers", label_bn: "ক্যারিয়ার" };
+              return link;
+            }),
+          });
+        } else {
+          setFooterContent(defaultFooter);
+        }
         checkLoaded();
       },
       () => checkLoaded(),

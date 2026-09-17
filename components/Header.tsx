@@ -9,6 +9,11 @@ import { Menu, X, Phone, Sparkles } from "lucide-react";
 
 export default function Header() {
   const pathname = usePathname();
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   const { language, setLanguage, nav, settings, tContent } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -46,19 +51,19 @@ export default function Header() {
     },
     {
       href: "/services",
-      labelBn: nav?.services_bn || "সেবাসমূহ",
-      labelEn: nav?.services_en || "Services",
+      labelBn: nav?.services_bn || "আর্থিক সেবাসমূহ",
+      labelEn: nav?.services_en || "Financial Services",
       dropdown: true,
     },
     {
       href: "/team",
       labelBn: nav?.team_bn || "আমাদের দল",
-      labelEn: nav?.team_en || "Team",
+      labelEn: nav?.team_en || "Our Team",
     },
     {
       href: "/blog",
-      labelBn: nav?.blog_bn || "ব্লগ",
-      labelEn: nav?.blog_en || "Blog",
+      labelBn: nav?.blog_bn || "ইনসাইটস",
+      labelEn: nav?.blog_en || "Insights",
     },
     {
       href: "/career",

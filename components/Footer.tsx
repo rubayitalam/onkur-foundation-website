@@ -2,23 +2,21 @@
 
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 export default function Footer() {
-  const { footerContent, settings, tContent } = useLanguage();
+  const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
-  const servicesList = [
-    { labelBn: "ক্ষুদ্র (নারী) ঋণ", labelEn: "Small (Women's) Loan" },
-    {
-      labelBn: "ক্ষুদ্র ব্যবসা ও উদ্যোক্তা ঋণ",
-      labelEn: "Small Business & Entrepreneur Loan",
-    },
-  ];
+  const { footerContent, settings, tContent } = useLanguage();
 
   return (
     <footer
-      className="relative rounded-t-[10rem] pt-10 pb-6 border-t border-secondary/10"
+      className="relative pt-10 pb-6 border-t border-secondary/10"
       style={{
         background:
           "radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--color-secondary) 6%, white) 0%, transparent 50%), " +
@@ -58,7 +56,7 @@ export default function Footer() {
         <div className="border-t border-secondary/15"></div>
 
         {/* Middle row: link columns + CTA, tightened */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 py-8">
           {/* Quick Links */}
           <div>
             <h3 className="text-primary font-semibold text-sm mb-3">
@@ -77,25 +75,6 @@ export default function Footer() {
                   </li>
                 ),
               )}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h3 className="text-primary font-semibold text-sm mb-3">
-              {tContent("আমাদের সেবা", "Our Services")}
-            </h3>
-            <ul className="space-y-2">
-              {servicesList.map((service, index) => (
-                <li key={index}>
-                  <Link
-                    href="/services"
-                    className="text-sm text-secondary hover:text-primary transition-colors"
-                  >
-                    {tContent(service.labelBn, service.labelEn)}
-                  </Link>
-                </li>
-              ))}
             </ul>
           </div>
 
