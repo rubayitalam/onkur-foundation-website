@@ -6,6 +6,7 @@ import { ref, onValue } from "firebase/database";
 import { db } from "@/lib/firebase";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import hero2 from "../public/hero2.png";
 import {
   Sprout,
@@ -30,6 +31,8 @@ export default function HomePage() {
   const [testimonials, setTestimonials] = useState<any[]>([]);
   const [blogPosts, setBlogPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const [activeWhy, setActiveWhy] = useState(0);
 
   const [activeTab, setActiveTab] = useState<"mission" | "vision" | "values">(
     "mission",
@@ -259,6 +262,8 @@ export default function HomePage() {
     },
   ];
 
+  const whyCards = homeData?.why_cards || defaultWhyCards;
+
   const defaultSteps = [
     {
       step_num: 1,
@@ -402,22 +407,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
-        >
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/50">
-            {tContent("স্ক্রোল", "Scroll")}
-          </span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            className="w-px h-8 bg-gradient-to-b from-white/60 to-transparent"
-          />
-        </motion.div>
       </section>
 
       {/* 2. What We Do Section */}
@@ -596,86 +585,174 @@ export default function HomePage() {
 
       {/* 4. Why Choose Us Section */}
       <section className="relative overflow-hidden w-full py-16 md:py-24">
-        {/* পুরো সেকশন জুড়ে ব্যাকগ্রাউন্ড প্যাটার্ন */}
-        <div
-          className="absolute inset-0 w-full h-full opacity-10 pointer-events-none -z-10"
-          style={{
-            backgroundImage: "url('/leaf-1.jpg')",
-            backgroundRepeat: "repeat",
-            backgroundSize: "580px", // প্রয়োজনমতো প্যাটার্নের ঘনত্ব নিয়ন্ত্রণ করুন
-            backgroundPosition: "center",
-          }}
-        />
+        {/* পুরো সেকশন জুড়ে ব্যাকগ্রাউন্ড প্যাটার্ন */}
 
-        {/* কনটেন্ট কন্টেইনার (প্যাডিং ও ম্যাক্স-উইডথ সহ) */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* হেডার কনটেন্ট */}
-          <div className="relative z-10 text-center max-w-2xl mx-auto mb-14 md:mb-16 space-y-4">
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
-              {tContent("অনন্য বৈশিষ্ট্য", "Why Choose Us")}
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary">
-              {tContent(
-                homeData?.why_title_bn || "কেন অঙ্কুর ফাউন্ডেশন?",
-                homeData?.why_title_en || "Why Choose Onkur Foundation?",
-              )}
-            </h2>
-            <p className="text-base text-gray-600 font-normal">
-              {tContent(
-                "আমাদের সহজ ও মানবকল্যাণমুখী নীতিমালা গ্রামীণ সুবিধাবঞ্চিত পরিবারের জীবনে মর্যাদাপূর্ণ আর্থিক সচ্ছলতা নিশ্চিত করে।",
-                "Our simple and borrower-first credit terms help guarantee dignified livelihoods for rural families.",
-              )}
-            </p>
-          </div>
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* ---------------- বাম পাশ: টেক্সট + ট্যাব ---------------- */}
+            <div className="space-y-5">
+              <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
+                {tContent("অনন্য বৈশিষ্ট্য", "Why Choose Us")}
+              </span>
 
-          {/* কার্ড গ্রিড */}
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {(homeData?.why_cards || defaultWhyCards).map(
-              (card: any, idx: number) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.4, delay: idx * 0.05 }}
-                  className="group relative bg-white rounded-2xl border border-secondary/10 pl-7 pr-6 py-7 overflow-hidden transition-colors duration-300 hover:border-secondary/20 shadow-sm"
-                >
-                  <span className="absolute left-0 top-0 h-full w-[3px] bg-primary/40 transition-all duration-300 group-hover:w-[6px] group-hover:bg-primary" />
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-secondary">
+                {tContent(
+                  homeData?.why_title_bn || "কেন অঙ্কুর ফাউন্ডেশন?",
+                  homeData?.why_title_en || "Why Choose Onkur Foundation?",
+                )}
+              </h2>
 
-                  <span className="absolute top-5 right-6 text-[15px] font-semibold tracking-wide text-secondary/10 tabular-nums">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
+              <p className="text-base text-gray-600 font-normal max-w-xl leading-relaxed">
+                {tContent(
+                  "আমাদের সহজ ও মানবকল্যাণমুখী নীতিমালা গ্রামীণ সুবিধাবঞ্চিত পরিবারের জীবনে মর্যাদাপূর্ণ আর্থিক সচ্ছলতা নিশ্চিত করে।",
+                  "Our simple and borrower-first credit terms help guarantee dignified livelihoods for rural families.",
+                )}
+              </p>
 
-                  <div className="flex flex-col gap-4">
-                    <div className="w-14 h-14 rounded-2xl border border-primary/20 flex items-center justify-center transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:-translate-y-1 [&>svg]:transition-all [&>svg]:duration-300 [&>svg]:text-primary group-hover:[&>svg]:text-white group-hover:[&>svg]:scale-110">
+              {/* ছোট ডিভাইডার */}
+              <span className="block w-12 h-[3px] bg-secondary rounded-full" />
+
+              {/* ট্যাব / পিল বাটন */}
+              <div className="flex flex-wrap gap-3 pt-2">
+                {whyCards.map((card: any, idx: number) => {
+                  const isActive = idx === activeWhy;
+
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveWhy(idx)}
+                      aria-pressed={isActive}
+                      className={`rounded-full px-6 py-3 text-sm md:text-base font-semibold transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                        isActive
+                          ? "bg-primary text-white border border-primary"
+                          : "bg-primary text-black border border-secondary/15 hover:border-primary/50 hover:text-primary"
+                      }`}
+                    >
+                      {tContent(
+                        card.title_bn || card.title,
+                        card.title_en || card.title,
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* ---------------- ডান পাশ: Stacked Cards ---------------- */}
+            <div className="relative h-[420px] sm:h-[480px] lg:h-[540px] w-full">
+              {whyCards.map((card: any, idx: number) => {
+                const total = whyCards.length;
+
+                // সক্রিয় কার্ড থেকে দূরত্ব (0 = সামনে)
+                const pos = (idx - activeWhy + total) % total;
+                const isActive = pos === 0;
+
+                return (
+                  <motion.button
+                    key={idx}
+                    type="button"
+                    onClick={() => setActiveWhy(idx)}
+                    aria-label={tContent(
+                      card.title_bn || card.title,
+                      card.title_en || card.title,
+                    )}
+                    tabIndex={isActive ? 0 : -1}
+                    initial={false}
+                    animate={{
+                      x: `${pos * 26}%`,
+                      y: pos * 16,
+                      scale: 1 - pos * 0.07,
+                      opacity: pos > 2 ? 0 : 1,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 220,
+                      damping: 28,
+                    }}
+                    style={{
+                      zIndex: total - pos,
+                      clipPath:
+                        "polygon(56px 0, 100% 0, 100% calc(100% - 56px), calc(100% - 56px) 100%, 0 100%, 0 56px)",
+                    }}
+                    className="group absolute left-0 top-0 h-full w-[74%] overflow-hidden rounded-2xl bg-secondary text-left shadow-xl"
+                  >
+                    {/* Card Image */}
+                    <img
+                      src={card.image || hero2.src}
+                      alt={
+                        card.title_en ||
+                        card.title_bn ||
+                        card.title ||
+                        "Why Choose Us"
+                      }
+                      className="absolute inset-0 h-full w-full object-cover"
+                      onError={(e) => {
+                        // যদি card.image broken হয়, hero2 fallback হবে
+                        if (e.currentTarget.src !== hero2.src) {
+                          e.currentTarget.src = hero2.src;
+                        }
+                      }}
+                    />
+
+                    {/* পড়ার সুবিধার জন্য ওভারলে */}
+                    <span className="absolute inset-0 bg-gradient-to-t from-secondary/85 via-secondary/25 to-transparent" />
+
+                    {/* উপরে ডানে অ্যারো */}
+                    <span className="absolute top-6 right-6 flex h-12 w-12 items-center justify-center rounded-full border border-white/60 text-white transition-colors duration-300 group-hover:bg-primary group-hover:border-primary">
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <line x1="7" y1="17" x2="17" y2="7" />
+                        <polyline points="9 7 17 7 17 15" />
+                      </svg>
+                    </span>
+
+                    {/* আইকন */}
+                    <span className="absolute top-6 left-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/30 bg-white/10 backdrop-blur-sm [&>svg]:text-white">
                       {getWhyIcon(card.icon)}
-                    </div>
+                    </span>
 
-                    <div>
-                      <h3 className="text-lg font-semibold text-secondary mb-2 transition-colors duration-300 group-hover:text-primary">
+                    {/* নিচের কনটেন্ট */}
+                    <div className="absolute bottom-0 left-0 right-0 p-7 md:p-9">
+                      <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-wide text-white">
                         {tContent(
                           card.title_bn || card.title,
                           card.title_en || card.title,
                         )}
                       </h3>
-                      <span className="block w-8 h-px bg-secondary/15 mb-3" />
-                      <p className="text-sm text-gray-700 font-normal leading-relaxed">
-                        {tContent(
-                          card.desc_bn ||
-                            card.description_bn ||
-                            card.desc ||
-                            card.details_bn,
-                          card.desc_en ||
-                            card.description_en ||
-                            card.desc ||
-                            card.details_en,
-                        )}
-                      </p>
+
+                      {isActive && (
+                        <>
+                          <span className="mt-3 mb-3 block h-px w-10 bg-white/40" />
+
+                          <p className="max-w-md text-sm md:text-base font-normal leading-relaxed text-white/85">
+                            {tContent(
+                              card.desc_bn ||
+                                card.description_bn ||
+                                card.desc ||
+                                card.details_bn,
+                              card.desc_en ||
+                                card.description_en ||
+                                card.desc ||
+                                card.details_en,
+                            )}
+                          </p>
+                        </>
+                      )}
                     </div>
-                  </div>
-                </motion.div>
-              ),
-            )}
+                  </motion.button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
