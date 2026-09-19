@@ -4,7 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, onValue, set, push, remove } from "firebase/database";
-import { auth, db } from "@/lib/firebase";
+import {
+  getDownloadURL,
+  ref as storageRef,
+  uploadBytes,
+} from "firebase/storage";
+import { auth, db, storage } from "@/lib/firebase";
 import { useLanguage } from "@/context/LanguageContext";
 import {
   Home,
@@ -36,6 +41,7 @@ import {
 const defaultWhyCards = [
   {
     icon: "ShieldCheck",
+    image_url: "",
     title_bn: "স্বচ্ছ নীতিমালা",
     title_en: "Transparent Policies",
     desc_bn: "কোনো গোপন চার্জ নেই।",
@@ -43,6 +49,7 @@ const defaultWhyCards = [
   },
   {
     icon: "Coins",
+    image_url: "",
     title_bn: "জামানতবিহীন ঋণ",
     title_en: "Collateral-Free Loans",
     desc_bn: "স্থাবর সম্পত্তি ছাড়া ঋণের সুযোগ।",
@@ -50,6 +57,7 @@ const defaultWhyCards = [
   },
   {
     icon: "PiggyBank",
+    image_url: "",
     title_bn: "সঞ্চয়ী হিসাব (৬% লভ্যাংশ)",
     title_en: "Savings Program (6% Interest)",
     desc_bn: "বার্ষিক ৬% লভ্যাংশ সহ সঞ্চয়।",
@@ -57,6 +65,7 @@ const defaultWhyCards = [
   },
   {
     icon: "HeartHandshake",
+    image_url: "",
     title_bn: "ঋণ বীমা সুবিধা",
     title_en: "Borrower Credit Insurance",
     desc_bn: "বীমা কভারেজ সুবিধা।",
@@ -446,7 +455,7 @@ export default function AdminDashboardPage() {
             .map((b: any) => b.text_en)
             .join("\n"),
         });
-        setWhyCards(data.why_cards || []);
+        setWhyCards(data.why_cards?.length ? data.why_cards : defaultWhyCards);
         setProcessSteps(data.process_steps || []);
         markLoaded();
       },
@@ -789,6 +798,31 @@ export default function AdminDashboardPage() {
       triggerToast("Home page updated!");
     } catch (err: any) {
       alert("Error: " + err.message);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const uploadWhyCardImage = async (index: number, file: File) => {
+    setSaving(true);
+    try {
+      const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
+      const imageRef = storageRef(
+        storage,
+        `why-cards/${Date.now()}-${safeFileName}`,
+      );
+      const snapshot = await uploadBytes(imageRef, file);
+      const imageUrl = await getDownloadURL(snapshot.ref);
+      setWhyCards((cards) =>
+        cards.map((card, cardIndex) =>
+          cardIndex === index ? { ...card, image_url: imageUrl } : card,
+        ),
+      );
+      triggerToast(
+        "Why card image uploaded. Save homepage content to publish it.",
+      );
+    } catch (err: any) {
+      alert("Image upload failed: " + err.message);
     } finally {
       setSaving(false);
     }
@@ -1226,7 +1260,9 @@ export default function AdminDashboardPage() {
       <aside className="w-full md:w-72 bg-[#1F4A3D] text-white shrink-0 flex flex-col justify-between p-6 shadow-xl border-r border-[#1F4A3D]/20">
         <div className="space-y-8">
           <div>
-            <h2 className="text-2xl font-black text-white tracking-wide">অঙ্কুর কন্ট্রোল</h2>
+            <h2 className="text-2xl font-black text-white tracking-wide">
+              অঙ্কুর কন্ট্রোল
+            </h2>
             <p className="text-[10px] tracking-widest text-[#C9973B] uppercase font-bold mt-1">
               Admin Dashboard Panel
             </p>
@@ -1571,6 +1607,42 @@ export default function AdminDashboardPage() {
                                 className="px-3 py-2 border border-gray-200 rounded-lg text-xs w-full"
                               />
                             </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                              <input
+                                type="url"
+                                placeholder="Card Image URL"
+                                value={card.image_url || card.image || ""}
+                                onChange={(e) => {
+                                  const copy = [...whyCards];
+                                  copy[idx] = {
+                                    ...copy[idx],
+                                    image_url: e.target.value,
+                                  };
+                                  setWhyCards(copy);
+                                }}
+                                className="px-3 py-2 border border-gray-200 rounded-lg text-xs"
+                              />
+                              <label className="flex items-center gap-3 px-3 py-2 border border-dashed border-gray-300 rounded-lg text-xs text-gray-600 cursor-pointer hover:border-primary">
+                                <span>Upload Card Image</span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="sr-only"
+                                  onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    if (file) uploadWhyCardImage(idx, file);
+                                    e.currentTarget.value = "";
+                                  }}
+                                />
+                              </label>
+                            </div>
+                            {card.image_url || card.image ? (
+                              <img
+                                src={card.image_url || card.image}
+                                alt={`${card.title_en || "Why card"} preview`}
+                                className="h-24 w-40 rounded-lg object-cover border border-gray-200"
+                              />
+                            ) : null}
                           </div>
                         ),
                       )}
@@ -4986,10 +5058,13 @@ export default function AdminDashboardPage() {
                   <div>
                     <h3 className="text-xl font-bold text-[#1F4A3D] flex items-center gap-2">
                       <MessageSquare className="w-6 h-6 text-[#C65D2E]" />
-                      <span>Received Contact Messages ({contactMessagesList.length})</span>
+                      <span>
+                        Received Contact Messages ({contactMessagesList.length})
+                      </span>
                     </h3>
                     <p className="text-xs text-gray-500 mt-1">
-                      Direct inquiries and form submissions received from website visitors.
+                      Direct inquiries and form submissions received from
+                      website visitors.
                     </p>
                   </div>
                 </div>
@@ -4997,8 +5072,13 @@ export default function AdminDashboardPage() {
                 {contactMessagesList.length === 0 ? (
                   <div className="text-center py-16 text-gray-400 bg-gray-50/70 rounded-2xl border border-dashed border-gray-300">
                     <MessageSquare className="w-12 h-12 mx-auto mb-3 opacity-30 text-[#1F4A3D]" />
-                    <p className="text-base font-semibold text-gray-600">No contact messages received yet.</p>
-                    <p className="text-xs text-gray-400 mt-1">Messages submitted from the website Contact page will appear here.</p>
+                    <p className="text-base font-semibold text-gray-600">
+                      No contact messages received yet.
+                    </p>
+                    <p className="text-xs text-gray-400 mt-1">
+                      Messages submitted from the website Contact page will
+                      appear here.
+                    </p>
                   </div>
                 ) : (
                   <div className="space-y-4">

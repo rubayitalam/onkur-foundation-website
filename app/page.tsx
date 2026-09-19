@@ -226,6 +226,7 @@ export default function HomePage() {
   const defaultWhyCards = [
     {
       icon: "ShieldCheck",
+      image_url: "",
       title_bn: "স্বচ্ছ নীতিমালা",
       title_en: "Transparent Policies",
       desc_bn:
@@ -235,6 +236,7 @@ export default function HomePage() {
     },
     {
       icon: "Coins",
+      image_url: "",
       title_bn: "জামানতবিহীন ঋণ",
       title_en: "Collateral-Free Loans",
       desc_bn:
@@ -244,6 +246,7 @@ export default function HomePage() {
     },
     {
       icon: "PiggyBank",
+      image_url: "",
       title_bn: "সঞ্চয়ী হিসাব (৬% লভ্যাংশ)",
       title_en: "Savings Program (6% Interest)",
       desc_bn:
@@ -253,6 +256,7 @@ export default function HomePage() {
     },
     {
       icon: "HeartHandshake",
+      image_url: "",
       title_bn: "ঋণ বীমা সুবিধা",
       title_en: "Borrower Credit Insurance",
       desc_bn:
@@ -575,7 +579,7 @@ export default function HomePage() {
                   >
                     {/* Card Image */}
                     <img
-                      src={card.image || hero2.src}
+                      src={card.image_url || card.image || hero2.src}
                       alt={
                         card.title_en ||
                         card.title_bn ||
