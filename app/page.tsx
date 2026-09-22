@@ -6,7 +6,7 @@ import { ref, onValue } from "firebase/database";
 import { db } from "@/lib/firebase";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, type Variants } from "framer-motion";
 import hero2 from "../public/hero2.png";
 import {
   Sprout,
@@ -22,6 +22,54 @@ import {
 import StatCounter from "@/components/StatCounter";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import PhotoMarquee from "@/components/PhotoMarquee";
+
+/* ------------------------------------------------------------------ */
+/* Scroll-reveal animation helpers                                     */
+/* `custom` = index, used to stagger items inside lists/grids          */
+/* ------------------------------------------------------------------ */
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 36 },
+  show: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: EASE, delay: i * 0.1 },
+  }),
+};
+
+const fadeLeft: Variants = {
+  hidden: { opacity: 0, x: -50 },
+  show: (i: number = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.7, ease: EASE, delay: i * 0.1 },
+  }),
+};
+
+const fadeRight: Variants = {
+  hidden: { opacity: 0, x: 50 },
+  show: (i: number = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.7, ease: EASE, delay: i * 0.1 },
+  }),
+};
+
+const scaleIn: Variants = {
+  hidden: { opacity: 0, scale: 0.85 },
+  show: (i: number = 0) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.55, ease: EASE, delay: i * 0.1 },
+  }),
+};
+
+const reveal = {
+  initial: "hidden",
+  whileInView: "show",
+  viewport: { once: true, amount: 0.2 },
+} as const;
 
 export default function HomePage() {
   const { language, tContent, t } = useLanguage();
@@ -417,14 +465,24 @@ export default function HomePage() {
       </section>
 
       {/* 3. Breaking Barriers Section */}
-      <section className="py-20 border-y border-secondary/5 bg-white">
+      <section className="py-20 border-y border-secondary/5 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-6">
-              <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
+              <motion.span
+                variants={fadeUp}
+                custom={0}
+                {...reveal}
+                className="text-primary font-semibold text-sm uppercase tracking-wider block"
+              >
                 {tContent("আমাদের লক্ষ্য", "Our Core Mission")}
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-secondary leading-snug">
+              </motion.span>
+              <motion.h2
+                variants={fadeUp}
+                custom={1}
+                {...reveal}
+                className="text-3xl md:text-4xl font-bold text-secondary leading-snug"
+              >
                 {tContent(
                   !homeData?.mission_heading_bn ||
                     homeData.mission_heading_bn ===
@@ -439,16 +497,26 @@ export default function HomePage() {
                     ? "Establishing a poverty-free, happy, prosperous, and just society without discrimination through digital microfinance services."
                     : homeData.mission_heading_en,
                 )}
-              </h2>
-              <p className="text-base text-secondary/80 leading-relaxed font-normal">
+              </motion.h2>
+              <motion.p
+                variants={fadeUp}
+                custom={2}
+                {...reveal}
+                className="text-base text-secondary/80 leading-relaxed font-normal"
+              >
                 {tContent(
                   homeData?.mission_body_bn ||
                     "অঙ্কুর ফাউন্ডেশনে আমরা বিশ্বাস করি যে, প্রকৃত ক্ষমতায়ন তখনই শুরু হয় যখন আর্থিক সুযোগগুলো তাদের কাছে পৌঁছায় যাদের এটি সবচেয়ে বেশি প্রয়োজন। দীর্ঘ সময় ধরে গ্রামীণ এবং প্রান্তিক জনগোষ্ঠী আনুষ্ঠানিক আর্থিক ব্যবস্থার বাইরে থেকে গেছে, যা তাদের বৃদ্ধি, বিনিয়োগ এবং ভবিষ্যত সুরক্ষিত করার ক্ষমতাকে সীমিত করেছে। আমরা অর্থায়নে প্রবেশাধিকার সহজ, অন্তর্ভুক্তিমূলক এবং প্রভাবশালী করার মাধ্যমে এই বাধাগুলি ভেঙে দিতে প্রতিশ্রুতিবদ্ধ। আমাদের উদ্যোগের মাধ্যমে আমরা সুবিধাবঞ্চিত ব্যক্তি এবং সম্প্রদায়কে আর্থিক পরিষেবার সাথে সংযুক্ত করি যা শিক্ষা, উদ্যোক্তা, স্বাস্থ্যসেবা এবং টেকসই জীবিকার পথ উন্মুক্ত করে।",
                   homeData?.mission_body_en ||
-                    "At Onkur Foundation, we believe that true empowerment begins when financial opportunities reach those who need them most. For too long, rural and marginalized communities have been left outside the formal financial system, limiting their ability to grow, invest, and secure their future. We are committed to breaking these barriers by making access to finance simple, inclusive, and impactful. Through our initiatives, we connect underserved individuals and communities with financial services that open doors to education, entrepreneurship, healthcare, and sustainable livelihoods.",
+                    "At Onkur Foundation, we believe financial inclusion is a pathway to greater opportunity, resilience, and dignity. Rural and underserved communities continue to face barriers to accessing formal financial services, limiting opportunities to invest, grow, and build more secure and sustainable livelihoods. We work to bridge the gap between underserved communities and the financial services they need to build better futures. Through our digital solutions and village digital booths (VDBs), we connect underserved individuals and communities with financial services more efficiently and conveniently, expanding access to opportunities in entrepreneurship, sustainable livelihoods, healthcare, and education.By embracing digital technology, we are making financial services faster, more transparent, and easier to access—helping more people to participate in the formal financial system and take greater control of their economic future.",
                 )}
-              </p>
-              <div className="pt-4">
+              </motion.p>
+              <motion.div
+                variants={fadeUp}
+                custom={3}
+                {...reveal}
+                className="pt-4"
+              >
                 <Link
                   href="/about"
                   className="inline-flex items-center bg-primary hover:bg-green-600 text-white px-6 py-3 rounded-md text-sm font-medium transition-colors gap-2 shadow-sm"
@@ -458,10 +526,14 @@ export default function HomePage() {
                   </span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
-              </div>
+              </motion.div>
             </div>
 
-            <div className="lg:col-span-5 relative">
+            <motion.div
+              variants={fadeRight}
+              {...reveal}
+              className="lg:col-span-5 relative"
+            >
               <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-lg border border-secondary/10">
                 <img
                   src={
@@ -472,13 +544,18 @@ export default function HomePage() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -bottom-6 -left-6 bg-primary text-white px-6 py-4 rounded-2xl shadow-md hidden sm:block">
+              <motion.div
+                variants={scaleIn}
+                custom={4}
+                {...reveal}
+                className="absolute -bottom-6 -left-6 bg-primary text-white px-6 py-4 rounded-2xl shadow-md hidden sm:block"
+              >
                 <p className="text-2xl font-bold">100%</p>
                 <p className="text-xs font-light uppercase tracking-wider">
                   {tContent("স্বচ্ছতা ও নিষ্ঠা", "Transparency & Trust")}
                 </p>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -491,26 +568,39 @@ export default function HomePage() {
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* ---------------- বাম পাশ: টেক্সট + ট্যাব ---------------- */}
             <div className="space-y-5">
-              <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
-                {tContent("অনন্য বৈশিষ্ট্য", "Why Choose Us")}
-              </span>
-
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-secondary">
+              <motion.h2
+                variants={fadeLeft}
+                custom={0}
+                {...reveal}
+                className="text-3xl md:text-4xl lg:text-5xl font-bold text-secondary"
+              >
                 {tContent(
                   homeData?.why_title_bn || "কেন অঙ্কুর ফাউন্ডেশন?",
                   homeData?.why_title_en || "Why Choose Onkur Foundation?",
                 )}
-              </h2>
+              </motion.h2>
 
-              <p className="text-base text-gray-600 font-normal max-w-xl leading-relaxed">
+              <motion.p
+                variants={fadeLeft}
+                custom={1}
+                {...reveal}
+                className="text-base text-gray-600 font-normal max-w-xl leading-relaxed"
+              >
                 {tContent(
                   "আমাদের সহজ ও মানবকল্যাণমুখী নীতিমালা গ্রামীণ সুবিধাবঞ্চিত পরিবারের জীবনে মর্যাদাপূর্ণ আর্থিক সচ্ছলতা নিশ্চিত করে।",
                   "Our simple and borrower-first credit terms help guarantee dignified livelihoods for rural families.",
                 )}
-              </p>
+              </motion.p>
 
               {/* ছোট ডিভাইডার */}
-              <span className="block w-12 h-[3px] bg-secondary rounded-full" />
+              <motion.span
+                initial={{ opacity: 0, scaleX: 0 }}
+                whileInView={{ opacity: 1, scaleX: 1 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
+                style={{ transformOrigin: "left" }}
+                className="block w-12 h-[3px] bg-secondary rounded-full"
+              />
 
               {/* ট্যাব / পিল বাটন */}
               <div className="flex flex-wrap gap-3 pt-2">
@@ -518,9 +608,12 @@ export default function HomePage() {
                   const isActive = idx === activeWhy;
 
                   return (
-                    <button
+                    <motion.button
                       key={idx}
                       type="button"
+                      variants={fadeUp}
+                      custom={idx + 2}
+                      {...reveal}
                       onClick={() => setActiveWhy(idx)}
                       aria-pressed={isActive}
                       className={`rounded-full px-6 py-3 text-sm md:text-base font-semibold transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
@@ -533,14 +626,19 @@ export default function HomePage() {
                         card.title_bn || card.title,
                         card.title_en || card.title,
                       )}
-                    </button>
+                    </motion.button>
                   );
                 })}
               </div>
             </div>
 
             {/* ---------------- ডান পাশ: Stacked Cards ---------------- */}
-            <div className="relative h-[420px] sm:h-[480px] lg:h-[540px] w-full">
+            <motion.div
+              variants={fadeRight}
+              custom={1}
+              {...reveal}
+              className="relative h-[420px] sm:h-[480px] lg:h-[540px] w-full"
+            >
               {whyCards.map((card: any, idx: number) => {
                 const total = whyCards.length;
 
@@ -588,7 +686,7 @@ export default function HomePage() {
                       }
                       className="absolute inset-0 h-full w-full object-cover"
                       onError={(e) => {
-                        // যদি card.image broken হয়, hero2 fallback হবে
+                        // যদি card.image broken হয়, hero2 fallback হবে
                         if (e.currentTarget.src !== hero2.src) {
                           e.currentTarget.src = hero2.src;
                         }
@@ -652,7 +750,7 @@ export default function HomePage() {
                   </motion.button>
                 );
               })}
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -691,22 +789,25 @@ export default function HomePage() {
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h2
-            className="text-center text-2xl md:text-6xl font-bold mb-12 md:mb-16 bg-clip-text text-transparent"
-            style={{
-              backgroundImage:
-                "linear-gradient(90deg, #ffffff 0%, #ffffff 35%, color-mix(in srgb, var(--color-secondary) 60%, white 40%) 50%, #ffffff 65%, #ffffff 100%)",
-              backgroundSize: "200% 100%",
-              WebkitBackgroundClip: "text",
-            }}
-            animate={{ backgroundPosition: ["200% 0%", "-100% 0%"] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          >
-            {tContent(
-              homeData?.stats_title_bn || "আমাদের সাফল্যের যাত্রা",
-              homeData?.stats_title_en || "Journey of our Success",
-            )}
-          </motion.h2>
+          {/* Reveal wrapper (kept separate so the shimmer animation on the h2 is untouched) */}
+          <motion.div variants={fadeUp} {...reveal}>
+            <motion.h2
+              className="text-center text-2xl md:text-6xl font-bold mb-12 md:mb-16 bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, #ffffff 0%, #ffffff 35%, color-mix(in srgb, var(--color-secondary) 60%, white 40%) 50%, #ffffff 65%, #ffffff 100%)",
+                backgroundSize: "200% 100%",
+                WebkitBackgroundClip: "text",
+              }}
+              animate={{ backgroundPosition: ["200% 0%", "-100% 0%"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            >
+              {tContent(
+                homeData?.stats_title_bn || "আমাদের সাফল্যের যাত্রা",
+                homeData?.stats_title_en || "Journey of our Success",
+              )}
+            </motion.h2>
+          </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-10 gap-x-4">
             {[
@@ -741,8 +842,11 @@ export default function HomePage() {
                 labelEn: "Years Active",
               },
             ].map((stat, index) => (
-              <div
+              <motion.div
                 key={index}
+                variants={scaleIn}
+                custom={index}
+                {...reveal}
                 className="relative flex flex-col items-center text-center gap-2 px-2"
               >
                 {index !== 0 && (
@@ -763,7 +867,7 @@ export default function HomePage() {
                 <p className="text-xs md:text-sm text-white/70 leading-snug max-w-[140px]">
                   {tContent(stat.labelBn, stat.labelEn)}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -772,7 +876,11 @@ export default function HomePage() {
       {/* 8. Executive Team Preview Section */}
       {team.length > 0 && (
         <section className="max-w-7xl my-16 mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <motion.div
+            variants={fadeUp}
+            {...reveal}
+            className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4"
+          >
             <div>
               <span className="text-primary font-semibold text-sm uppercase tracking-wider block mb-2">
                 {tContent("আমাদের নেতৃত্ব", "Executive Team")}
@@ -791,12 +899,15 @@ export default function HomePage() {
               <span>{tContent("সব সদস্য দেখুন", "View All Members")}</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {team.map((member) => (
+            {team.map((member, idx) => (
               <motion.div
                 key={member.id}
+                variants={fadeUp}
+                custom={idx}
+                {...reveal}
                 whileHover={{ y: -6 }}
                 className="bg-white rounded-2xl overflow-hidden shadow-sm border border-secondary/5"
               >
@@ -825,7 +936,11 @@ export default function HomePage() {
       {testimonials.length > 0 && (
         <section className="bg-white py-16 border-y border-secondary/5">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-10">
+            <motion.div
+              variants={fadeUp}
+              {...reveal}
+              className="text-center max-w-2xl mx-auto mb-10"
+            >
               <span className="text-primary font-semibold text-sm uppercase tracking-wider block mb-2">
                 {tContent("সফলতার গল্প", "Success Stories")}
               </span>
@@ -835,8 +950,10 @@ export default function HomePage() {
                   "What Our Borrowers Say",
                 )}
               </h2>
-            </div>
-            <TestimonialCarousel testimonials={testimonials} />
+            </motion.div>
+            <motion.div variants={fadeUp} custom={1} {...reveal}>
+              <TestimonialCarousel testimonials={testimonials} />
+            </motion.div>
           </div>
         </section>
       )}
@@ -844,7 +961,11 @@ export default function HomePage() {
       {/* 10. Blog Preview Section */}
       {blogPosts.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 my-16 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <motion.div
+            variants={fadeUp}
+            {...reveal}
+            className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4"
+          >
             <div>
               <span className="text-primary font-semibold text-sm uppercase tracking-wider block mb-2">
                 {tContent("ব্লগ ও খবর", "Latest News")}
@@ -863,57 +984,68 @@ export default function HomePage() {
               <span>{tContent("সব ব্লগ পড়ুন", "Read All Posts")}</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {blogPosts[0] && (
-              <Link
-                href={`/blog/${blogPosts[0].slug}`}
-                className="group flex flex-col lg:pr-10"
-              >
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 mb-6">
-                  <img
-                    src={blogPosts[0].coverImageUrl}
-                    alt={tContent(blogPosts[0].title_bn, blogPosts[0].title_en)}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <span className="text-xs text-gray-700 font-medium mb-2">
-                  {new Date(blogPosts[0].publishedAt).toLocaleDateString(
-                    language === "bn" ? "bn-BD" : "en-US",
-                    { year: "numeric", month: "short", day: "numeric" },
-                  )}
-                </span>
-                <h3 className="text-2xl md:text-3xl font-bold text-secondary group-hover:text-primary transition-colors leading-snug mb-3">
-                  {tContent(blogPosts[0].title_bn, blogPosts[0].title_en)}
-                </h3>
-                <p className="text-sm text-gray-700 font-normal line-clamp-2">
-                  {tContent(blogPosts[0].excerpt_bn, blogPosts[0].excerpt_en)}
-                </p>
-              </Link>
-            )}
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:pl-10 lg:border-l lg:border-secondary/10">
-              {blogPosts.slice(1, 5).map((post) => (
+              <motion.div variants={fadeLeft} {...reveal}>
                 <Link
-                  href={`/blog/${post.slug}`}
-                  key={post.id}
-                  className="group flex flex-col"
+                  href={`/blog/${blogPosts[0].slug}`}
+                  className="group flex flex-col lg:pr-10"
                 >
-                  <div className="aspect-video rounded-xl overflow-hidden bg-gray-100 mb-4">
+                  <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 mb-6">
                     <img
-                      src={post.coverImageUrl}
-                      alt={tContent(post.title_bn, post.title_en)}
+                      src={blogPosts[0].coverImageUrl}
+                      alt={tContent(
+                        blogPosts[0].title_bn,
+                        blogPosts[0].title_en,
+                      )}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
-                  <h3 className="text-base font-bold text-secondary group-hover:text-primary transition-colors leading-snug line-clamp-2 mb-2">
-                    {tContent(post.title_bn, post.title_en)}
+                  <span className="text-xs text-gray-700 font-medium mb-2">
+                    {new Date(blogPosts[0].publishedAt).toLocaleDateString(
+                      language === "bn" ? "bn-BD" : "en-US",
+                      { year: "numeric", month: "short", day: "numeric" },
+                    )}
+                  </span>
+                  <h3 className="text-2xl md:text-3xl font-bold text-secondary group-hover:text-primary transition-colors leading-snug mb-3">
+                    {tContent(blogPosts[0].title_bn, blogPosts[0].title_en)}
                   </h3>
-                  <p className="text-xs text-gray-700 font-normal line-clamp-2">
-                    {tContent(post.excerpt_bn, post.excerpt_en)}
+                  <p className="text-sm text-gray-700 font-normal line-clamp-2">
+                    {tContent(blogPosts[0].excerpt_bn, blogPosts[0].excerpt_en)}
                   </p>
                 </Link>
+              </motion.div>
+            )}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:pl-10 lg:border-l lg:border-secondary/10">
+              {blogPosts.slice(1, 5).map((post, idx) => (
+                <motion.div
+                  key={post.id}
+                  variants={fadeRight}
+                  custom={idx}
+                  {...reveal}
+                >
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="group flex flex-col"
+                  >
+                    <div className="aspect-video rounded-xl overflow-hidden bg-gray-100 mb-4">
+                      <img
+                        src={post.coverImageUrl}
+                        alt={tContent(post.title_bn, post.title_en)}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <h3 className="text-base font-bold text-secondary group-hover:text-primary transition-colors leading-snug line-clamp-2 mb-2">
+                      {tContent(post.title_bn, post.title_en)}
+                    </h3>
+                    <p className="text-xs text-gray-700 font-normal line-clamp-2">
+                      {tContent(post.excerpt_bn, post.excerpt_en)}
+                    </p>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </div>
