@@ -24,22 +24,35 @@ export default function BlogListingPage() {
       if (loaded >= 2) setLoading(false);
     };
 
-    const unsubBlog = onValue(blogRef, (snap) => {
-      const val = snap.val();
-      if (val) {
-        const arr = Object.keys(val).map(k => ({ id: k, ...val[k] }))
-          .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
-        setPosts(arr);
-      } else {
-        setPosts([]);
-      }
-      checkLoaded();
-    }, () => checkLoaded());
+    const unsubBlog = onValue(
+      blogRef,
+      (snap) => {
+        const val = snap.val();
+        if (val) {
+          const arr = Object.keys(val)
+            .map((k) => ({ id: k, ...val[k] }))
+            .sort(
+              (a, b) =>
+                new Date(b.publishedAt).getTime() -
+                new Date(a.publishedAt).getTime(),
+            );
+          setPosts(arr);
+        } else {
+          setPosts([]);
+        }
+        checkLoaded();
+      },
+      () => checkLoaded(),
+    );
 
-    const unsubContent = onValue(contentRef, (snap) => {
-      setBlogContent(snap.val());
-      checkLoaded();
-    }, () => checkLoaded());
+    const unsubContent = onValue(
+      contentRef,
+      (snap) => {
+        setBlogContent(snap.val());
+        checkLoaded();
+      },
+      () => checkLoaded(),
+    );
 
     return () => {
       unsubBlog();
@@ -57,12 +70,14 @@ export default function BlogListingPage() {
 
   return (
     <div className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-      
       {/* Banner Image */}
       <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xs border border-secondary/10 relative bg-gray-100">
-        <img 
-          src={blogContent?.banner_image_url || "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1200"} 
-          alt="Onkur Blog Banner" 
+        <img
+          src={
+            blogContent?.banner_image_url ||
+            "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1200"
+          }
+          alt="Onkur Blog Banner"
           className="w-full h-full object-cover"
         />
       </div>
@@ -70,15 +85,24 @@ export default function BlogListingPage() {
       {/* Title */}
       <div className="text-center max-w-2xl mx-auto space-y-4">
         <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
-          {tContent(blogContent?.title_bn || "ব্লগ ও খবর", blogContent?.title_en || "Onkur Blog")}
+          {tContent(
+            blogContent?.title_bn || "ব্লগ ও খবর",
+            blogContent?.title_en || "Onkur Blog",
+          )}
         </span>
         <h1 className="text-4xl font-bold text-secondary">
-          {tContent(blogContent?.heading_bn || "মাঠপর্যায়ের প্রতিবেদন ও সর্বশেষ খবর", blogContent?.heading_en || "Updates & Success Stories from the Ground")}
+          {tContent(
+            blogContent?.heading_bn || "মাঠপর্যায়ের প্রতিবেদন ও সর্বশেষ খবর",
+            blogContent?.heading_en ||
+              "Updates & Success Stories from the Ground",
+          )}
         </h1>
         <p className="text-base text-text font-normal leading-relaxed">
           {tContent(
-            blogContent?.intro_bn || "গ্রামীণ সুবিধাবঞ্চিত পরিবারগুলোর পরিবর্তন এবং আমাদের মাঠকর্মীদের কাজের সরাসরি প্রতিবেদন পড়ুন এখানে।",
-            blogContent?.intro_en || "Read firsthand reports on social upliftment, microfinance advances, and village milestones."
+            blogContent?.intro_bn ||
+              "গ্রামীণ সুবিধাবঞ্চিত পরিবারগুলোর পরিবর্তন এবং আমাদের মাঠকর্মীদের কাজের সরাসরি প্রতিবেদন পড়ুন এখানে।",
+            blogContent?.intro_en ||
+              "Read firsthand reports on social upliftment, microfinance advances, and village milestones.",
           )}
         </p>
       </div>
@@ -86,7 +110,10 @@ export default function BlogListingPage() {
       {/* Grid */}
       {posts.length === 0 ? (
         <div className="text-center text-text font-normal py-12">
-          {tContent("কোনো ব্লগ পোস্ট খুঁজে পাওয়া যায়নি।", "No blog posts found.")}
+          {tContent(
+            "কোনো ব্লগ পোস্ট খুঁজে পাওয়া যায়নি।",
+            "No blog posts found.",
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -124,11 +151,14 @@ export default function BlogListingPage() {
                   <div className="flex items-center text-xs text-text font-normal gap-3">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-3.5 h-3.5 text-primary" />
-                      {new Date(post.publishedAt).toLocaleDateString(language === "bn" ? "bn-BD" : "en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
+                      {new Date(post.publishedAt).toLocaleDateString(
+                        language === "bn" ? "bn-BD" : "en-US",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        },
+                      )}
                     </span>
                     {post.author && (
                       <span className="flex items-center gap-1">
@@ -160,7 +190,6 @@ export default function BlogListingPage() {
           ))}
         </div>
       )}
-
     </div>
   );
 }

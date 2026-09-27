@@ -11,6 +11,12 @@ import {
   Sparkles,
   Users,
   TrendingUp,
+  Target,
+  Eye,
+  Compass,
+  Lightbulb,
+  Zap,
+  Leaf,
 } from "lucide-react";
 
 export default function AboutPage() {
@@ -186,6 +192,63 @@ export default function AboutPage() {
     },
   ];
 
+  const valuesBullets = [
+    {
+      icon: ShieldCheck,
+      title_en: "Integrity",
+      title_bn: "সততা",
+      text_en:
+        "We act with honesty, transparency and accountability in everything we do.",
+      text_bn:
+        "আমরা আমাদের প্রতিটি কাজে সততা, স্বচ্ছতা ও জবাবদিহিতার সাথে কাজ করি।",
+    },
+    {
+      icon: Users,
+      title_en: "Inclusion",
+      title_bn: "অন্তর্ভুক্তি",
+      text_en:
+        "We work to ensure that financial services reach people and communities who are underserved or excluded.",
+      text_bn:
+        "আমরা নিশ্চিত করার চেষ্টা করি যেন আর্থিক সেবা সুবিধাবঞ্চিত বা বাদপড়া মানুষ ও সম্প্রদায়ের কাছে পৌঁছায়।",
+    },
+    {
+      icon: Heart,
+      title_en: "Customer-Centricity",
+      title_bn: "গ্রাহক-কেন্দ্রিকতা",
+      text_en:
+        "We listen to our clients and design services around their needs, aspirations and circumstances.",
+      text_bn:
+        "আমরা আমাদের গ্রাহকদের কথা শুনি এবং তাদের প্রয়োজন, আকাঙ্ক্ষা ও পরিস্থিতি বিবেচনায় নিয়ে সেবা ডিজাইন করি।",
+    },
+    {
+      icon: Lightbulb,
+      title_en: "Innovation",
+      title_bn: "উদ্ভাবন",
+      text_en:
+        "We continuously explore new ideas, technologies and approaches to make financial services more accessible and effective.",
+      text_bn:
+        "আমরা আর্থিক সেবাকে আরও সহজলভ্য ও কার্যকর করতে ক্রমাগত নতুন ধারণা, প্রযুক্তি ও পদ্ধতি খুঁজে বের করি।",
+    },
+    {
+      icon: Zap,
+      title_en: "Empowerment",
+      title_bn: "ক্ষমতায়ন",
+      text_en:
+        "We believe finance should enable people to make informed choices, build livelihoods and create opportunities.",
+      text_bn:
+        "আমরা বিশ্বাস করি, অর্থায়ন মানুষকে সচেতন সিদ্ধান্ত নিতে, জীবিকা গড়তে ও সুযোগ তৈরি করতে সক্ষম করা উচিত।",
+    },
+    {
+      icon: Leaf,
+      title_en: "Sustainability",
+      title_bn: "স্থায়িত্ব",
+      text_en:
+        "We pursue long-term value for our clients, our institution and the communities we serve.",
+      text_bn:
+        "আমরা আমাদের গ্রাহক, প্রতিষ্ঠান ও সেবাপ্রাপ্ত সম্প্রদায়ের জন্য দীর্ঘমেয়াদী মূল্য তৈরির চেষ্টা করি।",
+    },
+  ];
+
   const getApproachIcon = (iconName: string) => {
     switch (iconName) {
       case "ShieldCheck":
@@ -212,7 +275,10 @@ export default function AboutPage() {
       {/* 1. Header Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
         <span className="text-primary font-semibold text-sm uppercase tracking-wider block mb-2">
-          {tContent("আমাদের পরিচয়", "Who We Are")}
+          {tContent(
+            "আর্থিক অন্তর্ভুক্তির প্রসার। ডিজিটাল প্রবেশাধিকার নিশ্চিতকরণ। সুযোগ সৃষ্টি।",
+            "Expanding Financial Inclusion. Enabling Digital Access. Creating Opportunities.",
+          )}
         </span>
         <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-6">
           {tContent(
@@ -369,64 +435,82 @@ export default function AboutPage() {
       </section>
 
       {/* 3. Deep Dive into Mission/Vision/Values */}
-      <section className="bg-white py-16 border-y border-secondary/10">
+      <section className="bg-white py-20 border-y border-secondary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {/* Mission Panel */}
-            <div className="bg-white p-8 rounded-2xl border border-secondary/10 space-y-6">
-              <h3 className="text-2xl font-bold text-secondary border-b border-secondary/10 pb-3">
-                {tContent("আমাদের লক্ষ্য (Mission)", "Our Mission")}
-              </h3>
-              <ul className="space-y-3.5">
-                {(homeData?.mission_bullets || defaultMissionBullets).map(
-                  (bullet: any, idx: number) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span className="text-sm font-normal text-text">
-                        {tContent(bullet.text_bn, bullet.text_en)}
-                      </span>
-                    </li>
-                  ),
+            <div className="group relative bg-white p-8 rounded-2xl border border-secondary/10 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+              <div className="absolute top-0 left-8 right-8 h-0.5 bg-gradient-to-r from-transparent via-primary/40 to-transparent rounded-full" />
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/15 transition-colors">
+                  <Target className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-secondary">
+                  {tContent("আমাদের লক্ষ্য", "Our Mission")}
+                </h3>
+              </div>
+              <p className="text-sm font-normal text-text leading-relaxed">
+                {tContent(
+                  "দায়িত্বশীল ও উদ্ভাবনী আর্থিক সেবার প্রসার ঘটানো, যেখানে মানব-কেন্দ্রিক ক্ষুদ্রঋণকে ডিজিটাল সমাধানের সাথে সমন্বিত করে ব্যক্তি, উদ্যোক্তা ও সম্প্রদায়কে টেকসই জীবিকা গড়তে সক্ষম করা হয়।",
+                  "To expand access to responsible and innovative financial services by combining human-centered microfinance with digital solutions that empower individuals, entrepreneurs and communities to create sustainable livelihoods.",
                 )}
-              </ul>
+              </p>
             </div>
 
             {/* Vision Panel */}
-            <div className="bg-white p-8 rounded-2xl border border-secondary/10 space-y-6">
-              <h3 className="text-2xl font-bold text-secondary border-b border-secondary/10 pb-3">
-                {tContent("আমাদের স্বপ্ন (Vision)", "Our Vision")}
-              </h3>
-              <ul className="space-y-3.5">
-                {(homeData?.vision_bullets || defaultVisionBullets).map(
-                  (bullet: any, idx: number) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span className="text-sm font-normal text-text">
-                        {tContent(bullet.text_bn, bullet.text_en)}
-                      </span>
-                    </li>
-                  ),
+            <div className="group relative bg-white p-8 rounded-2xl border border-secondary/10 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+              <div className="absolute top-0 left-8 right-8 h-0.5 bg-gradient-to-r from-transparent via-primary/40 to-transparent rounded-full" />
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/15 transition-colors">
+                  <Eye className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-secondary">
+                  {tContent("আমাদের স্বপ্ন", "Our Vision")}
+                </h3>
+              </div>
+              <p className="text-sm font-normal text-text leading-relaxed">
+                {tContent(
+                  "একটি আর্থিকভাবে অন্তর্ভুক্তিমূলক বাংলাদেশ, যেখানে প্রত্যেকের একটি উন্নত ও স্থিতিস্থাপক ভবিষ্যৎ গড়ার সুযোগ থাকবে।",
+                  "A financially inclusive Bangladesh where everyone has the opportunity to build a better and more resilient future.",
                 )}
-              </ul>
+              </p>
             </div>
 
             {/* Values Panel */}
-            <div className="bg-white p-8 rounded-2xl border border-secondary/10 space-y-6">
-              <h3 className="text-2xl font-bold text-secondary border-b border-secondary/10 pb-3">
-                {tContent("মূল্যবোধ (Values)", "Our Values")}
-              </h3>
-              <ul className="space-y-3.5">
-                {(homeData?.values_bullets || defaultValuesBullets).map(
-                  (bullet: any, idx: number) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
-                      <span className="text-sm font-normal text-text">
-                        {tContent(bullet.text_bn, bullet.text_en)}
-                      </span>
-                    </li>
-                  ),
-                )}
-              </ul>
+            <div className="group relative bg-white p-8 rounded-2xl border border-secondary/10 hover:border-secondary/30 hover:shadow-xl hover:shadow-secondary/5 transition-all duration-300">
+              <div className="absolute top-0 left-8 right-8 h-0.5 bg-gradient-to-r from-transparent via-secondary/40 to-transparent rounded-full" />
+              <div className="flex items-center gap-3 mb-1">
+                <div className="w-11 h-11 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0 group-hover:bg-secondary/15 transition-colors">
+                  <Compass className="w-5 h-5 text-secondary" />
+                </div>
+                <h3 className="text-xl font-bold text-secondary">
+                  {tContent("মূল্যবোধ", "Our Values")}
+                </h3>
+              </div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-secondary/50 mb-5 ml-14">
+                {tContent("যা আমাদের পথ দেখায়", "What Guides Us")}
+              </p>
+              <div className="space-y-3.5 max-h-[420px] overflow-y-auto pr-1 -mr-1">
+                {valuesBullets.map((bullet, idx: number) => {
+                  const Icon = bullet.icon;
+                  return (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-3 pb-3.5 border-b border-secondary/5 last:border-0 last:pb-0"
+                    >
+                      <Icon className="w-4 h-4 text-secondary/60 shrink-0 mt-0.5" />
+                      <div>
+                        <h4 className="text-sm font-bold text-secondary">
+                          {tContent(bullet.title_bn, bullet.title_en)}
+                        </h4>
+                        <p className="text-xs font-normal text-text/80 mt-0.5 leading-relaxed">
+                          {tContent(bullet.text_bn, bullet.text_en)}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

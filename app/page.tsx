@@ -286,11 +286,11 @@ export default function HomePage() {
       icon: "Coins",
       image_url: "",
       title_bn: "জামানতবিহীন ঋণ",
-      title_en: "Collateral-Free Loans",
+      title_en: "Digital Solutions",
       desc_bn:
-        "সুবিধাবঞ্চিত ও প্রান্তিক ঋণগ্রহীতাদের জন্য কোনো প্রকার জামানত বা স্থাবর সম্পত্তি ছাড়াই ঋণের সুযোগ।",
+        "প্রযুক্তির ব্যবহারের মাধ্যমে আর্থিক সেবাকে আরও সহজ ও সহজলভ্য করে তোলা—তা আমাদের ঋণ কর্মকর্তাদের সহায়তায় কিংবা গ্রামের ডিজিটাল বুথের মাধ্যমে।",
       desc_en:
-        "Collateral-free microloans designed specifically for underserved rural borrowers without assets.",
+        "Making financial services simpler and easier to access through technology, with assistance from our loan officers or through village digital booths.",
     },
     {
       icon: "PiggyBank",
@@ -588,7 +588,7 @@ export default function HomePage() {
               >
                 {tContent(
                   "আমাদের সহজ ও মানবকল্যাণমুখী নীতিমালা গ্রামীণ সুবিধাবঞ্চিত পরিবারের জীবনে মর্যাদাপূর্ণ আর্থিক সচ্ছলতা নিশ্চিত করে।",
-                  "Our simple and borrower-first credit terms help guarantee dignified livelihoods for rural families.",
+                  "At Onkur Foundation, we go beyond providing credit. We aim to connect rural and underserved communities to the formal financial system, helping bring banking and financial services closer to people who have traditionally had limited access. Through appropriate financial products, digital solutions, and stronger connections with formal banking channels, we enable individuals and families to manage their finances, grow their businesses, and build greater economic resilience. By combining human-centered service with digital innovation, we are making financial services more accessible, efficient, transparent, and convenient. Our goal is to create a pathway from financial access to financial inclusion—helping rural communities participate more fully in the formal economy. Our commitment is to create meaningful opportunities for rural and underserved communities, helping them build stronger livelihoods today and a more secure and sustainable future tomorrow.",
                 )}
               </motion.p>
 
@@ -941,14 +941,8 @@ export default function HomePage() {
               {...reveal}
               className="text-center max-w-2xl mx-auto mb-10"
             >
-              <span className="text-primary font-semibold text-sm uppercase tracking-wider block mb-2">
-                {tContent("সফলতার গল্প", "Success Stories")}
-              </span>
               <h2 className="text-3xl font-bold text-secondary">
-                {tContent(
-                  "আমাদের সুবিধাভোগীদের মতামত",
-                  "What Our Borrowers Say",
-                )}
+                {tContent("সফলতার গল্প", "Success Stories")}
               </h2>
             </motion.div>
             <motion.div variants={fadeUp} custom={1} {...reveal}>
