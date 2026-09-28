@@ -71,7 +71,7 @@ export default function BlogListingPage() {
   return (
     <div className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       {/* Banner Image */}
-      <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden shadow-xs border border-secondary/10 relative bg-gray-100">
+      <div className="w-full h-64 md:h-100 rounded-3xl overflow-hidden shadow-xs border border-secondary/10 relative bg-gray-100">
         <img
           src={
             blogContent?.banner_image_url ||
@@ -179,7 +179,7 @@ export default function BlogListingPage() {
 
               <div className="p-6 pt-0">
                 <Link
-                  href={`/blog/${post.slug}`}
+                  href={`/blog/${post.slug || post.id}`}
                   className="inline-flex items-center text-sm font-semibold text-primary hover:text-secondary transition-colors gap-1"
                 >
                   <span>{t("common.readMore")}</span>

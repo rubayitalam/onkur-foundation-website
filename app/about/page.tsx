@@ -114,6 +114,15 @@ export default function AboutPage() {
     },
     {
       icon: "Users",
+      title_bn: "ডিজিটাল সদস্য অনবোর্ডিং ও ঋণ প্রদান",
+      title_en: "Digital Member Onboarding and Loan Origination",
+      desc_bn:
+        "ভিবিডি ও ঋণ কর্মকর্তারা যোগ্য সদস্যকে ডিজিটালভাবে অনবোর্ডিং করতে সহায়তা করেন।",
+      desc_en:
+        "VDB/Loan officers facilitate onboarding the eligible member to onboard member digitally.",
+    },
+    {
+      icon: "Users",
       title_bn: "কমিউনিটি ও গ্রুপ সংহতি",
       title_en: "Community Group Committees",
       desc_bn:
@@ -262,6 +271,19 @@ export default function AboutPage() {
     }
   };
 
+  const approachPoints = aboutData?.approach_points
+    ? aboutData.approach_points.some(
+        (point: any) =>
+          point.title_en === "Digital Member Onboarding and Loan Origination",
+      )
+      ? aboutData.approach_points
+      : [
+          ...aboutData.approach_points.slice(0, 1),
+          defaultApproachPoints[1],
+          ...aboutData.approach_points.slice(1),
+        ]
+    : defaultApproachPoints;
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh] bg-white py-20">
@@ -323,26 +345,24 @@ export default function AboutPage() {
             </p>
 
             <div className="space-y-4 pt-2">
-              {(aboutData?.approach_points || defaultApproachPoints).map(
-                (pt: any, idx: number) => (
-                  <div
-                    key={idx}
-                    className="flex gap-3.5 items-start p-4 rounded-xl hover:bg-secondary/5 transition-colors border border-secondary/10 bg-white"
-                  >
-                    <div className="bg-white/5 p-2.5 rounded-lg text-primary shrink-0 mt-0.5">
-                      {getApproachIcon(pt.icon)}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-secondary text-sm">
-                        {tContent(pt.title_bn, pt.title_en)}
-                      </h4>
-                      <p className="text-xs text-text font-normal mt-0.5 leading-relaxed">
-                        {tContent(pt.desc_bn, pt.desc_en)}
-                      </p>
-                    </div>
+              {approachPoints.map((pt: any, idx: number) => (
+                <div
+                  key={idx}
+                  className="flex gap-3.5 items-start p-4 rounded-xl hover:bg-secondary/5 transition-colors border border-secondary/10 bg-white"
+                >
+                  <div className="bg-white/5 p-2.5 rounded-lg text-primary shrink-0 mt-0.5">
+                    {getApproachIcon(pt.icon)}
                   </div>
-                ),
-              )}
+                  <div>
+                    <h4 className="font-bold text-secondary text-sm">
+                      {tContent(pt.title_bn, pt.title_en)}
+                    </h4>
+                    <p className="text-xs text-text font-normal mt-0.5 leading-relaxed">
+                      {tContent(pt.desc_bn, pt.desc_en)}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

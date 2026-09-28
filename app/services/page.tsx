@@ -1,290 +1,319 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { ref, onValue, push, set } from "firebase/database";
-import { db } from "@/lib/firebase";
-import { useLanguage } from "@/context/LanguageContext";
+import React from "react";
 import { motion } from "framer-motion";
-import { 
-  Sprout, 
-  TrendingUp, 
-  Coins, 
-  HeartHandshake, 
-  ShieldCheck, 
-  PiggyBank, 
-  FileText, 
-  CheckCircle2, 
+import {
+  Sprout,
+  TrendingUp,
+  PiggyBank,
+  ShieldCheck,
+  CheckCircle2,
   ArrowRight,
-  Sparkles,
-  Percent,
+  HeartHandshake,
+  Store,
+  Wheat,
+  Building2,
+  Users,
+  Coins,
   CalendarDays,
-  X
+  Percent,
+  Banknote,
+  FileText,
 } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
+
+/* ---------- Content (add `bn` to any entry to localise it) ---------- */
+type T = { en: string; bn?: string };
+const tx = (en: string, bn?: string): T => ({ en, bn });
+
+const audiences = [
+  {
+    icon: HeartHandshake,
+    title: tx("Women Entrepreneurs"),
+    desc: tx(
+      "Supporting women with access to finance and opportunities to strengthen their economic participation.",
+    ),
+  },
+  {
+    icon: Store,
+    title: tx("Microentrepreneurs"),
+    desc: tx(
+      "Helping small entrepreneurs invest, grow their businesses and create sustainable livelihoods.",
+    ),
+  },
+  {
+    icon: Wheat,
+    title: tx("Smallholder Farmers"),
+    desc: tx(
+      "Providing financial solutions that respond to the realities of agricultural livelihoods.",
+    ),
+  },
+  {
+    icon: Building2,
+    title: tx("Small & Growing Businesses"),
+    desc: tx(
+      "Helping enterprises access the working capital and investment finance they need to grow.",
+    ),
+  },
+  {
+    icon: Users,
+    title: tx("Underserved Communities"),
+    desc: tx(
+      "Extending financial services to communities with limited access to formal financial institutions.",
+    ),
+  },
+];
+
+const loans = [
+  {
+    icon: Sprout,
+    title: tx("Small Loan for Women"),
+    tagline: tx(
+      "Exclusively for women engaged in income-generating activities",
+    ),
+    stats: [
+      {
+        icon: Banknote,
+        label: tx("Loan Range"),
+        value: tx("BDT 10,000–100,000"),
+        note: tx("Not more than Tk 50,000 in the first phase"),
+      },
+      {
+        icon: CalendarDays,
+        label: tx("Tenure"),
+        value: tx("1 year (46 weeks)"),
+        note: tx("Weekly instalments"),
+      },
+      {
+        icon: Percent,
+        label: tx("Service Charge"),
+        value: tx("22% annually"),
+        note: tx("Declining balance basis"),
+      },
+      {
+        icon: Coins,
+        label: tx("Admission Fee"),
+        value: tx("BDT 10"),
+        note: tx("Non-refundable; new and returning members"),
+      },
+    ],
+    eligibilityTitle: tx("Eligibility Criteria"),
+    eligibility: [
+      ["Age", "18–60 years"],
+      [
+        "Residence",
+        "Permanent resident within the branch’s/VDB’s operating area",
+      ],
+      ["Group Structure", "Committee-based (Samity) lending model"],
+      ["Committee Size", "10–30 members"],
+      [
+        "Committee Leadership",
+        "Chairperson, Secretary and Cashier elected from among members",
+      ],
+    ],
+  },
+  {
+    icon: TrendingUp,
+    title: tx("Enterprise Loan"),
+    tagline: tx(
+      "For men or women — entrepreneurship development or any kind of business expansion",
+    ),
+    stats: [
+      {
+        icon: Banknote,
+        label: tx("Loan Range"),
+        value: tx("BDT 50,000–1,500,000"),
+        note: tx(
+          "BDT 200,000 in the first phase, based on business size, need and field verification",
+        ),
+      },
+      {
+        icon: CalendarDays,
+        label: tx("Tenure"),
+        value: tx("1 year"),
+        note: tx("Weekly or monthly repayments"),
+      },
+      {
+        icon: Percent,
+        label: tx("Service Charge"),
+        value: tx("22% annually"),
+        note: tx("Declining balance basis"),
+      },
+      {
+        icon: FileText,
+        label: tx("Documentation"),
+        value: tx("BDT 50,000 or above"),
+        note: tx("Non-judicial stamp declaration and two guarantors"),
+      },
+    ],
+    eligibilityTitle: tx("General Eligibility"),
+    eligibility: [
+      [
+        "Business Requirement",
+        "Applicant must have a visible and legitimate business or project",
+      ],
+      [
+        "Financing Model",
+        "Committee-based or individual (entrepreneur-based) lending",
+      ],
+      ["Proprietor Age", "18–60 years and physically and mentally fit"],
+      ["Residence", "Must permanently reside within the branch’s service area"],
+      [
+        "Tenant Borrowers",
+        "Proof of at least 3 years’ residence in the same area",
+      ],
+    ],
+  },
+];
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.15 },
+};
 
 export default function ServicesPage() {
   const { tContent, t } = useLanguage();
-  const [servicesData, setServicesData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const L = (x: T) => tContent(x.bn ?? x.en, x.en);
 
-  // Loan Apply Modal State
-  const [showApplyModal, setShowApplyModal] = useState(false);
-  const [selectedLoanProduct, setSelectedLoanProduct] = useState("");
-  const [applicantName, setApplicantName] = useState("");
-  const [applicantPhone, setApplicantPhone] = useState("");
-  const [applicantEmail, setApplicantEmail] = useState("");
-  const [applicantAmount, setApplicantAmount] = useState("");
-  const [applicantAddress, setApplicantAddress] = useState("");
-  const [applicantNotes, setApplicantNotes] = useState("");
-  const [submittingLoan, setSubmittingLoan] = useState(false);
-  const [loanSuccess, setLoanSuccess] = useState(false);
-
-  const handleLoanSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmittingLoan(true);
-    try {
-      const loanAppsRef = ref(db, "loanApplications");
-      const newRef = push(loanAppsRef);
-      await set(newRef, {
-        name: applicantName,
-        phone: applicantPhone,
-        email: applicantEmail,
-        loanType: selectedLoanProduct || "Microfinance Loan",
-        amount: applicantAmount,
-        address: applicantAddress,
-        notes: applicantNotes,
-        status: "Pending",
-        submittedAt: new Date().toISOString()
-      });
-      setLoanSuccess(true);
-      setApplicantName("");
-      setApplicantPhone("");
-      setApplicantEmail("");
-      setApplicantAmount("");
-      setApplicantAddress("");
-      setApplicantNotes("");
-    } catch (err: any) {
-      alert("Error submitting loan application: " + err.message);
-    } finally {
-      setSubmittingLoan(false);
-    }
-  };
-
-  // Fallbacks for seeding transition
-  const defaultServices = {
-    heading_bn: "আমাদের সেবাসমূহ",
-    heading_en: "Our Services",
-    intro_bn: "অঙ্কুর ফাউন্ডেশন মাইক্রোক্রেডিট রেগুলেটরি অথরিটি (MRA)-র নির্দেশনা অনুসরণ করে দুই ধরনের ঋণ প্রোডাক্ট পরিচালনা করে। নিচে প্রতিটি প্রোডাক্টের বিস্তারিত শর্তাবলি দেওয়া হলো।",
-    intro_en: "Onkur Foundation operates two loan products under the guidance of the Microcredit Regulatory Authority (MRA). Full terms for each product are detailed below.",
-    items: [
-      {
-        title_bn: "ক্ষুদ্র (জাগরণ) ঋণ",
-        title_en: "Khudro (Jagoron) Loan",
-        short_desc_bn: "সমিতি-ভিত্তিক সাপ্তাহিক ঋণ, একচেটিয়াভাবে আয়বর্ধক কাজে নিয়োজিত নারীদের জন্য।",
-        short_desc_en: "A committee-based weekly loan program exclusively for women engaged in income-generating work.",
-        full_desc_bn: "ক্ষুদ্র (জাগরণ) ঋণ হলো অঙ্কুর ফাউন্ডেশনের মূল ক্ষুদ্রঋণ কর্মসূচি, যা সমিতি-ভিত্তিক পদ্ধতিতে পরিচালিত হয়। এই ঋণ শুধুমাত্র আয়বর্ধক কাজে নিয়োজিত নারীদের জন্য প্রযোজ্য। সদস্যপদের জন্য বয়স ১৮-৬০ বছরের মধ্যে হতে হবে এবং শারীরিক ও মানসিকভাবে সুস্থ থাকতে হবে, এবং শাখার কর্ম এলাকায় স্থায়ীভাবে বসবাস করতে হবে। ভর্তি ফি ১০ টাকা (অফেরতযোগ্য, শুধুমাত্র নতুন ও ফেরত আসা সদস্যদের জন্য)। প্রতিটি সমিতিতে ন্যূনতম ১০ জন এবং সর্বোচ্চ ৩০ জন সদস্য থাকে, যেখানে ১ জন সভানেত্রী, ১ জন সেক্রেটারি ও ১ জন ক্যাশিয়ার নির্বাচিত হন।",
-        full_desc_en: "The Khudro (Jagoron) Loan is Onkur Foundation's core microcredit program, operated through a committee-based (samity) system. It is available exclusively to women engaged in income-generating activities. Members must be between 18-60 years old, physically and mentally fit, and permanently reside within the branch's operating area. The admission fee is BDT 10 (non-refundable, applicable to new and returning members only). Each committee has a minimum of 10 and a maximum of 30 members, with one chairperson, one secretary, and one cashier elected from among the members.",
-        loan_range_bn: "প্রথম দফা ২০,০০০ - ৫০,০০০ টাকা। সর্বোচ্চ সিলিং ১,০০,০০০ টাকা (সরেজমিনে যাচাই ও সদস্যের সক্ষমতার ভিত্তিতে)। ঋণের পরিমাণ হাজারে রাউন্ড ফিগারে হবে।",
-        loan_range_en: "First phase BDT 20,000 - 50,000. Maximum ceiling BDT 100,000 (based on field verification and member capacity). Loan amounts are rounded to the nearest thousand.",
-        tenure_bn: "১ বছর (৪৬ সপ্তাহ)। সাপ্তাহিক কিস্তি প্রতি হাজারে ২৫ টাকা। ক্রমহ্রাসমান সার্ভিস চার্জ হার বার্ষিক ২২%।",
-        tenure_en: "1 year (46 weeks). Weekly installment BDT 25 per thousand. Declining service charge rate of 22% annually.",
-        icon: "Sprout",
-        image_url: ""
-      },
-      {
-        title_bn: "ক্ষুদ্র ব্যবসা ও উদ্যোক্তা (অগ্রসর) ঋণ",
-        title_en: "Small Business & Entrepreneur (Progoshor) Loan",
-        short_desc_bn: "নারী ও পুরুষ উভয়ের জন্য উন্মুক্ত, ব্যবসা সম্প্রসারণ ও উদ্যোক্তা উন্নয়নের জন্য ডিজাইন করা ঋণ।",
-        short_desc_en: "Open to both men and women, designed for business expansion and entrepreneurship development.",
-        full_desc_bn: "ক্ষুদ্র ব্যবসা ও উদ্যোক্তা (অগ্রসর) ঋণ আয়বর্ধক কাজে নিয়োজিত নারী ও পুরুষ উভয়ের জন্য উন্মুক্ত। এই প্রোডাক্টে সমিতি-ভিত্তিক অথবা এককভাবে (উদ্যোক্তা-ভিত্তিক) ঋণ নেওয়া যায়, এবং সাপ্তাহিক বা মাসিক কিস্তিতে পরিশোধ করা যায়। আবেদনকারীর অবশ্যই দৃশ্যমান ও বৈধ ব্যবসা বা প্রকল্প থাকতে হবে। ৫০,০০০ টাকা বা তদূর্ধ্ব ঋণ বিতরণের ক্ষেত্রে অতিরিক্ত ডকুমেন্টেশন (নন-জুডিশিয়াল স্ট্যাম্পে অঙ্গীকারনামা, দুইজন জামিনদার) প্রয়োজন হয়।",
-        full_desc_en: "The Small Business & Entrepreneur (Progoshor) Loan is open to both men and women engaged in income-generating activities. This product can be taken on a committee basis or individually (entrepreneur-based), with weekly or monthly repayment options. Applicants must have a visible and legitimate business or project. Loans of BDT 50,000 or above require additional documentation (a non-judicial stamp declaration and two guarantors).",
-        loan_range_bn: "প্রথম দফা ৫০,০০০ - ২,০০,০০০ টাকা। সর্বোচ্চ সিলিং ১৫,০০,০০০ টাকা (সরেজমিনে যাচাই ও সদস্যের সক্ষমতার ভিত্তিতে)। প্রথম দফা ১,০০,০০০ টাকার বেশি ঋণ বৃদ্ধির ক্ষেত্রে প্রধান কার্যালয়ের পূর্বানুমোদন প্রয়োজন।",
-        loan_range_en: "First phase BDT 50,000 - 200,000. Maximum ceiling BDT 1,500,000 (based on field verification and member capacity). Increases beyond BDT 100,000 in subsequent phases require head office pre-approval.",
-        tenure_bn: "১ বছর। সাপ্তাহিক কিস্তি প্রতি হাজারে ২৫ টাকা অথবা মাসিক প্রতি হাজারে ৯৫ টাকা। ক্রমহ্রাসমান সার্ভিস চার্জ হার বার্ষিক ২২%।",
-        tenure_en: "1 year. Weekly installment BDT 25 per thousand, or monthly BDT 95 per thousand. Declining service charge rate of 22% annually.",
-        icon: "TrendingUp",
-        image_url: ""
-      }
-    ],
-    shared_benefits_heading_bn: "উভয় ঋণ প্রোডাক্টের সাথে অন্তর্ভুক্ত সুবিধা",
-    shared_benefits_heading_en: "Benefits Included with Both Loan Products",
-    shared_benefits: [
-      {
-        title_bn: "সঞ্চয়ী হিসাব",
-        title_en: "Savings Account",
-        desc_bn: "সাপ্তাহিক সর্বোচ্চ ৩০ টাকা বা মাসিক ১০০ টাকা পর্যন্ত সঞ্চয় জমা রাখা যায়। ঋণ থাকাকালীন মূল ঋণের ১০% এর অতিরিক্ত সঞ্চয় রাউন্ড ফিগারে উত্তোলনযোগ্য। সঞ্চয় স্থিতির উপর বার্ষিক ৬% হারে সুদ প্রদান করা হয়।",
-        desc_en: "Members can save up to BDT 30 weekly or BDT 100 monthly. Any savings beyond 10% of the outstanding loan can be withdrawn in round figures. An annual interest rate of 6% is paid on the savings balance."
-      },
-      {
-        title_bn: "ঋণ বীমা ও সুবিধাদি",
-        title_en: "Loan Insurance & Benefits",
-        desc_bn: "প্রতি ঋণগ্রহীতাকে গৃহীত (আসল) ঋণের ০.৫% বা হাজারে ৫ টাকা প্রিমিয়াম জমা দিতে হয়। নিয়মিত ঋণগ্রহীতার মৃত্যু বা প্রমাণিত স্থায়ী অক্ষমতার ক্ষেত্রে অবশিষ্ট ঋণ মওকুফ করা হয় এবং নমিনিকে দাফন-কাফন বাবদ ১০,০০০ টাকা প্রদান করা হয়।",
-        desc_en: "Each borrower pays a premium of 0.5% (or BDT 5 per thousand) of the principal loan received. In case of death or proven permanent disability of a regular borrower, the remaining loan is waived and BDT 10,000 is provided to the nominee for funeral expenses."
-      },
-      {
-        title_bn: "জামানতবিহীন ঋণ",
-        title_en: "Collateral-Free",
-        desc_bn: "কোনো জামানত বা স্থাবর সম্পত্তি ছাড়াই ঋণ প্রদান করা হয়। শুধুমাত্র একজন জামিনদার (১৮-৬০ বছর বয়সী, শারীরিক ও মানসিকভাবে সুস্থ) প্রয়োজন হয়।",
-        desc_en: "Loans are provided without any collateral or immovable property. Only one guarantor (aged 18-60, physically and mentally fit) is required."
-      },
-      {
-        title_bn: "অগ্রিম কিস্তি সুবিধা",
-        title_en: "Advance Installment Facility",
-        desc_bn: "মেয়াদ পূর্তির পূর্বে সর্বশেষ ৫টি কিস্তি পর্যন্ত অগ্রিম পরিশোধ করা যায়, যার উপর সার্ভিস চার্জ মওকুফ পাওয়া যায়।",
-        desc_en: "Borrowers can pay up to the last 5 installments in advance before maturity, with the corresponding service charge waived."
-      }
-    ],
-    eligibility_heading_bn: "সাধারণ যোগ্যতা ও প্রয়োজনীয় কাগজপত্র",
-    eligibility_heading_en: "General Eligibility & Required Documents",
-    eligibility_points_bn: [
-      "বয়স ১৮-৬০ বছরের মধ্যে হতে হবে এবং শারীরিক ও মানসিকভাবে সুস্থ হতে হবে",
-      "শাখার কর্ম এলাকায় স্থায়ীভাবে বসবাস করতে হবে",
-      "সদস্যের ভোটার আইডি কার্ড থাকতে হবে এবং ফটোকপি জমা দিতে হবে",
-      "জামিনদারের সাম্প্রতিক সময়ের ৩ কপি রঙিন জয়েন্ট পাসপোর্ট সাইজ ছবি জমা দিতে হবে",
-      "মিউচুয়াল ট্রাস্ট ব্যাংকে সঞ্চয়ী হিসাব থাকতে হবে",
-      "ভাড়াটিয়া ঋণগ্রহীতার ক্ষেত্রে একই এলাকায় কমপক্ষে ৩ বছর বসবাসের প্রমাণ থাকতে হবে"
-    ],
-    eligibility_points_en: [
-      "Must be between 18-60 years old and physically/mentally fit",
-      "Must permanently reside within the branch's working area",
-      "Must have a Voter ID card and submit a photocopy",
-      "Guarantor must submit 3 recent color joint passport-size photos",
-      "Must have a savings account at Mutual Trust Bank",
-      "Tenant borrowers must show proof of at least 3 years' residence in the same area"
-    ]
-  };
-
-  useEffect(() => {
-    const servicesRef = ref(db, "siteContent/services");
-    const unsub = onValue(servicesRef, (snapshot) => {
-      if (snapshot.exists()) {
-        setServicesData(snapshot.val());
-      } else {
-        setServicesData(defaultServices);
-      }
-      setLoading(false);
-    }, () => {
-      setServicesData(defaultServices);
-      setLoading(false);
-    });
-
-    return () => unsub();
-  }, []);
-
-  const getProductIcon = (iconName: string) => {
-    switch (iconName) {
-      case "Sprout":
-        return <Sprout className="w-8 h-8 text-primary" />;
-      case "TrendingUp":
-        return <TrendingUp className="w-8 h-8 text-primary" />;
-      default:
-        return <Sprout className="w-8 h-8 text-primary" />;
-    }
-  };
-
-  const getBenefitIcon = (idx: number) => {
-    switch (idx) {
-      case 0:
-        return <PiggyBank className="w-6 h-6 text-secondary" />;
-      case 1:
-        return <HeartHandshake className="w-6 h-6 text-secondary" />;
-      case 2:
-        return <ShieldCheck className="w-6 h-6 text-secondary" />;
-      case 3:
-        return <Coins className="w-6 h-6 text-secondary" />;
-      default:
-        return <ShieldCheck className="w-6 h-6 text-secondary" />;
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[50vh] bg-white py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-secondary/10"></div>
-      </div>
-    );
-  }
-
-  const content = servicesData || defaultServices;
+  const SectionHead = ({
+    eyebrow,
+    title,
+    desc,
+  }: {
+    eyebrow: T;
+    title: T;
+    desc?: T;
+  }) => (
+    <div className="max-w-3xl mx-auto text-center space-y-3 mb-12">
+      <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
+        {L(eyebrow)}
+      </span>
+      <h2 className="text-3xl md:text-4xl font-extrabold text-secondary">
+        {L(title)}
+      </h2>
+      {desc && (
+        <p className="text-base sm:text-lg text-text leading-relaxed font-normal">
+          {L(desc)}
+        </p>
+      )}
+    </div>
+  );
 
   return (
     <div className="py-16 md:py-24 space-y-24">
-      
-      {/* 1. Header Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl space-y-4">
-        <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
-          {tContent("আমাদের ঋণ কর্মসূচি", "Loan Programs")}
-        </span>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-secondary">
-          {tContent(content.heading_bn, content.heading_en)}
-        </h1>
-        <p className="text-base sm:text-lg text-text leading-relaxed font-normal">
-          {tContent(content.intro_bn, content.intro_en)}
-        </p>
+      {/* 1. Who We Serve */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHead
+          eyebrow={tx("Who We Serve")}
+          title={tx("Our clients are at the center of everything we do")}
+          desc={tx(
+            "We serve people and enterprises that need accessible financial services to build livelihoods, manage financial needs and pursue new opportunities.",
+          )}
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
+          {audiences.map((a, i) => (
+            <motion.div
+              key={i}
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className={`group relative overflow-hidden bg-white rounded-3xl p-6 border border-secondary/10 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all lg:col-span-2 ${
+                i >= 3 ? "lg:col-span-3" : ""
+              }`}
+            >
+              <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 rounded-bl-full group-hover:bg-primary/10 transition-colors" />
+              <div className="relative w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-5">
+                <a.icon className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="relative text-lg font-bold text-secondary mb-2">
+                {L(a.title)}
+              </h3>
+              <p className="relative text-sm text-text leading-relaxed font-normal">
+                {L(a.desc)}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
-      {/* 2. Detailed Loan Products */}
+      {/* 2. Loans */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {(content.items || []).map((product: any, idx: number) => (
+        <SectionHead
+          eyebrow={tx("Our Products")}
+          title={tx("Loans")}
+          desc={tx(
+            "Accessible financing that helps low-income households and microentrepreneurs, especially women, strengthen livelihoods, manage financial needs and invest in their future.",
+          )}
+        />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {loans.map((loan, i) => (
             <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-white rounded-3xl p-8 md:p-10 border border-secondary/10 shadow-sm space-y-6 flex flex-col justify-between hover:shadow-md transition-shadow relative overflow-hidden group"
+              key={i}
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="relative overflow-hidden bg-white rounded-3xl border border-secondary/10 shadow-sm hover:shadow-md transition-shadow flex flex-col"
             >
-              <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-bl-full flex items-center justify-center transition-colors group-hover:bg-primary/10">
-                {getProductIcon(product.icon)}
-              </div>
-              
-              <div className="space-y-4 pr-12">
-                <h3 className="text-2xl font-bold text-secondary">
-                  {tContent(product.title_bn, product.title_en)}
+              {/* Card header */}
+              <div className="relative p-8 md:p-10 pb-6 space-y-3">
+                <div className="absolute top-0 right-0 w-28 h-28 bg-primary/5 rounded-bl-full flex items-center justify-center pl-4 pb-4">
+                  <loan.icon className="w-9 h-9 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold text-secondary pr-24">
+                  {L(loan.title)}
                 </h3>
-                <p className="text-sm font-semibold text-primary">
-                  {tContent(product.short_desc_bn, product.short_desc_en)}
-                </p>
-                <p className="text-sm text-text leading-relaxed font-normal">
-                  {tContent(product.full_desc_bn, product.full_desc_en)}
+                <p className="text-sm font-semibold text-primary pr-16">
+                  {L(loan.tagline)}
                 </p>
               </div>
 
-              <div className="pt-6 border-t border-secondary/10 space-y-4 mt-6">
-                <div className="flex items-start gap-3">
-                  <div className="bg-white/5 p-2 rounded-lg text-secondary shrink-0 mt-0.5">
-                    <Sparkles className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-secondary uppercase tracking-wider">
-                      {tContent("ঋণ সীমা ও পরিধি", "Loan Range & Limit")}
-                    </h4>
-                    <p className="text-sm text-text font-normal mt-0.5">
-                      {tContent(product.loan_range_bn, product.loan_range_en)}
+              {/* Stat tiles */}
+              <div className="px-8 md:px-10 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {loan.stats.map((s, j) => (
+                  <div
+                    key={j}
+                    className="rounded-2xl bg-primary/5 border border-primary/10 p-4 space-y-1"
+                  >
+                    <div className="flex items-center gap-2 text-secondary">
+                      <s.icon className="w-4 h-4 text-primary" />
+                      <span className="text-xs font-bold uppercase tracking-wider">
+                        {L(s.label)}
+                      </span>
+                    </div>
+                    <p className="text-base font-bold text-secondary">
+                      {L(s.value)}
+                    </p>
+                    <p className="text-xs text-text font-normal leading-snug">
+                      {L(s.note)}
                     </p>
                   </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="bg-white/5 p-2 rounded-lg text-secondary shrink-0 mt-0.5">
-                    <CalendarDays className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-secondary uppercase tracking-wider">
-                      {tContent("মেয়াদ ও পরিশোধ পদ্ধতি", "Tenure & Repayment")}
-                    </h4>
-                    <p className="text-sm text-text font-normal mt-0.5">
-                      {tContent(product.tenure_bn, product.tenure_en)}
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
 
-              <div className="pt-6">
+              {/* Eligibility */}
+              <div className="p-8 md:p-10 pt-8 flex-1 space-y-4">
+                <h4 className="text-xs font-bold text-secondary uppercase tracking-wider">
+                  {L(loan.eligibilityTitle)}
+                </h4>
+                <ul className="space-y-3">
+                  {loan.eligibility.map(([k, v], j) => (
+                    <li key={j} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                      <p className="text-sm text-text font-normal leading-relaxed">
+                        <span className="font-semibold text-secondary">
+                          {k}:{" "}
+                        </span>
+                        {v}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="px-8 md:px-10 pb-8 md:pb-10">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center bg-white hover:bg-gray-100 text-white px-5 py-3 rounded-lg text-sm font-semibold transition-colors gap-2 cursor-pointer shadow-xs"
+                  className="inline-flex items-center bg-primary hover:opacity-90 text-white px-5 py-3 rounded-lg text-sm font-semibold transition-opacity gap-2 cursor-pointer shadow-xs"
                 >
                   <span>{t("common.applyNow")}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -295,226 +324,113 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 3. Eligibility Checklist */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="bg-white rounded-3xl p-8 md:p-12 border border-secondary/10 shadow-sm space-y-8">
-          <div className="space-y-3 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-2 text-primary">
-              <FileText className="w-5 h-5" />
-              <span className="text-xs font-bold uppercase tracking-wider">{tContent("ঋণ গ্রহণের নির্দেশিকা", "Guidelines")}</span>
+      {/* 3. Savings & Insurance */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* Savings */}
+          <motion.div
+            {...fadeUp}
+            transition={{ duration: 0.5 }}
+            className="relative overflow-hidden bg-white rounded-3xl p-8 md:p-10 border border-secondary/10 shadow-sm hover:shadow-md transition-shadow space-y-6"
+          >
+            <div className="absolute top-0 right-0 w-28 h-28 bg-primary/5 rounded-bl-full flex items-center justify-center pl-4 pb-4">
+              <PiggyBank className="w-9 h-9 text-primary" />
             </div>
-            <h2 className="text-3xl font-extrabold text-secondary">
-              {tContent(content.eligibility_heading_bn, content.eligibility_heading_en)}
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 pt-2">
-            {tContent(content.eligibility_points_bn, content.eligibility_points_en)?.map((point: string, idx: number) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.3, delay: idx * 0.05 }}
-                className="flex items-start gap-3.5"
-              >
-                <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                <span className="text-text text-sm font-normal leading-relaxed">
-                  {point}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Shared Benefits Grid */}
-      <section className="bg-white py-20 border-y border-secondary/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <h2 className="text-3xl font-bold text-secondary">
-              {tContent(content.shared_benefits_heading_bn, content.shared_benefits_heading_en)}
-            </h2>
-            <p className="text-sm text-text font-normal">
-              {tContent("অঙ্কুরের প্রতিটি ঋণের সাথে আমরা প্রান্তিক মানুষের আর্থ-সামাজিক নিরাপত্তা ও স্বস্তি নিশ্চিত করি।", "With every Onkur loan, we ensure the socio-economic security and comfort of rural borrowers.")}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {(content.shared_benefits || []).map((benefit: any, idx: number) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className="bg-white p-6 rounded-2xl border border-secondary/10 shadow-xs space-y-4 flex flex-col justify-start hover:shadow-sm transition-shadow"
-              >
-                <div className="bg-white/5 p-3 rounded-xl w-fit">
-                  {getBenefitIcon(idx)}
-                </div>
-                <h4 className="font-bold text-slate-900 text-base">
-                  {tContent(benefit.title_bn, benefit.title_en)}
-                </h4>
-                <p className="text-xs text-slate-700 leading-relaxed font-normal flex-grow">
-                  {tContent(benefit.desc_bn, benefit.desc_en)}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Loan Application Modal */}
-      {showApplyModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl relative border border-secondary/10 max-h-[90vh] overflow-y-auto space-y-6">
-            <button 
-              onClick={() => { setShowApplyModal(false); setLoanSuccess(false); }}
-              className="absolute top-5 right-5 text-gray-400 hover:text-gray-700 bg-gray-100 p-1.5 rounded-full cursor-pointer transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div>
-              <span className="text-primary font-semibold text-xs uppercase tracking-wider block">
-                {tContent("অনলাইন ঋণ আবেদন", "Online Loan Application")}
+            <div className="space-y-3 pr-20">
+              <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
+                {L(tx("Our Products"))}
               </span>
-              <h3 className="text-2xl font-bold text-secondary mt-1">
-                {selectedLoanProduct || tContent("ঋণের আবেদন করুন", "Apply for Loan")}
+              <h3 className="text-2xl font-bold text-secondary">
+                {L(tx("Savings"))}
               </h3>
             </div>
-
-            {loanSuccess ? (
-              <div className="text-center py-8 space-y-4">
-                <div className="bg-white/10 text-secondary p-4 rounded-full inline-block">
-                  <CheckCircle2 className="w-12 h-12 text-primary" />
-                </div>
-                <h4 className="text-xl font-bold text-secondary">
-                  {tContent("আবেদন সফলভাবে জমা হয়েছে!", "Application Submitted Successfully!")}
-                </h4>
-                <p className="text-xs text-text leading-relaxed max-w-xs mx-auto">
-                  {tContent(
-                    "আমাদের মাঠ কর্মকর্তা শীঘ্রই আপনার সাথে যোগাযোগ করবেন। ধন্যবাদ!",
-                    "Our field officer will contact you shortly regarding your application. Thank you!"
-                  )}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => { setShowApplyModal(false); setLoanSuccess(false); }}
-                  className="mt-4 bg-white text-white text-xs font-semibold px-6 py-2.5 rounded-lg cursor-pointer hover:bg-gray-100"
+            <p className="text-sm text-text leading-relaxed font-normal">
+              {L(
+                tx(
+                  "Mandatory savings programs associated with loans as per MRA.",
+                ),
+              )}
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {[
+                ["BDT 30", "Max weekly savings"],
+                ["BDT 100", "Max monthly savings"],
+                ["6%", "Annual interest on balance"],
+              ].map(([v, l], i) => (
+                <div
+                  key={i}
+                  className="rounded-2xl bg-primary/5 border border-primary/10 p-4 text-center"
                 >
-                  {tContent("বন্ধ করুন", "Close")}
-                </button>
+                  <p className="text-xl font-extrabold text-secondary">{v}</p>
+                  <p className="text-xs text-text font-normal mt-1">{l}</p>
+                </div>
+              ))}
+            </div>
+            <div className="flex items-start gap-3 pt-2 border-t border-secondary/10">
+              <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-3" />
+              <p className="text-sm text-text font-normal leading-relaxed pt-3">
+                {L(
+                  tx(
+                    "Any savings beyond 10% of the outstanding loan can be withdrawn in round figures.",
+                  ),
+                )}
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Insurance */}
+          <motion.div
+            {...fadeUp}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="relative overflow-hidden bg-white rounded-3xl p-8 md:p-10 border border-secondary/10 shadow-sm hover:shadow-md transition-shadow space-y-6"
+          >
+            <div className="absolute top-0 right-0 w-28 h-28 bg-primary/5 rounded-bl-full flex items-center justify-center pl-4 pb-4">
+              <ShieldCheck className="w-9 h-9 text-primary" />
+            </div>
+            <div className="space-y-3 pr-20">
+              <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
+                {L(tx("Our Products"))}
+              </span>
+              <h3 className="text-2xl font-bold text-secondary">
+                {L(tx("Insurance"))}
+              </h3>
+            </div>
+            <p className="text-sm text-text leading-relaxed font-normal">
+              {L(
+                tx(
+                  "Onkur Foundation offers life insurance bundled with the loan to the beneficiary and the guarantor, providing affordable protection against unexpected financial shocks and helping families safeguard their livelihoods and build greater financial resilience.",
+                ),
+              )}
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="rounded-2xl bg-primary/5 border border-primary/10 p-4">
+                <p className="text-xl font-extrabold text-secondary">0.5%</p>
+                <p className="text-xs text-text font-normal mt-1">
+                  Premium on principal loan (BDT 5 per thousand)
+                </p>
               </div>
-            ) : (
-              <form onSubmit={handleLoanSubmit} className="space-y-4">
-                <div>
-                  <label className="text-xs font-semibold text-text block mb-1">
-                    {tContent("আবেদনকারীর নাম", "Applicant Name")} *
-                  </label>
-                  <input
-                    type="text" required
-                    placeholder={tContent("পূর্ণ নাম লিখুন", "Enter full name")}
-                    value={applicantName}
-                    onChange={(e) => setApplicantName(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-white border border-secondary/10 rounded-lg text-sm focus:outline-none focus:border-primary"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-xs font-semibold text-text block mb-1">
-                      {tContent("মোবাইল নম্বর", "Phone Number")} *
-                    </label>
-                    <input
-                      type="tel" required
-                      placeholder="017XXXXXXXX"
-                      value={applicantPhone}
-                      onChange={(e) => setApplicantPhone(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-secondary/10 rounded-lg text-sm focus:outline-none focus:border-primary"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xs font-semibold text-text block mb-1">
-                      {tContent("ইমেইল (ঐচ্ছিক)", "Email (Optional)")}
-                    </label>
-                    <input
-                      type="email"
-                      placeholder="name@example.com"
-                      value={applicantEmail}
-                      onChange={(e) => setApplicantEmail(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-secondary/10 rounded-lg text-sm focus:outline-none focus:border-primary"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-xs font-semibold text-text block mb-1">
-                      {tContent("আবেদনের ঋণের পরিমাণ (টাকা)", "Requested Amount (BDT)")} *
-                    </label>
-                    <input
-                      type="text" required
-                      placeholder="e.g. 50,000"
-                      value={applicantAmount}
-                      onChange={(e) => setApplicantAmount(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-white border border-secondary/10 rounded-lg text-sm focus:outline-none focus:border-primary"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xs font-semibold text-text block mb-1">
-                      {tContent("ঋণের প্রোডাক্ট", "Loan Product")}
-                    </label>
-                    <input
-                      type="text" readOnly
-                      value={selectedLoanProduct}
-                      className="w-full px-4 py-2.5 bg-gray-100 border border-gray-200 rounded-lg text-xs font-semibold text-gray-700"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-xs font-semibold text-text block mb-1">
-                    {tContent("ঠিকানা / শাখা এলাকা", "Address / Branch Area")} *
-                  </label>
-                  <input
-                    type="text" required
-                    placeholder={tContent("উপজেলা, জেলা লিখুন", "e.g. Narsingdi Branch")}
-                    value={applicantAddress}
-                    onChange={(e) => setApplicantAddress(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-white border border-secondary/10 rounded-lg text-sm focus:outline-none focus:border-primary"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-xs font-semibold text-text block mb-1">
-                    {tContent("পেশা / মন্তব্য", "Occupation / Business Details")}
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder={tContent("আপনার ব্যবসা বা খামারের সংক্ষিপ্ত বিবরণ...", "Briefly describe your business or farm...")}
-                    value={applicantNotes}
-                    onChange={(e) => setApplicantNotes(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-white border border-secondary/10 rounded-lg text-sm focus:outline-none focus:border-primary resize-none"
-                  />
-                </div>
-
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    disabled={submittingLoan}
-                    className="w-full bg-primary hover:opacity-90 text-white py-3 rounded-lg text-sm font-semibold tracking-wide shadow-xs transition-colors cursor-pointer disabled:opacity-50"
-                  >
-                    {submittingLoan ? tContent("জমা হচ্ছে...", "Submitting...") : tContent("আবেদন জমা দিন", "Submit Application")}
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
+              <div className="rounded-2xl bg-primary/5 border border-primary/10 p-4">
+                <p className="text-xl font-extrabold text-secondary">
+                  BDT 10,000
+                </p>
+                <p className="text-xs text-text font-normal mt-1">
+                  Paid to nominee for funeral expenses
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 pt-4 border-t border-secondary/10">
+              <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+              <p className="text-sm text-text font-normal leading-relaxed">
+                {L(
+                  tx(
+                    "In case of death or proven permanent disability of a regular borrower, the remaining loan is waived.",
+                  ),
+                )}
+              </p>
+            </div>
+          </motion.div>
         </div>
-      )}
-
+      </section>
     </div>
   );
 }

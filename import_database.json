@@ -147,6 +147,13 @@
         },
         {
           "icon": "Users",
+          "title_bn": "ডিজিটাল সদস্য অনবোর্ডিং ও ঋণ প্রদান",
+          "title_en": "Digital Member Onboarding and Loan Origination",
+          "desc_bn": "ভিবিডি ও ঋণ কর্মকর্তারা যোগ্য সদস্যকে ডিজিটালভাবে অনবোর্ডিং করতে সহায়তা করেন।",
+          "desc_en": "VDB/Loan officers facilitate onboarding the eligible member to onboard member digitally."
+        },
+        {
+          "icon": "Users",
           "title_bn": "কমিউনিটি ও গ্রুপ সংহতি",
           "title_en": "Community Group Committees",
           "desc_bn": "আমরা ঋণ বিতরণে গ্রামীণ সমষ্টিগত নিশ্চয়তা ব্যবস্থার ওপর জোর দিই, যেখানে স্থানীয় সদস্যদের সমন্বয়ে কমিটি তদারকি নিশ্চিত করে।",

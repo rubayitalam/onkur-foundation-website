@@ -159,8 +159,7 @@ export default function HomePage() {
               (a, b) =>
                 new Date(b.publishedAt).getTime() -
                 new Date(a.publishedAt).getTime(),
-            )
-            .slice(0, 2);
+            );
           setBlogPosts(arr);
         }
         checkAllLoaded();
@@ -911,7 +910,7 @@ export default function HomePage() {
                 whileHover={{ y: -6 }}
                 className="bg-white rounded-2xl overflow-hidden shadow-sm border border-secondary/5"
               >
-                <div className="aspect-[4/5] bg-gray-100 relative">
+                <div className="aspect-[5/5] bg-gray-100 relative">
                   <img
                     src={member.imageUrl}
                     alt={tContent(member.name_bn, member.name_en)}
@@ -984,7 +983,7 @@ export default function HomePage() {
             {blogPosts[0] && (
               <motion.div variants={fadeLeft} {...reveal}>
                 <Link
-                  href={`/blog/${blogPosts[0].slug}`}
+                  href={`/blog/${blogPosts[0].slug || blogPosts[0].id}`}
                   className="group flex flex-col lg:pr-10"
                 >
                   <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 mb-6">
@@ -1022,7 +1021,7 @@ export default function HomePage() {
                   {...reveal}
                 >
                   <Link
-                    href={`/blog/${post.slug}`}
+                    href={`/blog/${post.slug || post.id}`}
                     className="group flex flex-col"
                   >
                     <div className="aspect-video rounded-xl overflow-hidden bg-gray-100 mb-4">

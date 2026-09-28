@@ -114,6 +114,15 @@ const defaultApproachPoints = [
   },
   {
     icon: "Users",
+    title_bn: "ডিজিটাল সদস্য অনবোর্ডিং ও ঋণ প্রদান",
+    title_en: "Digital Member Onboarding and Loan Origination",
+    desc_bn:
+      "ভিবিডি ও ঋণ কর্মকর্তারা যোগ্য সদস্যকে ডিজিটালভাবে অনবোর্ডিং করতে সহায়তা করেন।",
+    desc_en:
+      "VDB/Loan officers facilitate onboarding the eligible member to onboard member digitally.",
+  },
+  {
+    icon: "Users",
     title_bn: "কমিউনিটি ও গ্রুপ সংহতি",
     title_en: "Community Group Committees",
     desc_bn: "স্থানীয় ঋণ কমিটির তদারকি।",
@@ -1051,7 +1060,16 @@ export default function AdminDashboardPage() {
         const newRef = push(blogRef);
         id = newRef.key || "";
       }
-      const payload = { ...activeBlog };
+      const generatedSlug = (activeBlog.title_en || activeBlog.title_bn || id)
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+      const payload = {
+        ...activeBlog,
+        slug: activeBlog.slug?.trim() || generatedSlug || id,
+      };
       delete payload.id;
       await set(ref(db, `blog/${id}`), payload);
       triggerToast("Blog post saved!");
