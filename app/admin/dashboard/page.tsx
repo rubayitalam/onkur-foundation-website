@@ -524,7 +524,32 @@ export default function AdminDashboardPage() {
     const unsubStats = onValue(
       statsRef,
       (snap) => {
-        setStatsData(snap.val() || {});
+        const val = snap.val() || {};
+        setStatsData({
+          title_bn: "আমাদের সাফল্যের যাত্রা",
+          title_en: "Journey of our Success",
+          amountDistributed_bn: "৳ ৩.৫ কোটি +",
+          amountDistributed_en: "৳ 3.5 Crore +",
+          amountDistributedLabel_bn: "বিতরণকৃত অর্থ",
+          amountDistributedLabel_en: "Amount Distributed",
+          peopleServed: 3000,
+          peopleServedSuffix: " +",
+          peopleServedLabel_bn: "উপকারভোগী সংখ্যা",
+          peopleServedLabel_en: "People Served",
+          districtsCovered: 2,
+          districtsCoveredSuffix: "",
+          districtsCoveredLabel_bn: "আওতাধীন জেলাসমূহ",
+          districtsCoveredLabel_en: "Districts Covered",
+          activeBranches: 2,
+          activeBranchesSuffix: "",
+          activeBranchesLabel_bn: "সক্রিয় শাখা",
+          activeBranchesLabel_en: "Active Branches",
+          yearsActive: 1,
+          yearsActiveSuffix: " +",
+          yearsActiveLabel_bn: "সক্রিয় বছর",
+          yearsActiveLabel_en: "Years Active",
+          ...val,
+        });
         markLoaded();
       },
       () => markLoaded(),
@@ -949,11 +974,33 @@ export default function AdminDashboardPage() {
       await set(ref(db, "settings"), settingsData);
 
       const statsPayload = {
-        amountDistributed: Number(statsData.amountDistributed) || 0,
+        title_bn: statsData.title_bn || "আমাদের সাফল্যের যাত্রা",
+        title_en: statsData.title_en || "Journey of our Success",
+
+        amountDistributed_bn: statsData.amountDistributed_bn || "৳ ৩.৫ কোটি +",
+        amountDistributed_en: statsData.amountDistributed_en || "৳ 3.5 Crore +",
+        amountDistributedLabel_bn: statsData.amountDistributedLabel_bn || "বিতরণকৃত অর্থ",
+        amountDistributedLabel_en: statsData.amountDistributedLabel_en || "Amount Distributed",
+
         peopleServed: Number(statsData.peopleServed) || 0,
+        peopleServedSuffix: statsData.peopleServedSuffix !== undefined ? statsData.peopleServedSuffix : " +",
+        peopleServedLabel_bn: statsData.peopleServedLabel_bn || "উপকারভোগী সংখ্যা",
+        peopleServedLabel_en: statsData.peopleServedLabel_en || "People Served",
+
         districtsCovered: Number(statsData.districtsCovered) || 0,
+        districtsCoveredSuffix: statsData.districtsCoveredSuffix !== undefined ? statsData.districtsCoveredSuffix : "",
+        districtsCoveredLabel_bn: statsData.districtsCoveredLabel_bn || "আওতাধীন জেলাসমূহ",
+        districtsCoveredLabel_en: statsData.districtsCoveredLabel_en || "Districts Covered",
+
         activeBranches: Number(statsData.activeBranches) || 0,
+        activeBranchesSuffix: statsData.activeBranchesSuffix !== undefined ? statsData.activeBranchesSuffix : "",
+        activeBranchesLabel_bn: statsData.activeBranchesLabel_bn || "সক্রিয় শাখা",
+        activeBranchesLabel_en: statsData.activeBranchesLabel_en || "Active Branches",
+
         yearsActive: Number(statsData.yearsActive) || 0,
+        yearsActiveSuffix: statsData.yearsActiveSuffix !== undefined ? statsData.yearsActiveSuffix : " +",
+        yearsActiveLabel_bn: statsData.yearsActiveLabel_bn || "সক্রিয় বছর",
+        yearsActiveLabel_en: statsData.yearsActiveLabel_en || "Years Active",
       };
       await set(ref(db, "stats"), statsPayload);
 
@@ -5323,95 +5370,436 @@ export default function AdminDashboardPage() {
                 </div>
 
                 {/* Visual Sub-header: Impact Stats */}
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <h3 className="text-sm font-bold uppercase tracking-wider text-primary border-b border-secondary/10 pb-2">
-                    Homepage Impact Statistics Counters
+                    Homepage Impact Statistics (আমাদের সাফল্যের যাত্রা)
                   </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+
+                  {/* Section Title */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50/50 p-4 rounded-xl border border-secondary/10">
                     <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-text">
-                        Amount Distributed ($)
+                      <label className="text-[11px] font-semibold text-text">
+                        Section Title (Bengali)
                       </label>
                       <input
-                        type="number"
-                        required
-                        value={statsData.amountDistributed || ""}
+                        type="text"
+                        value={statsData.title_bn || "আমাদের সাফল্যের যাত্রা"}
                         onChange={(e) =>
                           setStatsData({
                             ...statsData,
-                            amountDistributed: e.target.value,
+                            title_bn: e.target.value,
                           })
                         }
                         className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-text">
-                        People Served
+                      <label className="text-[11px] font-semibold text-text">
+                        Section Title (English)
                       </label>
                       <input
-                        type="number"
-                        required
-                        value={statsData.peopleServed || ""}
+                        type="text"
+                        value={statsData.title_en || "Journey of our Success"}
                         onChange={(e) =>
                           setStatsData({
                             ...statsData,
-                            peopleServed: e.target.value,
+                            title_en: e.target.value,
                           })
                         }
                         className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
                       />
                     </div>
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-text">
-                        Districts Covered
-                      </label>
-                      <input
-                        type="number"
-                        required
-                        value={statsData.districtsCovered || ""}
-                        onChange={(e) =>
-                          setStatsData({
-                            ...statsData,
-                            districtsCovered: e.target.value,
-                          })
-                        }
-                        className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
-                      />
+                  </div>
+
+                  {/* Stat Cards */}
+                  <div className="space-y-4">
+                    {/* Card 1: Amount Distributed */}
+                    <div className="p-4 bg-gray-50/50 rounded-xl border border-secondary/10 space-y-3">
+                      <h4 className="text-xs font-bold text-secondary uppercase">
+                        1. Amount Distributed (বিতরণকৃত অর্থ)
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Value (BN)
+                          </label>
+                          <input
+                            type="text"
+                            value={statsData.amountDistributed_bn || "৳ ৩.৫ কোটি +"}
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                amountDistributed_bn: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Value (EN)
+                          </label>
+                          <input
+                            type="text"
+                            value={statsData.amountDistributed_en || "৳ 3.5 Crore +"}
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                amountDistributed_en: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Label (BN)
+                          </label>
+                          <input
+                            type="text"
+                            value={
+                              statsData.amountDistributedLabel_bn || "বিতরণকৃত অর্থ"
+                            }
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                amountDistributedLabel_bn: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Label (EN)
+                          </label>
+                          <input
+                            type="text"
+                            value={
+                              statsData.amountDistributedLabel_en || "Amount Distributed"
+                            }
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                amountDistributedLabel_en: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-text">
-                        Active Branches
-                      </label>
-                      <input
-                        type="number"
-                        required
-                        value={statsData.activeBranches || ""}
-                        onChange={(e) =>
-                          setStatsData({
-                            ...statsData,
-                            activeBranches: e.target.value,
-                          })
-                        }
-                        className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
-                      />
+
+                    {/* Card 2: People Served */}
+                    <div className="p-4 bg-gray-50/50 rounded-xl border border-secondary/10 space-y-3">
+                      <h4 className="text-xs font-bold text-secondary uppercase">
+                        2. People Served (উপকারভোগী সংখ্যা)
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Count Number
+                          </label>
+                          <input
+                            type="number"
+                            value={statsData.peopleServed || ""}
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                peopleServed: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Suffix (e.g. +)
+                          </label>
+                          <input
+                            type="text"
+                            value={
+                              statsData.peopleServedSuffix !== undefined
+                                ? statsData.peopleServedSuffix
+                                : " +"
+                            }
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                peopleServedSuffix: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Label (BN)
+                          </label>
+                          <input
+                            type="text"
+                            value={statsData.peopleServedLabel_bn || "উপকারভোগী সংখ্যা"}
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                peopleServedLabel_bn: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Label (EN)
+                          </label>
+                          <input
+                            type="text"
+                            value={statsData.peopleServedLabel_en || "People Served"}
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                peopleServedLabel_en: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-text">
-                        Years Active
-                      </label>
-                      <input
-                        type="number"
-                        required
-                        value={statsData.yearsActive || ""}
-                        onChange={(e) =>
-                          setStatsData({
-                            ...statsData,
-                            yearsActive: e.target.value,
-                          })
-                        }
-                        className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
-                      />
+
+                    {/* Card 3: Districts Covered */}
+                    <div className="p-4 bg-gray-50/50 rounded-xl border border-secondary/10 space-y-3">
+                      <h4 className="text-xs font-bold text-secondary uppercase">
+                        3. Districts Covered (আওতাধীন জেলাসমূহ)
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Count Number
+                          </label>
+                          <input
+                            type="number"
+                            value={statsData.districtsCovered || ""}
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                districtsCovered: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Suffix
+                          </label>
+                          <input
+                            type="text"
+                            value={
+                              statsData.districtsCoveredSuffix !== undefined
+                                ? statsData.districtsCoveredSuffix
+                                : ""
+                            }
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                districtsCoveredSuffix: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Label (BN)
+                          </label>
+                          <input
+                            type="text"
+                            value={
+                              statsData.districtsCoveredLabel_bn || "আওতাধীন জেলাসমূহ"
+                            }
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                districtsCoveredLabel_bn: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Label (EN)
+                          </label>
+                          <input
+                            type="text"
+                            value={
+                              statsData.districtsCoveredLabel_en || "Districts Covered"
+                            }
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                districtsCoveredLabel_en: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Card 4: Active Branches */}
+                    <div className="p-4 bg-gray-50/50 rounded-xl border border-secondary/10 space-y-3">
+                      <h4 className="text-xs font-bold text-secondary uppercase">
+                        4. Active Branches (সক্রিয় শাখা)
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Count Number
+                          </label>
+                          <input
+                            type="number"
+                            value={statsData.activeBranches || ""}
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                activeBranches: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Suffix
+                          </label>
+                          <input
+                            type="text"
+                            value={
+                              statsData.activeBranchesSuffix !== undefined
+                                ? statsData.activeBranchesSuffix
+                                : ""
+                            }
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                activeBranchesSuffix: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Label (BN)
+                          </label>
+                          <input
+                            type="text"
+                            value={statsData.activeBranchesLabel_bn || "সক্রিয় শাখা"}
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                activeBranchesLabel_bn: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Label (EN)
+                          </label>
+                          <input
+                            type="text"
+                            value={statsData.activeBranchesLabel_en || "Active Branches"}
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                activeBranchesLabel_en: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Card 5: Years Active */}
+                    <div className="p-4 bg-gray-50/50 rounded-xl border border-secondary/10 space-y-3">
+                      <h4 className="text-xs font-bold text-secondary uppercase">
+                        5. Years Active (সক্রিয় বছর)
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Count Number
+                          </label>
+                          <input
+                            type="number"
+                            value={statsData.yearsActive || ""}
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                yearsActive: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Suffix (e.g. +)
+                          </label>
+                          <input
+                            type="text"
+                            value={
+                              statsData.yearsActiveSuffix !== undefined
+                                ? statsData.yearsActiveSuffix
+                                : " +"
+                            }
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                yearsActiveSuffix: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Label (BN)
+                          </label>
+                          <input
+                            type="text"
+                            value={statsData.yearsActiveLabel_bn || "সক্রিয় বছর"}
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                yearsActiveLabel_bn: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-semibold text-text">
+                            Label (EN)
+                          </label>
+                          <input
+                            type="text"
+                            value={statsData.yearsActiveLabel_en || "Years Active"}
+                            onChange={(e) =>
+                              setStatsData({
+                                ...statsData,
+                                yearsActiveLabel_en: e.target.value,
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-xs"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -13,11 +13,28 @@ export async function runClientSeed() {
 
   // Seed stats
   await set(ref(db, "stats"), {
-    amountDistributed: 30000000,
+    title_bn: "আমাদের সাফল্যের যাত্রা",
+    title_en: "Journey of our Success",
+    amountDistributed_bn: "৳ ৩.৫ কোটি +",
+    amountDistributed_en: "৳ 3.5 Crore +",
+    amountDistributedLabel_bn: "বিতরণকৃত অর্থ",
+    amountDistributedLabel_en: "Amount Distributed",
     peopleServed: 3000,
-    yearsActive: 1,
+    peopleServedSuffix: " +",
+    peopleServedLabel_bn: "উপকারভোগী সংখ্যা",
+    peopleServedLabel_en: "People Served",
     districtsCovered: 2,
-    activeBranches: 2
+    districtsCoveredSuffix: "",
+    districtsCoveredLabel_bn: "আওতাধীন জেলাসমূহ",
+    districtsCoveredLabel_en: "Districts Covered",
+    activeBranches: 2,
+    activeBranchesSuffix: "",
+    activeBranchesLabel_bn: "সক্রিয় শাখা",
+    activeBranchesLabel_en: "Active Branches",
+    yearsActive: 1,
+    yearsActiveSuffix: " +",
+    yearsActiveLabel_bn: "সক্রিয় বছর",
+    yearsActiveLabel_en: "Years Active"
   });
 
   // Seed siteContent

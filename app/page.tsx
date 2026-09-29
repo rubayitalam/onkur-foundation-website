@@ -801,8 +801,8 @@ export default function HomePage() {
               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             >
               {tContent(
-                homeData?.stats_title_bn || "আমাদের সাফল্যের যাত্রা",
-                homeData?.stats_title_en || "Journey of our Success",
+                stats?.title_bn || homeData?.stats_title_bn || "আমাদের সাফল্যের যাত্রা",
+                stats?.title_en || homeData?.stats_title_en || "Journey of our Success",
               )}
             </motion.h2>
           </motion.div>
@@ -810,34 +810,37 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-10 gap-x-4">
             {[
               {
-                value: tContent("৳ ৩ কোটি +", "৳ 3.5 Crore +"),
+                value: tContent(
+                  stats?.amountDistributed_bn || "৳ ৩.৫ কোটি +",
+                  stats?.amountDistributed_en || "৳ 3.5 Crore +"
+                ),
                 isStatic: true,
-                labelBn: "বিতরণকৃত অর্থ",
-                labelEn: "Amount Distributed",
+                labelBn: stats?.amountDistributedLabel_bn || "বিতরণকৃত অর্থ",
+                labelEn: stats?.amountDistributedLabel_en || "Amount Distributed",
               },
               {
-                value: stats?.peopleServed || 1200,
-                suffix: " +",
-                labelBn: "উপকারভোগী সংখ্যা",
-                labelEn: "People Served",
+                value: stats?.peopleServed !== undefined && stats?.peopleServed !== null ? Number(stats.peopleServed) : 3000,
+                suffix: stats?.peopleServedSuffix !== undefined ? stats.peopleServedSuffix : " +",
+                labelBn: stats?.peopleServedLabel_bn || "উপকারভোগী সংখ্যা",
+                labelEn: stats?.peopleServedLabel_en || "People Served",
               },
               {
-                value: stats?.districtsCovered || 2,
-                suffix: "",
-                labelBn: "আওতাধীন জেলাসমূহ",
-                labelEn: "Districts Covered",
+                value: stats?.districtsCovered !== undefined && stats?.districtsCovered !== null ? Number(stats.districtsCovered) : 2,
+                suffix: stats?.districtsCoveredSuffix !== undefined ? stats.districtsCoveredSuffix : "",
+                labelBn: stats?.districtsCoveredLabel_bn || "আওতাধীন জেলাসমূহ",
+                labelEn: stats?.districtsCoveredLabel_en || "Districts Covered",
               },
               {
-                value: stats?.activeBranches || 2,
-                suffix: "",
-                labelBn: "সক্রিয় শাখা",
-                labelEn: "Active Branches",
+                value: stats?.activeBranches !== undefined && stats?.activeBranches !== null ? Number(stats.activeBranches) : 2,
+                suffix: stats?.activeBranchesSuffix !== undefined ? stats.activeBranchesSuffix : "",
+                labelBn: stats?.activeBranchesLabel_bn || "সক্রিয় শাখা",
+                labelEn: stats?.activeBranchesLabel_en || "Active Branches",
               },
               {
-                value: stats?.yearsActive || 1,
-                suffix: " +",
-                labelBn: "সক্রিয় বছর",
-                labelEn: "Years Active",
+                value: stats?.yearsActive !== undefined && stats?.yearsActive !== null ? Number(stats.yearsActive) : 1,
+                suffix: stats?.yearsActiveSuffix !== undefined ? stats.yearsActiveSuffix : " +",
+                labelBn: stats?.yearsActiveLabel_bn || "সক্রিয় বছর",
+                labelEn: stats?.yearsActiveLabel_en || "Years Active",
               },
             ].map((stat, index) => (
               <motion.div
