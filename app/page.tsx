@@ -600,7 +600,6 @@ export default function HomePage() {
                 style={{ transformOrigin: "left" }}
                 className="block w-12 h-[3px] bg-secondary rounded-full"
               />
-
               {/* ট্যাব / পিল বাটন */}
               <div className="flex flex-wrap gap-3 pt-2">
                 {whyCards.map((card: any, idx: number) => {
@@ -615,10 +614,10 @@ export default function HomePage() {
                       {...reveal}
                       onClick={() => setActiveWhy(idx)}
                       aria-pressed={isActive}
-                      className={`rounded-full px-6 py-3 text-sm md:text-base font-semibold transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                      className={`rounded-full px-6 py-3 text-sm md:text-base font-semibold text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                         isActive
-                          ? "bg-primary text-white border border-primary"
-                          : "bg-primary text-black border border-secondary/15 hover:border-primary/50 hover:text-primary"
+                          ? "bg-primary shadow-lg scale-105 border-2 border-white/30"
+                          : "bg-secondary/90 hover:bg-primary/70 border border-white/10 opacity-90 hover:opacity-100"
                       }`}
                     >
                       {tContent(
@@ -811,13 +810,13 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-10 gap-x-4">
             {[
               {
-                value: tContent("৳ ৩ কোটি +", "৳ 3 Crore +"),
+                value: tContent("৳ ৩ কোটি +", "৳ 3.5 Crore +"),
                 isStatic: true,
                 labelBn: "বিতরণকৃত অর্থ",
                 labelEn: "Amount Distributed",
               },
               {
-                value: stats?.peopleServed || 3000,
+                value: stats?.peopleServed || 1200,
                 suffix: " +",
                 labelBn: "উপকারভোগী সংখ্যা",
                 labelEn: "People Served",
@@ -852,7 +851,7 @@ export default function HomePage() {
                   <div className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 h-14 w-px bg-white/15" />
                 )}
 
-                <p className="text-xl md:text-4xl font-extrabold tracking-tight whitespace-nowrap">
+                <p className="text-2xl md:text-4xl font-extrabold tracking-tight whitespace-nowrap">
                   {stat.isStatic ? (
                     stat.value
                   ) : (

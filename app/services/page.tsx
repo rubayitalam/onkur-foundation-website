@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import { div } from "framer-motion/client";
 
 /* ---------- Content (add `bn` to any entry to localise it) ---------- */
 type T = { en: string; bn?: string };
@@ -141,13 +142,19 @@ const loans = [
         note: tx("Declining balance basis"),
       },
       {
+        icon: Coins,
+        label: tx("Admission Fee"),
+        value: tx("BDT 10"),
+        note: tx("Non-refundable; new and returning members"),
+      },
+      {
         icon: FileText,
         label: tx("Documentation"),
         value: tx("BDT 50,000 or above"),
         note: tx("Non-judicial stamp declaration and two guarantors"),
       },
     ],
-    eligibilityTitle: tx("General Eligibility"),
+    eligibilityTitle: tx(" Eligibility Criteria"),
     eligibility: [
       [
         "Business Requirement",
@@ -186,15 +193,17 @@ export default function ServicesPage() {
     title: T;
     desc?: T;
   }) => (
-    <div className="max-w-3xl mx-auto text-center space-y-3 mb-12">
-      <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
-        {L(eyebrow)}
-      </span>
-      <h2 className="text-3xl md:text-4xl font-extrabold text-secondary">
-        {L(title)}
-      </h2>
+    <div>
+      <div className="max-w-3xl mx-auto text-center space-y-3 mb-12">
+        <span className="text-secondary font-semibold text-3xl md:text-4xl uppercase tracking-wider block">
+          {L(eyebrow)}
+        </span>
+        <h2 className="text-2xl md:text-3xl font-extrabold text-primary">
+          {L(title)}
+        </h2>
+      </div>
       {desc && (
-        <p className="text-base sm:text-lg text-text leading-relaxed font-normal">
+        <p className="text-base sm:text-lg text-text leading-relaxed mb-12 font-normal">
           {L(desc)}
         </p>
       )}
@@ -206,7 +215,7 @@ export default function ServicesPage() {
       {/* 1. Who We Serve */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHead
-          eyebrow={tx("Who We Serve")}
+          eyebrow={tx("")}
           title={tx("Our clients are at the center of everything we do")}
           desc={tx(
             "We serve people and enterprises that need accessible financial services to build livelihoods, manage financial needs and pursue new opportunities.",
@@ -404,7 +413,7 @@ export default function ServicesPage() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="rounded-2xl bg-primary/5 border border-primary/10 p-4">
-                <p className="text-xl font-extrabold text-secondary">0.5%</p>
+                <p className="text-xl font-extrabold text-secondary">0.6%</p>
                 <p className="text-xs text-text font-normal mt-1">
                   Premium on principal loan (BDT 5 per thousand)
                 </p>
