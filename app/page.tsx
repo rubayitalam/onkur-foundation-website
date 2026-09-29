@@ -614,10 +614,10 @@ export default function HomePage() {
                       {...reveal}
                       onClick={() => setActiveWhy(idx)}
                       aria-pressed={isActive}
-                      className={`rounded-full px-6 py-3 text-sm md:text-base font-semibold text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                      className={`rounded-full px-6 py-3 text-sm md:text-base font-semibold text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 ${
                         isActive
-                          ? "bg-primary shadow-lg scale-105 border-2 border-white/30"
-                          : "bg-secondary/90 hover:bg-primary/70 border border-white/10 opacity-90 hover:opacity-100"
+                          ? "bg-green-600 shadow-md scale-105 border border-green-400"
+                          : "bg-primary hover:bg-green-800 border border-green-700/50"
                       }`}
                     >
                       {tContent(
