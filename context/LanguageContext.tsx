@@ -12,7 +12,7 @@ interface LanguageContextProps {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
-  tContent: <T>(bnVal: T, enVal: T) => T;
+  tContent: <T, U = T>(bnVal: T, enVal: U) => T | U;
   nav: any;
   settings: any;
   footerContent: any;
@@ -187,7 +187,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
     return typeof current === "string" ? current : key;
   };
 
-  const tContent = <T,>(bnVal: T, enVal: T): T => {
+  const tContent = <T, U = T>(bnVal: T, enVal: U): T | U => {
     return language === "bn" ? bnVal : enVal;
   };
 
