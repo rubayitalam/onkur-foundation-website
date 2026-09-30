@@ -993,32 +993,88 @@ export default function HomePage() {
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {team.map((member, idx) => (
-              <motion.div
-                key={member.id}
-                variants={fadeUp}
-                custom={idx}
-                {...reveal}
-                whileHover={{ y: -6 }}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm border border-secondary/5"
-              >
-                <div className="aspect-[5/5] bg-gray-100 relative">
-                  <img
-                    src={member.imageUrl}
-                    alt={tContent(member.name_bn, member.name_en)}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                </div>
-                <div className="p-6 text-center space-y-1">
-                  <h3 className="text-lg font-bold text-secondary">
-                    {tContent(member.name_bn, member.name_en)}
-                  </h3>
-                  <p className="text-sm text-gray-700 font-normal">
-                    {tContent(member.role_bn, member.role_en)}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+            {team.map((member, idx) => {
+              const nameBn = member.name_bn || member.name_en || "";
+              const nameEn = member.name_en || member.name_bn || "";
+              const memberName = tContent(nameBn, nameEn);
+              return (
+                <motion.div
+                  key={member.id}
+                  variants={fadeUp}
+                  custom={idx}
+                  {...reveal}
+                  whileHover={{ y: -6 }}
+                  className="h-full"
+                >
+                  <Link
+                    href={`/team/${member.id}`}
+                    aria-label={tContent(
+                      `${nameBn}-এর প্রোফাইল দেখুন`,
+                      `View ${nameEn} profile`
+                    )}
+                    className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-secondary/5 hover:border-primary/20 hover:shadow-md transition-all duration-300 flex flex-col h-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    <div className="aspect-[5/5] bg-gray-100 relative overflow-hidden">
+                      <img
+                        src={member.imageUrl}
+                        alt={memberName}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      {(member.facebook || member.linkedin) && (
+                        <div className="absolute top-3 right-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                          {member.facebook && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                window.open(member.facebook, "_blank", "noopener,noreferrer");
+                              }}
+                              className="bg-white/90 hover:bg-primary hover:text-white text-secondary p-2 rounded-full shadow-sm transition-colors duration-200"
+                              aria-label={`${memberName} Facebook`}
+                            >
+                              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
+                              </svg>
+                            </button>
+                          )}
+                          {member.linkedin && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                window.open(member.linkedin, "_blank", "noopener,noreferrer");
+                              }}
+                              className="bg-white/90 hover:bg-primary hover:text-white text-secondary p-2 rounded-full shadow-sm transition-colors duration-200"
+                              aria-label={`${memberName} LinkedIn`}
+                            >
+                              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                              </svg>
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-6 text-center space-y-2 flex flex-col justify-between flex-1">
+                      <div>
+                        <h3 className="text-lg font-bold text-secondary group-hover:text-primary transition-colors">
+                          {memberName}
+                        </h3>
+                        <p className="text-sm text-gray-700 font-normal">
+                          {tContent(member.role_bn, member.role_en)}
+                        </p>
+                      </div>
+                      <div className="pt-2 flex items-center justify-center text-xs font-semibold text-primary opacity-80 group-hover:opacity-100 transition-opacity gap-1">
+                        <span>{tContent("প্রোফাইল দেখুন", "View Profile")}</span>
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
           </div>
         </section>
       )}
