@@ -273,15 +273,15 @@ export default function AboutPage() {
 
   const approachPoints = aboutData?.approach_points
     ? aboutData.approach_points.some(
-        (point: any) =>
-          point.title_en === "Digital Member Onboarding and Loan Origination",
-      )
+      (point: any) =>
+        point.title_en === "Digital Member Onboarding and Loan Origination",
+    )
       ? aboutData.approach_points
       : [
-          ...aboutData.approach_points.slice(0, 1),
-          defaultApproachPoints[1],
-          ...aboutData.approach_points.slice(1),
-        ]
+        ...aboutData.approach_points.slice(0, 1),
+        defaultApproachPoints[1],
+        ...aboutData.approach_points.slice(1),
+      ]
     : defaultApproachPoints;
 
   if (loading) {
@@ -298,14 +298,15 @@ export default function AboutPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
         <h1 className="text-3xl md:text-4xl  font-bold text-secondary mb-6">
           {tContent(
-            aboutData?.heading_bn || "আমাদের পথচলা",
+            aboutData?.heading_bn ||
+              "দায়িত্বশীল অর্থায়ন, ডিজিটাল উদ্ভাবন এবং টেকসই জীবিকার মাধ্যমে একটি অধিকতর অন্তর্ভুক্তিমূলক ভবিষ্যৎ গড়ে তোলা।",
             aboutData?.heading_en || "Our Journey",
           )}
         </h1>
         <div className="space-y-6 text-base md:text-lg text-gray-700 leading-relaxed font-normal text-left">
           <p>
             {tContent(
-              "অঙ্কুর ফাউন্ডেশন একটি ক্ষুদ্রঋণ প্রদানকারী প্রতিষ্ঠান, যা বাংলাদেশের সুবিধাবঞ্চিত জনগোষ্ঠীর কাছে দায়িত্বশীল আর্থিক সেবার সুযোগ সম্প্রসারণে প্রতিশ্রুতিবদ্ধ। আমরা প্রথাগত ক্ষুদ্রঋণ কার্যক্রম থেকে সরে এসে একটি ডিজিটাল, গ্রাহক-কেন্দ্রিক এবং অন্তর্ভুক্তিমূলক আর্থিক সেবার মডেল গড়ে তুলছি, যা আমাদের গ্রাহকদের পরিবর্তনশীল চাহিদা পূরণে সক্ষম।",
+              "অঙ্কুর ফাউন্ডেশন একটি ক্ষুদ্রঋণ প্রদানকারী প্রতিষ্ঠান, যা বাংলাদেশের সুবিধাবঞ্চিত জনগোষ্ঠীর কাছে দায়িত্বশীল আর্থিক সেবার সুযোগ সম্প্রসারণে প্রতিশ্রুতিবদ্ধ। আমরা প্রথাগত ক্ষুদ্রঋণ কার্যক্রম থেকে সরে এসে এমন একটি ডিজিটাল, গ্রাহক-কেন্দ্রিক ও অন্তর্ভুক্তিমূলক আর্থিক সেবা মডেলের দিকে এগিয়ে যাচ্ছি, যা আমাদের গ্রাহকদের পরিবর্তনশীল চাহিদা পূরণে সক্ষম।আর্থিক সেবাকে আরও সহজলভ্য, সুবিধাজনক ও অন্তর্ভুক্তিমূলক করে তুলতে আমরা কমিউনিটি-ভিত্তিক ক্ষুদ্রঋণের ব্যাপক নেটওয়ার্ক ও পারস্পরিক সম্পর্কের সাথে ডিজিটাল প্রযুক্তির অপার সম্ভাবনাকে কাজে লাগাই।আমরা বিশ্বাস করি, সঠিক আর্থিক সেবার সুযোগ কেবল পুঁজি জোগানোর মধ্যেই সীমাবদ্ধ নয়—এটি মানুষকে প্রতিকূলতা কাটিয়ে ওঠার সক্ষমতা অর্জন, ব্যবসা সম্প্রসারণ ও কর্মসংস্থান সৃষ্টিতে সহায়তা করার পাশাপাশি তাদের পরিবার ও সমাজের সামগ্রিক জীবনযাত্রার মান উন্নয়নেও ভূমিকা রাখতে পারে।",
               <>
                 Onkur Foundation is a microfinance institution committed to
                 expand access to responsible financial services for underserved
@@ -357,9 +358,9 @@ export default function AboutPage() {
               >
                 {tContent(
                   aboutData?.chairman_message_bn ||
-                    "অঙ্কুর ফাউন্ডেশনের মূল উদ্দেশ্য হলো প্রতিটি প্রান্তিক ও সুবিধাবঞ্চিত পরিবারকে একটি মর্যাদাপূর্ণ জীবনের সুযোগ করে দেওয়া। আমরা কেবল মূলধন সরবরাহ করি না, বরং তাদের সুপ্ত সম্ভাবনার বিকাশ ঘটিয়ে টেকসই অর্থনৈতিক ক্ষমতায়ন নিশ্চিত করতে কাজ করি।",
+                  "অঙ্কুর ফাউন্ডেশনের মূল উদ্দেশ্য হলো প্রতিটি প্রান্তিক ও সুবিধাবঞ্চিত পরিবারকে একটি মর্যাদাপূর্ণ জীবনের সুযোগ করে দেওয়া। আমরা কেবল মূলধন সরবরাহ করি না, বরং তাদের সুপ্ত সম্ভাবনার বিকাশ ঘটিয়ে টেকসই অর্থনৈতিক ক্ষমতায়ন নিশ্চিত করতে কাজ করি।",
                   aboutData?.chairman_message_en ||
-                    "At Onkur, our primary goal is to ensure a life of dignity and self-reliance for every marginalized family. We don't just provide capital; we walk with our borrowers, helping them harness their inner potential.",
+                  "At Onkur, our primary goal is to ensure a life of dignity and self-reliance for every marginalized family. We don't just provide capital; we walk with our borrowers, helping them harness their inner potential.",
                 )}
               </p>
               <div>
@@ -372,9 +373,9 @@ export default function AboutPage() {
                 <p className="text-xs text-text font-semibold tracking-wider uppercase opacity-100">
                   {tContent(
                     aboutData?.chairman_title_bn ||
-                      "চেয়ারম্যান, অঙ্কুর ফাউন্ডেশন",
+                    "চেয়ারম্যান, অঙ্কুর ফাউন্ডেশন",
                     aboutData?.chairman_title_en ||
-                      "Chairman, Onkur Foundation",
+                    "Chairman, Onkur Foundation",
                   )}
                 </p>
               </div>
@@ -499,9 +500,9 @@ export default function AboutPage() {
             <p className="text-base text-text leading-relaxed font-normal">
               {tContent(
                 aboutData?.approach_bn ||
-                  "আমাদের পদ্ধতিটি সহজ: আমরা মাঠপর্যায়ে গিয়ে আবেদনকারীদের প্রয়োজনীয়তা মূল্যায়ন করি, জামানতবিহীন ঋণের সুবিধা দিই এবং ঋণগ্রহীতাদের অর্থনৈতিক উন্নয়ন তদারকি করি।",
+                "আমাদের পদ্ধতিটি সহজ: আমরা মাঠপর্যায়ে গিয়ে আবেদনকারীদের প্রয়োজনীয়তা মূল্যায়ন করি, জামানতবিহীন ঋণের সুবিধা দিই এবং ঋণগ্রহীতাদের অর্থনৈতিক উন্নয়ন তদারকি করি।",
                 aboutData?.approach_en ||
-                  "Our approach is simple: we assess applicants' needs directly on the ground, offer collateral-free loan options, and guide borrowers to ensure sustainable growth.",
+                "Our approach is simple: we assess applicants' needs directly on the ground, offer collateral-free loan options, and guide borrowers to ensure sustainable growth.",
               )}
             </p>
 
