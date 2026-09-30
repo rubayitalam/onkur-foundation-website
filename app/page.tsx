@@ -86,6 +86,37 @@ export default function HomePage() {
     "mission",
   );
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+
+  const heroImages = React.useMemo(() => {
+    if (Array.isArray(homeData?.hero_images)) {
+      const validImages = homeData.hero_images.filter(
+        (img: any) => typeof img === "string" && img.trim() !== "",
+      );
+      if (validImages.length > 0) return validImages;
+    }
+    if (
+      homeData?.hero_image_url &&
+      typeof homeData.hero_image_url === "string" &&
+      homeData.hero_image_url.trim() !== ""
+    ) {
+      return [homeData.hero_image_url.trim()];
+    }
+    return ["https://i.postimg.cc/g0DQ0M84/98293656829.png"];
+  }, [homeData]);
+
+  useEffect(() => {
+    if (heroImages.length <= 1) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [heroImages.length]);
+
+  const activeSlideIndex = currentSlide % heroImages.length;
+
   useEffect(() => {
     const homeRef = ref(db, "siteContent/home");
     const statsRef = ref(db, "stats");
@@ -348,22 +379,61 @@ export default function HomePage() {
   return (
     <div className="pb-20">
       {/* 1. Hero Section */}
-      <section className="relative min-h-[90vh] md:min-h-screen flex items-center bg-secondary text-white overflow-hidden">
-        <motion.div
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.4, ease: "easeOut" }}
-          className="absolute inset-0"
-        >
-          <img
-            src={
-              homeData?.hero_image_url ||
-              "https://i.postimg.cc/g0DQ0M84/98293656829.png"
-            }
-            alt="Rural Bangladesh farming community"
-            className="w-full h-full object-cover"
-          />
-        </motion.div>
+      <section
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onTouchStart={(e) => setTouchStart(e.targetTouches[0].clientX)}
+        onTouchEnd={(e) => {
+          if (touchStart === null || heroImages.length <= 1) return;
+          const touchEnd = e.changedTouches[0].clientX;
+          const diff = touchStart - touchEnd;
+          if (diff > 40) {
+            setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+          } else if (diff < -40) {
+            setCurrentSlide(
+              (prev) => (prev - 1 + heroImages.length) % heroImages.length,
+            );
+          }
+          setTouchStart(null);
+        }}
+        className="relative min-h-[90vh] md:min-h-screen flex items-center bg-secondary text-white overflow-hidden"
+      >
+        {heroImages.length > 1 ? (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.div
+                key={activeSlideIndex}
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.05 }}
+                transition={{
+                  opacity: { duration: 0.8, ease: "easeInOut" },
+                  scale: { duration: 3, ease: "easeOut" },
+                }}
+                className="absolute inset-0"
+              >
+                <img
+                  src={heroImages[activeSlideIndex]}
+                  alt={`Hero slide ${activeSlideIndex + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        ) : (
+          <motion.div
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.4, ease: "easeOut" }}
+            className="absolute inset-0"
+          >
+            <img
+              src={heroImages[0]}
+              alt="Rural Bangladesh farming community"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        )}
 
         <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/60 to-black/80" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.5),_transparent_75%)]" />
@@ -391,6 +461,24 @@ export default function HomePage() {
           }}
           className="absolute -top-32 -right-32 w-96 h-96 bg-primary/30 rounded-full blur-3xl pointer-events-none"
         />
+
+        {/* Small Dot Indicators (rendered if more than 1 image) */}
+        {heroImages.length > 1 && (
+          <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 shadow-lg">
+            {heroImages.map((_: string, idx: number) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentSlide(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  idx === activeSlideIndex
+                    ? "w-7 bg-primary shadow-sm shadow-primary/50"
+                    : "w-2 bg-white/40 hover:bg-white/70"
+                }`}
+              />
+            ))}
+          </div>
+        )}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="grid lg:grid-cols-12 gap-8 items-center">
@@ -485,14 +573,14 @@ export default function HomePage() {
                 {tContent(
                   !homeData?.mission_heading_bn ||
                     homeData.mission_heading_bn ===
-                      "আর্থিক সেবার মাধ্যমে বাধা দূর করা" ||
+                    "আর্থিক সেবার মাধ্যমে বাধা দূর করা" ||
                     homeData.mission_heading_bn ===
-                      "অর্থায়নের মাধ্যমে বাধা ভাঙা"
+                    "অর্থায়নের মাধ্যমে বাধা ভাঙা"
                     ? "ডিজিটাল পদ্ধতিতে ক্ষুদ্র আর্থিক সেবার মাধ্যমে দারিদ্রমুক্ত সুখী সমৃদ্ধ বৈষম্যহীন ন্যায়ভিত্তিক সমাজ প্রতিষ্ঠা"
                     : homeData.mission_heading_bn,
                   !homeData?.mission_heading_en ||
                     homeData.mission_heading_en ===
-                      "Breaking Barriers with Access to Finance"
+                    "Breaking Barriers with Access to Finance"
                     ? "Establishing a poverty-free, happy, prosperous, and just society without discrimination through digital microfinance services."
                     : homeData.mission_heading_en,
                 )}
@@ -505,9 +593,9 @@ export default function HomePage() {
               >
                 {tContent(
                   homeData?.mission_body_bn ||
-                    "অঙ্কুর ফাউন্ডেশনে আমরা বিশ্বাস করি যে, প্রকৃত ক্ষমতায়ন তখনই শুরু হয় যখন আর্থিক সুযোগগুলো তাদের কাছে পৌঁছায় যাদের এটি সবচেয়ে বেশি প্রয়োজন। দীর্ঘ সময় ধরে গ্রামীণ এবং প্রান্তিক জনগোষ্ঠী আনুষ্ঠানিক আর্থিক ব্যবস্থার বাইরে থেকে গেছে, যা তাদের বৃদ্ধি, বিনিয়োগ এবং ভবিষ্যত সুরক্ষিত করার ক্ষমতাকে সীমিত করেছে। আমরা অর্থায়নে প্রবেশাধিকার সহজ, অন্তর্ভুক্তিমূলক এবং প্রভাবশালী করার মাধ্যমে এই বাধাগুলি ভেঙে দিতে প্রতিশ্রুতিবদ্ধ। আমাদের উদ্যোগের মাধ্যমে আমরা সুবিধাবঞ্চিত ব্যক্তি এবং সম্প্রদায়কে আর্থিক পরিষেবার সাথে সংযুক্ত করি যা শিক্ষা, উদ্যোক্তা, স্বাস্থ্যসেবা এবং টেকসই জীবিকার পথ উন্মুক্ত করে।",
+                  "অঙ্কুর ফাউন্ডেশনে আমরা বিশ্বাস করি যে, প্রকৃত ক্ষমতায়ন তখনই শুরু হয় যখন আর্থিক সুযোগগুলো তাদের কাছে পৌঁছায় যাদের এটি সবচেয়ে বেশি প্রয়োজন। দীর্ঘ সময় ধরে গ্রামীণ এবং প্রান্তিক জনগোষ্ঠী আনুষ্ঠানিক আর্থিক ব্যবস্থার বাইরে থেকে গেছে, যা তাদের বৃদ্ধি, বিনিয়োগ এবং ভবিষ্যত সুরক্ষিত করার ক্ষমতাকে সীমিত করেছে। আমরা অর্থায়নে প্রবেশাধিকার সহজ, অন্তর্ভুক্তিমূলক এবং প্রভাবশালী করার মাধ্যমে এই বাধাগুলি ভেঙে দিতে প্রতিশ্রুতিবদ্ধ। আমাদের উদ্যোগের মাধ্যমে আমরা সুবিধাবঞ্চিত ব্যক্তি এবং সম্প্রদায়কে আর্থিক পরিষেবার সাথে সংযুক্ত করি যা শিক্ষা, উদ্যোক্তা, স্বাস্থ্যসেবা এবং টেকসই জীবিকার পথ উন্মুক্ত করে।",
                   homeData?.mission_body_en ||
-                    "At Onkur Foundation, we believe financial inclusion is a pathway to greater opportunity, resilience, and dignity. Rural and underserved communities continue to face barriers to accessing formal financial services, limiting opportunities to invest, grow, and build more secure and sustainable livelihoods. We work to bridge the gap between underserved communities and the financial services they need to build better futures. Through our digital solutions and village digital booths (VDBs), we connect underserved individuals and communities with financial services more efficiently and conveniently, expanding access to opportunities in entrepreneurship, sustainable livelihoods, healthcare, and education.By embracing digital technology, we are making financial services faster, more transparent, and easier to access—helping more people to participate in the formal financial system and take greater control of their economic future.",
+                  "At Onkur Foundation, we believe financial inclusion is a pathway to greater opportunity, resilience, and dignity. Rural and underserved communities continue to face barriers to accessing formal financial services, limiting opportunities to invest, grow, and build more secure and sustainable livelihoods. We work to bridge the gap between underserved communities and the financial services they need to build better futures. Through our digital solutions and village digital booths (VDBs), we connect underserved individuals and communities with financial services more efficiently and conveniently, expanding access to opportunities in entrepreneurship, sustainable livelihoods, healthcare, and education.By embracing digital technology, we are making financial services faster, more transparent, and easier to access—helping more people to participate in the formal financial system and take greater control of their economic future.",
                 )}
               </motion.p>
               <motion.div
@@ -574,7 +662,8 @@ export default function HomePage() {
                 className="text-3xl md:text-4xl lg:text-5xl font-bold text-secondary"
               >
                 {tContent(
-                  homeData?.why_title_bn || "কেন অঙ্কুর ফাউন্ডেশন?",
+                  homeData?.why_title_bn ||
+                    "কেন 'অঙ্কুর ফাউন্ডেশন' (Onkur Foundation)-কে বেছে নেবেন?",
                   homeData?.why_title_en || "Why Choose Onkur Foundation?",
                 )}
               </motion.h2>
@@ -583,11 +672,13 @@ export default function HomePage() {
                 variants={fadeLeft}
                 custom={1}
                 {...reveal}
-                className="text-base text-gray-600 font-normal max-w-xl leading-relaxed"
+                className="text-base text-gray-600 font-normal leading-relaxed"
               >
                 {tContent(
-                  "আমাদের সহজ ও মানবকল্যাণমুখী নীতিমালা গ্রামীণ সুবিধাবঞ্চিত পরিবারের জীবনে মর্যাদাপূর্ণ আর্থিক সচ্ছলতা নিশ্চিত করে।",
-                  "At Onkur Foundation, we go beyond providing credit. We aim to connect rural and underserved communities to the formal financial system, helping bring banking and financial services closer to people who have traditionally had limited access. Through appropriate financial products, digital solutions, and stronger connections with formal banking channels, we enable individuals and families to manage their finances, grow their businesses, and build greater economic resilience. By combining human-centered service with digital innovation, we are making financial services more accessible, efficient, transparent, and convenient. Our goal is to create a pathway from financial access to financial inclusion—helping rural communities participate more fully in the formal economy. Our commitment is to create meaningful opportunities for rural and underserved communities, helping them build stronger livelihoods today and a more secure and sustainable future tomorrow.",
+                  homeData?.why_desc_bn ||
+                    "অঙ্কুর ফাউন্ডেশনে আমরা কেবল ঋণ প্রদানের মধ্যেই সীমাবদ্ধ থাকি না। আমাদের লক্ষ্য হলো গ্রামীণ ও সুবিধাবঞ্চিত জনগোষ্ঠীকে আনুষ্ঠানিক আর্থিক ব্যবস্থার সাথে সংযুক্ত করা এবং যাদের প্রথাগতভাবে আর্থিক সেবার সুযোগ সীমিত ছিল, তাদের দোরগোড়ায় ব্যাংকিং ও আর্থিক সেবা পৌঁছে দেওয়া। উপযুক্ত আর্থিক পণ্য, ডিজিটাল সমাধান এবং আনুষ্ঠানিক ব্যাংকিং কাঠামোর সাথে শক্তিশালী সংযোগ স্থাপনের মাধ্যমে আমরা ব্যক্তি ও পরিবারকে তাদের আর্থিক ব্যবস্থাপনা, ব্যবসার প্রসার এবং অর্থনৈতিক সক্ষমতা বা সহনশীলতা বৃদ্ধিতে সহায়তা করি। মানব-কেন্দ্রিক সেবার সাথে ডিজিটাল উদ্ভাবনের সমন্বয় ঘটিয়ে আমরা আর্থিক সেবাকে আরও সহজলভ্য, দক্ষ, স্বচ্ছ ও সুবিধাজনক করে তুলছি। আমাদের লক্ষ্য হলো আর্থিক সেবার সুযোগ থেকে প্রকৃত 'আর্থিক অন্তর্ভুক্তির' (financial inclusion) পথে উত্তরণের সুযোগ তৈরি করা, যাতে গ্রামীণ জনগোষ্ঠী আনুষ্ঠানিক অর্থনীতির মূলধারায় আরও সক্রিয়ভাবে অংশগ্রহণ করতে পারে। গ্রামীণ ও সুবিধাবঞ্চিত জনগোষ্ঠীর জন্য অর্থবহ সুযোগ সৃষ্টি করাই আমাদের অঙ্গীকার; এর মাধ্যমে আমরা তাদের বর্তমান জীবিকাকে আরও শক্তিশালী এবং ভবিষ্যৎকে আরও নিরাপদ ও টেকসই করে গড়ে তুলতে সহায়তা করি।",
+                  homeData?.why_desc_en ||
+                    "At Onkur Foundation, we go beyond providing credit. We aim to connect rural and underserved communities to the formal financial system, helping bring banking and financial services closer to people who have traditionally had limited access. Through appropriate financial products, digital solutions, and stronger connections with formal banking channels, we enable individuals and families to manage their finances, grow their businesses, and build greater economic resilience. By combining human-centered service with digital innovation, we are making financial services more accessible, efficient, transparent, and convenient. Our goal is to create a pathway from financial access to financial inclusion—helping rural communities participate more fully in the formal economy. Our commitment is to create meaningful opportunities for rural and underserved communities, helping them build stronger livelihoods today and a more secure and sustainable future tomorrow.",
                 )}
               </motion.p>
 
@@ -614,11 +705,10 @@ export default function HomePage() {
                       {...reveal}
                       onClick={() => setActiveWhy(idx)}
                       aria-pressed={isActive}
-                      className={`rounded-full px-6 py-3 text-sm md:text-base font-semibold text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 ${
-                        isActive
+                      className={`rounded-full px-6 py-3 text-sm md:text-base font-semibold text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 ${isActive
                           ? "bg-green-600 shadow-md scale-105 border border-green-400"
                           : "bg-primary hover:bg-green-800 border border-green-700/50"
-                      }`}
+                        }`}
                     >
                       {tContent(
                         card.title_bn || card.title,
@@ -733,13 +823,13 @@ export default function HomePage() {
                           <p className="max-w-md text-sm md:text-base font-normal leading-relaxed text-white/85">
                             {tContent(
                               card.desc_bn ||
-                                card.description_bn ||
-                                card.desc ||
-                                card.details_bn,
+                              card.description_bn ||
+                              card.desc ||
+                              card.details_bn,
                               card.desc_en ||
-                                card.description_en ||
-                                card.desc ||
-                                card.details_en,
+                              card.description_en ||
+                              card.desc ||
+                              card.details_en,
                             )}
                           </p>
                         </>

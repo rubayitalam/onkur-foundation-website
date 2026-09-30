@@ -36,6 +36,10 @@ import {
   List,
   Calendar,
   Link2,
+  ArrowUp,
+  ArrowDown,
+  Upload,
+  Image as ImageIcon,
 } from "lucide-react";
 
 const defaultWhyCards = [
@@ -819,8 +823,13 @@ export default function AdminDashboardPage() {
           text_en: homeBullets.values_en.split("\n")[i] || l,
         }));
 
+      const hero_images = Array.isArray(homeData.hero_images)
+        ? homeData.hero_images.filter((img: any) => typeof img === "string" && img.trim() !== "")
+        : (homeData.hero_image_url ? [homeData.hero_image_url] : []);
+
       const payload = {
         ...homeData,
+        hero_images,
         mission_bullets,
         vision_bullets,
         values_bullets,
@@ -832,6 +841,67 @@ export default function AdminDashboardPage() {
       triggerToast("Home page updated!");
     } catch (err: any) {
       alert("Error: " + err.message);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const getHeroImagesList = (): string[] => {
+    if (Array.isArray(homeData.hero_images)) {
+      return homeData.hero_images;
+    }
+    if (homeData.hero_image_url) {
+      return [homeData.hero_image_url];
+    }
+    return [""];
+  };
+
+  const updateHeroImage = (index: number, val: string) => {
+    const current = getHeroImagesList();
+    const updated = [...current];
+    updated[index] = val;
+    setHomeData({ ...homeData, hero_images: updated });
+  };
+
+  const addHeroImage = () => {
+    const current = getHeroImagesList();
+    setHomeData({ ...homeData, hero_images: [...current, ""] });
+  };
+
+  const removeHeroImage = (index: number) => {
+    const current = getHeroImagesList();
+    const updated = current.filter((_, i) => i !== index);
+    setHomeData({ ...homeData, hero_images: updated });
+  };
+
+  const moveHeroImage = (index: number, direction: -1 | 1) => {
+    const current = getHeroImagesList();
+    const targetIndex = index + direction;
+    if (targetIndex < 0 || targetIndex >= current.length) return;
+    const updated = [...current];
+    const temp = updated[index];
+    updated[index] = updated[targetIndex];
+    updated[targetIndex] = temp;
+    setHomeData({ ...homeData, hero_images: updated });
+  };
+
+  const uploadHeroImageFile = async (index: number, file: File) => {
+    setSaving(true);
+    try {
+      const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
+      const imageRef = storageRef(
+        storage,
+        `hero-slider/${Date.now()}-${safeFileName}`
+      );
+      const snapshot = await uploadBytes(imageRef, file);
+      const imageUrl = await getDownloadURL(snapshot.ref);
+      const current = getHeroImagesList();
+      const updated = [...current];
+      updated[index] = imageUrl;
+      setHomeData({ ...homeData, hero_images: updated });
+      triggerToast("Hero image uploaded successfully!");
+    } catch (err: any) {
+      alert("Image upload failed: " + err.message);
     } finally {
       setSaving(false);
     }
@@ -1503,26 +1573,132 @@ export default function AdminDashboardPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-1">
-                    <label className="text-xs font-semibold text-text">
-                      Hero Image URL
-                    </label>
-                    <input
-                      type="url"
-                      required
-                      value={homeData.hero_image_url || ""}
-                      onChange={(e) =>
-                        setHomeData({
-                          ...homeData,
-                          hero_image_url: e.target.value,
-                        })
-                      }
-                      className="w-full px-4 py-3 bg-white border border-secondary/10 rounded-lg text-sm"
-                    />
-                    <p className="text-[10px] text-gray-500 mt-0.5">
-                      Appears as the side picture in the hero banner section of
-                      the homepage.
+                  {/* Hero Images List (Slider Support) */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-semibold text-text flex items-center gap-2">
+                        <span>Hero Slider Images</span>
+                        <span className="text-[10px] font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                          {getHeroImagesList().length} {getHeroImagesList().length === 1 ? "image" : "images"}
+                        </span>
+                      </label>
+                      <button
+                        type="button"
+                        onClick={addHeroImage}
+                        className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>Add Image URL</span>
+                      </button>
+                    </div>
+
+                    <p className="text-[10px] text-gray-500">
+                      Add multiple image URLs or upload images to create an auto-scrolling slider for the homepage hero section. Reorder items using the arrow buttons.
                     </p>
+
+                    <div className="space-y-3 mt-2">
+                      {getHeroImagesList().map((url, index) => (
+                        <div
+                          key={index}
+                          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 p-3 bg-gray-50/80 border border-secondary/10 rounded-xl"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="w-6 h-6 rounded-full bg-secondary/10 text-secondary text-xs font-bold flex items-center justify-center shrink-0">
+                              {index + 1}
+                            </span>
+
+                            {/* Thumbnail preview */}
+                            <div className="w-12 h-12 rounded-lg bg-gray-200 border border-gray-300 overflow-hidden shrink-0 flex items-center justify-center relative">
+                              {url ? (
+                                <img
+                                  src={url}
+                                  alt={`Hero image ${index + 1}`}
+                                  className="w-full h-full object-cover"
+                                  onError={(e) => {
+                                    (e.target as HTMLElement).style.display = "none";
+                                  }}
+                                />
+                              ) : (
+                                <ImageIcon className="w-5 h-5 text-gray-400" />
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="flex-1 flex items-center gap-2">
+                            <input
+                              type="url"
+                              value={url}
+                              placeholder="https://example.com/image.jpg"
+                              onChange={(e) => updateHeroImage(index, e.target.value)}
+                              className="w-full px-3 py-2 bg-white border border-secondary/10 rounded-lg text-sm"
+                            />
+                            
+                            {/* File Upload Button */}
+                            <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-2 bg-white border border-secondary/20 hover:bg-gray-50 rounded-lg text-xs font-medium text-gray-700 shrink-0 transition-colors">
+                              <Upload className="w-3.5 h-3.5 text-primary" />
+                              <span className="hidden md:inline">Upload</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) uploadHeroImageFile(index, file);
+                                }}
+                              />
+                            </label>
+                          </div>
+
+                          <div className="flex items-center gap-1 justify-end shrink-0">
+                            {/* Move Up */}
+                            <button
+                              type="button"
+                              disabled={index === 0}
+                              onClick={() => moveHeroImage(index, -1)}
+                              className="p-1.5 text-gray-500 hover:text-primary hover:bg-white rounded-lg disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                              title="Move up"
+                            >
+                              <ArrowUp className="w-4 h-4" />
+                            </button>
+
+                            {/* Move Down */}
+                            <button
+                              type="button"
+                              disabled={index === getHeroImagesList().length - 1}
+                              onClick={() => moveHeroImage(index, 1)}
+                              className="p-1.5 text-gray-500 hover:text-primary hover:bg-white rounded-lg disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                              title="Move down"
+                            >
+                              <ArrowDown className="w-4 h-4" />
+                            </button>
+
+                            {/* Remove */}
+                            <button
+                              type="button"
+                              onClick={() => removeHeroImage(index)}
+                              className="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors ml-1"
+                              title="Remove image"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+
+                      {getHeroImagesList().length === 0 && (
+                        <div className="text-center py-6 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50">
+                          <p className="text-xs text-gray-500 mb-2">No hero slider images added yet.</p>
+                          <button
+                            type="button"
+                            onClick={addHeroImage}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary/90 transition-colors"
+                          >
+                            <Plus className="w-3.5 h-3.5" />
+                            <span>Add First Hero Image</span>
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
