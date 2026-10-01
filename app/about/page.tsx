@@ -114,12 +114,12 @@ export default function AboutPage() {
     },
     {
       icon: "Users",
-      title_bn: "ডিজিটাল সদস্য অনবোর্ডিং ও ঋণ প্রদান",
-      title_en: "Digital Member Onboarding and Loan Origination",
+      title_bn: "ফাইজিটাল পদ্ধতি",
+      title_en: "Phygital Approach",
       desc_bn:
-        "ভিবিডি ও ঋণ কর্মকর্তারা যোগ্য সদস্যকে ডিজিটালভাবে অনবোর্ডিং করতে সহায়তা করেন।",
+        "বিশ্বস্ত স্থানীয় এজেন্ট ও সম্প্রসারণযোগ্য প্রযুক্তির মাধ্যমে প্রান্তিক পর্যায় পর্যন্ত ডিজিটাল আর্থিক সেবা পৌঁছে দেওয়া।",
       desc_en:
-        "VDB/Loan officers facilitate onboarding the eligible member to onboard member digitally.",
+        "Bringing digital financial services to the last mile — through trusted local agents and scalable technology",
     },
     {
       icon: "Users",
@@ -299,7 +299,7 @@ export default function AboutPage() {
         <h1 className="text-3xl md:text-4xl  font-bold text-secondary mb-6">
           {tContent(
             aboutData?.heading_bn ||
-              "দায়িত্বশীল অর্থায়ন, ডিজিটাল উদ্ভাবন এবং টেকসই জীবিকার মাধ্যমে একটি অধিকতর অন্তর্ভুক্তিমূলক ভবিষ্যৎ গড়ে তোলা।",
+            "দায়িত্বশীল অর্থায়ন, ডিজিটাল উদ্ভাবন এবং টেকসই জীবিকার মাধ্যমে একটি অধিকতর অন্তর্ভুক্তিমূলক ভবিষ্যৎ গড়ে তোলা।",
             aboutData?.heading_en || "Our Journey",
           )}
         </h1>
