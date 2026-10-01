@@ -155,9 +155,12 @@ export default function HomePage() {
         if (val) {
           const arr = Object.keys(val)
             .map((k) => ({ id: k, ...val[k] }))
+            .filter((m) => (m.group || "board") === "board")
             .sort((a, b) => (a.order || 0) - (b.order || 0))
-            .slice(0, 3);
+            .slice(0, 6);
           setTeam(arr);
+        } else {
+          setTeam([]);
         }
         checkAllLoaded();
       },
@@ -1014,7 +1017,7 @@ export default function HomePage() {
                     )}
                     className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-secondary/5 hover:border-primary/20 hover:shadow-md transition-all duration-300 flex flex-col h-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
-                    <div className="aspect-[5/5] bg-gray-100 relative overflow-hidden">
+                    <div className="aspect-[4/5] bg-gray-100 relative overflow-hidden">
                       <img
                         src={member.imageUrl}
                         alt={memberName}

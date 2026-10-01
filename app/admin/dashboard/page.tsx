@@ -314,6 +314,7 @@ export default function AdminDashboardPage() {
     role_en: "",
     imageUrl: "",
     order: 1,
+    group: "board",
     facebook: "",
     linkedin: "",
     bio_bn: "",
@@ -1096,6 +1097,7 @@ export default function AdminDashboardPage() {
       const payload = { ...activeTeamMember };
       delete payload.id;
       payload.order = Number(payload.order) || 1;
+      payload.group = payload.group || "board";
       await set(ref(db, `team/${id}`), payload);
       triggerToast("Team member saved!");
       setActiveTeamMember({
@@ -1106,6 +1108,7 @@ export default function AdminDashboardPage() {
         role_en: "",
         imageUrl: "",
         order: 1,
+        group: "board",
         facebook: "",
         linkedin: "",
         bio_bn: "",
@@ -3594,10 +3597,90 @@ export default function AdminDashboardPage() {
                   </p>
                 </div>
 
+                {/* Management Team Section Copy */}
+                <div className="pt-4 border-t border-secondary/10 space-y-4">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-secondary">
+                    Management Team Section Copy
+                  </h4>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-xs font-semibold text-text">
+                        Management Heading (Bangla)
+                      </label>
+                      <input
+                        type="text"
+                        value={teamContent.management_heading_bn || ""}
+                        placeholder="ব্যবস্থাপনা টিম"
+                        onChange={(e) =>
+                          setTeamContent({
+                            ...teamContent,
+                            management_heading_bn: e.target.value,
+                          })
+                        }
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-semibold text-text">
+                        Management Heading (English)
+                      </label>
+                      <input
+                        type="text"
+                        value={teamContent.management_heading_en || ""}
+                        placeholder="Management Team"
+                        onChange={(e) =>
+                          setTeamContent({
+                            ...teamContent,
+                            management_heading_en: e.target.value,
+                          })
+                        }
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-xs font-semibold text-text">
+                        Management Intro (Bangla)
+                      </label>
+                      <textarea
+                        rows={2}
+                        value={teamContent.management_intro_bn || ""}
+                        placeholder="অঙ্কুর ফাউন্ডেশনের দৈনিক কার্যক্রম পরিচালনা ও বাস্তবায়নে নিয়োজিত আমাদের ব্যবস্থাপনা টিম।"
+                        onChange={(e) =>
+                          setTeamContent({
+                            ...teamContent,
+                            management_intro_bn: e.target.value,
+                          })
+                        }
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-semibold text-text">
+                        Management Intro (English)
+                      </label>
+                      <textarea
+                        rows={2}
+                        value={teamContent.management_intro_en || ""}
+                        placeholder="Our dedicated management team overseeing day-to-day operations and execution."
+                        onChange={(e) =>
+                          setTeamContent({
+                            ...teamContent,
+                            management_intro_en: e.target.value,
+                          })
+                        }
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs"
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 <button
                   type="submit"
                   disabled={saving}
-                  className="bg-white text-white px-5 py-2.5 rounded-lg text-xs font-semibold hover:bg-gray-100 cursor-pointer"
+                  className="bg-primary text-white px-5 py-2.5 rounded-lg text-xs font-semibold hover:bg-primary/90 cursor-pointer"
                 >
                   Save Landing Heading
                 </button>
@@ -3687,6 +3770,27 @@ export default function AdminDashboardPage() {
                       className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs"
                     />
                   </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-text">Group / Section</label>
+                    <select
+                      value={activeTeamMember.group || "board"}
+                      onChange={(e) =>
+                        setActiveTeamMember({
+                          ...activeTeamMember,
+                          group: e.target.value,
+                        })
+                      }
+                      className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs font-medium"
+                    >
+                      <option value="board">Board (পরিচালনা পর্ষদ / Leadership)</option>
+                      <option value="management">Management Team (ব্যবস্থাপনা টিম)</option>
+                    </select>
+                    <p className="text-[10px] text-gray-500 mt-0.5">
+                      Board members appear on the homepage and in the first section of the Team page. Management members appear only in the Management Team section.
+                    </p>
+                  </div>
+
                   <input
                     type="url"
                     required
@@ -3756,7 +3860,7 @@ export default function AdminDashboardPage() {
                     <button
                       type="submit"
                       disabled={saving}
-                      className="bg-white text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-gray-100 cursor-pointer"
+                      className="bg-primary text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-primary/90 cursor-pointer"
                     >
                       Save Member
                     </button>
@@ -3771,6 +3875,7 @@ export default function AdminDashboardPage() {
                           role_en: "",
                           imageUrl: "",
                           order: 1,
+                          group: "board",
                           facebook: "",
                           linkedin: "",
                           bio_bn: "",
@@ -3803,8 +3908,17 @@ export default function AdminDashboardPage() {
                           )}
                         </div>
                         <div>
-                          <p className="text-xs font-bold text-secondary">
-                            {tContent(m.name_bn, m.name_en)}
+                          <p className="text-xs font-bold text-secondary flex items-center gap-1.5">
+                            <span>{tContent(m.name_bn, m.name_en)}</span>
+                            <span
+                              className={`text-[9px] px-1.5 py-0.5 rounded font-semibold uppercase tracking-wider ${
+                                m.group === "management"
+                                  ? "bg-purple-100 text-purple-700"
+                                  : "bg-blue-100 text-blue-700"
+                              }`}
+                            >
+                              {m.group === "management" ? "Management" : "Board"}
+                            </span>
                           </p>
                           <p className="text-[10px] text-gray-500 font-light">
                             {tContent(m.role_bn, m.role_en)}

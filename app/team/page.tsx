@@ -77,107 +77,257 @@ export default function TeamPage() {
         />
       </div>
 
-      {/* Page Title */}
-      <div className="text-center max-w-2xl mx-auto space-y-4">
-        <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
-          {tContent(
-            teamContent?.title_bn || "আমাদের পরিষদ",
-            teamContent?.title_en || "Our Team",
-          )}
-        </span>
-        <h1 className="text-4xl font-bold text-secondary">
-          {tContent(
-            teamContent?.heading_bn || "অঙ্কুর ফাউন্ডেশন পরিচালনা পর্ষদ",
-            teamContent?.heading_en || "Board of Directors & Executives",
-          )}
-        </h1>
-        <p className="text-base text-text font-normal leading-relaxed">
-          {tContent(
-            teamContent?.intro_bn ||
-              "গ্রামীণ সুবিধাবঞ্চিত মানুষদের সাহায্য করতে এবং আর্থিক অন্তর্ভুক্তির সমাজ গড়ে তুলতে আমাদের সম্মানিত পর্ষদ কাজ করছেন।",
-            teamContent?.intro_en ||
-              "Our dedicated board coordinates closely to bring hope and financial inclusion across rural regions.",
-          )}
-        </p>
-      </div>
-
-      {/* Team Grid */}
-      {teamList.length === 0 ? (
-        <div className="text-center text-text font-normal py-12">
-          {tContent(
-            "কোনো দলীয় সদস্য খুঁজে পাওয়া যায়নি।",
-            "No team members found.",
-          )}
+      {/* Section 1: Leadership / Board */}
+      <section className="space-y-12">
+        <div className="text-center max-w-2xl mx-auto space-y-4">
+          <span className="text-primary font-semibold text-sm uppercase tracking-wider block">
+            {tContent(
+              teamContent?.title_bn || "আমাদের পরিষদ",
+              teamContent?.title_en || "Our Team",
+            )}
+          </span>
+          <h1 className="text-4xl font-bold text-secondary">
+            {tContent(
+              teamContent?.heading_bn || "অঙ্কুর ফাউন্ডেশন পরিচালনা পর্ষদ",
+              teamContent?.heading_en || "Board of Directors & Executives",
+            )}
+          </h1>
+          <p className="text-base text-text font-normal leading-relaxed">
+            {tContent(
+              teamContent?.intro_bn ||
+                "গ্রামীণ সুবিধাবঞ্চিত মানুষদের সাহায্য করতে এবং আর্থিক অন্তর্ভুক্তির সমাজ গড়ে তুলতে আমাদের সম্মানিত পর্ষদ কাজ করছেন।",
+              teamContent?.intro_en ||
+                "Our dedicated board coordinates closely to bring hope and financial inclusion across rural regions.",
+            )}
+          </p>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {teamList.map((member, index) => (
-            <motion.div
-              key={member.id}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              whileHover={{ y: -6 }}
-              onClick={() => router.push(`/team/${member.id}`)}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm border border-secondary/10 h-full flex flex-col justify-between group cursor-pointer"
-            >
-              <div className="aspect-[4/5] bg-gray-100 overflow-hidden relative">
-                {member.imageUrl ? (
-                  <img
-                    src={member.imageUrl}
-                    alt={tContent(member.name_bn, member.name_en)}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center font-bold text-3xl bg-white/5 text-secondary">
-                    {tContent(member.name_bn, member.name_en).charAt(0)}
-                  </div>
-                )}
 
-                {/* Social hover overlays */}
-                <div className="absolute inset-0 bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                  {member.facebook && (
-                    <a
-                      href={member.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="bg-white text-secondary p-3 rounded-full hover:bg-primary hover:text-white transition-colors duration-200"
-                      aria-label="Facebook Profile"
-                    >
-                      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                        <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
-                      </svg>
-                    </a>
-                  )}
-                  {member.linkedin && (
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="bg-white text-secondary p-3 rounded-full hover:bg-primary hover:text-white transition-colors duration-200"
-                      aria-label="LinkedIn Profile"
-                    >
-                      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                      </svg>
-                    </a>
-                  )}
-                </div>
-              </div>
+        {teamList.filter((m) => (m.group || "board") === "board").length === 0 ? (
+          <div className="text-center text-text font-normal py-12">
+            {tContent(
+              "কোনো পরিচালনা পর্ষদ সদস্য খুঁজে পাওয়া যায়নি।",
+              "No board members found.",
+            )}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamList
+              .filter((m) => (m.group || "board") === "board")
+              .map((member, index) => (
+                <motion.div
+                  key={member.id}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  whileHover={{ y: -6 }}
+                  className="h-full"
+                >
+                  <Link
+                    href={`/team/${member.id}`}
+                    aria-label={tContent(
+                      `${member.name_bn || member.name_en}-এর প্রোফাইল দেখুন`,
+                      `View ${member.name_en || member.name_bn} profile`,
+                    )}
+                    className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-secondary/10 hover:border-primary/20 hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 block"
+                  >
+                    <div className="aspect-[4/5] bg-gray-100 overflow-hidden relative">
+                      {member.imageUrl ? (
+                        <img
+                          src={member.imageUrl}
+                          alt={tContent(member.name_bn, member.name_en)}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center font-bold text-3xl bg-white/5 text-secondary">
+                          {tContent(member.name_bn, member.name_en).charAt(0)}
+                        </div>
+                      )}
 
-              <div className="p-6 text-center space-y-1">
-                <h3 className="font-bold text-lg text-secondary group-hover:text-primary transition-colors">
-                  {tContent(member.name_bn, member.name_en)}
-                </h3>
-                <p className="text-xs uppercase tracking-wider text-text font-semibold">
-                  {tContent(member.role_bn, member.role_en)}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                      {(member.facebook || member.linkedin) && (
+                        <div className="absolute top-3 right-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                          {member.facebook && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                window.open(
+                                  member.facebook,
+                                  "_blank",
+                                  "noopener,noreferrer",
+                                );
+                              }}
+                              className="bg-white/90 hover:bg-primary hover:text-white text-secondary p-2 rounded-full shadow-sm transition-colors duration-200"
+                              aria-label={`${tContent(member.name_bn, member.name_en)} Facebook`}
+                            >
+                              <svg
+                                className="w-4 h-4 fill-current"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
+                              </svg>
+                            </button>
+                          )}
+                          {member.linkedin && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                window.open(
+                                  member.linkedin,
+                                  "_blank",
+                                  "noopener,noreferrer",
+                                );
+                              }}
+                              className="bg-white/90 hover:bg-primary hover:text-white text-secondary p-2 rounded-full shadow-sm transition-colors duration-200"
+                              aria-label={`${tContent(member.name_bn, member.name_en)} LinkedIn`}
+                            >
+                              <svg
+                                className="w-4 h-4 fill-current"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                              </svg>
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="p-6 text-center space-y-1">
+                      <h3 className="font-bold text-lg text-secondary group-hover:text-primary transition-colors">
+                        {tContent(member.name_bn, member.name_en)}
+                      </h3>
+                      <p className="text-xs uppercase tracking-wider text-text font-semibold">
+                        {tContent(member.role_bn, member.role_en)}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+          </div>
+        )}
+      </section>
+
+      {/* Section 2: Management Team */}
+      {teamList.filter((m) => m.group === "management").length > 0 && (
+        <section className="space-y-12 pt-16 border-t border-secondary/10">
+          <div className="text-center max-w-2xl mx-auto space-y-4">
+            <h2 className="text-3xl font-bold text-secondary">
+              {tContent(
+                teamContent?.management_heading_bn || "ব্যবস্থাপনা টিম",
+                teamContent?.management_heading_en || "Management Team",
+              )}
+            </h2>
+            <p className="text-base text-text font-normal leading-relaxed">
+              {tContent(
+                teamContent?.management_intro_bn ||
+                  "অঙ্কুর ফাউন্ডেশনের দৈনিক কার্যক্রম পরিচালনা ও বাস্তবায়নে নিয়োজিত আমাদের ব্যবস্থাপনা টিম।",
+                teamContent?.management_intro_en ||
+                  "Our dedicated management team overseeing day-to-day operations and execution.",
+              )}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamList
+              .filter((m) => m.group === "management")
+              .map((member, index) => (
+                <motion.div
+                  key={member.id}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  whileHover={{ y: -6 }}
+                  className="h-full"
+                >
+                  <Link
+                    href={`/team/${member.id}`}
+                    aria-label={tContent(
+                      `${member.name_bn || member.name_en}-এর প্রোফাইল দেখুন`,
+                      `View ${member.name_en || member.name_bn} profile`,
+                    )}
+                    className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-secondary/10 hover:border-primary/20 hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 block"
+                  >
+                    <div className="aspect-[4/5] bg-gray-100 overflow-hidden relative">
+                      {member.imageUrl ? (
+                        <img
+                          src={member.imageUrl}
+                          alt={tContent(member.name_bn, member.name_en)}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center font-bold text-3xl bg-white/5 text-secondary">
+                          {tContent(member.name_bn, member.name_en).charAt(0)}
+                        </div>
+                      )}
+
+                      {(member.facebook || member.linkedin) && (
+                        <div className="absolute top-3 right-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                          {member.facebook && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                window.open(
+                                  member.facebook,
+                                  "_blank",
+                                  "noopener,noreferrer",
+                                );
+                              }}
+                              className="bg-white/90 hover:bg-primary hover:text-white text-secondary p-2 rounded-full shadow-sm transition-colors duration-200"
+                              aria-label={`${tContent(member.name_bn, member.name_en)} Facebook`}
+                            >
+                              <svg
+                                className="w-4 h-4 fill-current"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
+                              </svg>
+                            </button>
+                          )}
+                          {member.linkedin && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                window.open(
+                                  member.linkedin,
+                                  "_blank",
+                                  "noopener,noreferrer",
+                                );
+                              }}
+                              className="bg-white/90 hover:bg-primary hover:text-white text-secondary p-2 rounded-full shadow-sm transition-colors duration-200"
+                              aria-label={`${tContent(member.name_bn, member.name_en)} LinkedIn`}
+                            >
+                              <svg
+                                className="w-4 h-4 fill-current"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                              </svg>
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="p-6 text-center space-y-1">
+                      <h3 className="font-bold text-lg text-secondary group-hover:text-primary transition-colors">
+                        {tContent(member.name_bn, member.name_en)}
+                      </h3>
+                      <p className="text-xs uppercase tracking-wider text-text font-semibold">
+                        {tContent(member.role_bn, member.role_en)}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+          </div>
+        </section>
       )}
     </div>
   );
