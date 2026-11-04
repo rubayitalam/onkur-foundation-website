@@ -226,7 +226,7 @@ export default function Footer() {
             BOTTOM BAR
         ========================== */}
         <div className="border-t border-secondary/10 py-5">
-          <div className="flex flex-col gap-3 text-center text-xs text-secondary/50 sm:flex-row sm:items-center sm:justify-between sm:text-left">
+          <div className="text-center text-xs text-secondary/50">
             <p>
               {tContent(
                 footerContent?.copyrightText_bn ||
@@ -235,13 +235,6 @@ export default function Footer() {
                   "© 2026 Onkur Foundation. All Rights Reserved.",
               )}
             </p>
-
-            <Link
-              href="/admin"
-              className="font-medium transition-colors hover:text-primary hover:underline"
-            >
-              {tContent("প্রশাসক লগইন", "Admin Login")}
-            </Link>
           </div>
         </div>
       </div>
