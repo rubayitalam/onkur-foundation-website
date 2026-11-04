@@ -438,11 +438,11 @@ export default function ServicesPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHead
           eyebrow={tx("")}
-          title={tx("Insurance", "বীমা")}
+          title={tx("Welfare Fund", "কল্যাণ তহবিল")}
           L={L}
           desc={tx(
-            "Onkur Foundation offers life insurance bundled with loans to the beneficiary and the guarantor, thus providing affordable protection against unexpected financial shocks, helping families safeguard their livelihoods and build greater financial resilience. Each borrower pays a premium of 0.6% (or BDT 6 per thousand) of the principal loan received. In case of death or proven permanent disability of a regular borrower, the remaining loan is waived and BDT 10,000 is provided to the nominee for funeral expenses.",
-            "অঙ্কুর ফাউন্ডেশন ঋণের সঙ্গে সুবিধাভোগী ও জামিনদারের জন্য জীবন বীমা ব্যবস্থা প্রদান করে, যা অপ্রত্যাশিত আর্থিক ধাক্কা থেকে সাশ্রয়ী মূল্যে সুরক্ষা দেয় ও পরিবারকে জীবিকা রক্ষা ও বৃহত্তর আর্থিক স্থিতিশীলতা গড়তে সহায়তা করে। প্রতিটি ঋণগ্রহীতা প্রাপ্ত মূল ঋণের ০.৬% (অথবা প্রতি হাজারে ৬ টাকা) প্রিমিয়াম প্রদান করে। নিয়মিত ঋণগ্রহীতার মৃত্যু বা স্থায়ী অক্ষমতার ক্ষেত্রে অবশিষ্ট ঋণ মওকুফ করা হয় এবং শেষকৃত্যে সহায়তার জন্য নোমিনিকে ১০,০০০ টাকা প্রদান করা হয়।",
+            "Onkur Foundation offers life welfare fund bundled with loans to the beneficiary and the guarantor, thus providing affordable protection against unexpected financial shocks, helping families safeguard their livelihoods and build greater financial resilience. Each borrower pays a premium of 0.6% (or BDT 6 per thousand) of the principal loan received. In case of death or proven permanent disability of a regular borrower, the remaining loan is waived and BDT 10,000 is provided to the nominee for funeral expenses.",
+            "অঙ্কুর ফাউন্ডেশন ঋণের সঙ্গে সুবিধাভোগী ও জামিনদারের জন্য জীবন কল্যাণ তহবিল ব্যবস্থা প্রদান করে, যা অপ্রত্যাশিত আর্থিক ধাক্কা থেকে সাশ্রয়ী মূল্যে সুরক্ষা দেয় ও পরিবারকে জীবিকা রক্ষা ও বৃহত্তর আর্থিক স্থিতিশীলতা গড়তে সহায়তা করে। প্রতিটি ঋণগ্রহীতা প্রাপ্ত মূল ঋণের ০.৬% (অথবা প্রতি হাজারে ৬ টাকা) প্রিমিয়াম প্রদান করে। নিয়মিত ঋণগ্রহীতার মৃত্যু বা স্থায়ী অক্ষমতার ক্ষেত্রে অবশিষ্ট ঋণ মওকুফ করা হয় এবং শেষকৃত্যে সহায়তার জন্য নোমিনিকে ১০,০০০ টাকা প্রদান করা হয়।",
           )}
         />
       </section>
