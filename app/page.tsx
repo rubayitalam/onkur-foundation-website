@@ -107,15 +107,17 @@ export default function HomePage() {
     return ["https://i.postimg.cc/g0DQ0M84/98293656829.png"];
   }, [homeData]);
 
-  useEffect(() => {
-    if (heroImages.length <= 1) return;
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [heroImages.length]);
+  const totalSlides = heroImages.length > 0 ? 1 + heroImages.length : 1;
 
-  const activeSlideIndex = currentSlide % heroImages.length;
+  useEffect(() => {
+    if (totalSlides <= 1) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [totalSlides]);
+
+  const activeSlideIndex = currentSlide % totalSlides;
 
   useEffect(() => {
     const homeRef = ref(db, "siteContent/home");
@@ -387,59 +389,44 @@ export default function HomePage() {
         onMouseLeave={() => setIsHovered(false)}
         onTouchStart={(e) => setTouchStart(e.targetTouches[0].clientX)}
         onTouchEnd={(e) => {
-          if (touchStart === null || heroImages.length <= 1) return;
+          if (touchStart === null || totalSlides <= 1) return;
           const touchEnd = e.changedTouches[0].clientX;
           const diff = touchStart - touchEnd;
           if (diff > 40) {
-            setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+            setCurrentSlide((prev) => (prev + 1) % totalSlides);
           } else if (diff < -40) {
             setCurrentSlide(
-              (prev) => (prev - 1 + heroImages.length) % heroImages.length,
+              (prev) => (prev - 1 + totalSlides) % totalSlides,
             );
           }
           setTouchStart(null);
         }}
         className="relative min-h-[90vh] md:min-h-screen flex items-center bg-secondary text-white overflow-hidden"
       >
-        {heroImages.length > 1 ? (
+        {/* Background Image Slides (slides 1 to N, displaying pure clean images with no text overlay) */}
+        {activeSlideIndex > 0 && heroImages[activeSlideIndex - 1] && (
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={activeSlideIndex}
-                initial={{ opacity: 0, scale: 1.1 }}
+                initial={{ opacity: 0, scale: 1.08 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.05 }}
+                exit={{ opacity: 0, scale: 1.04 }}
                 transition={{
                   opacity: { duration: 0.8, ease: "easeInOut" },
-                  scale: { duration: 3, ease: "easeOut" },
+                  scale: { duration: 4, ease: "easeOut" },
                 }}
                 className="absolute inset-0"
               >
                 <img
-                  src={heroImages[activeSlideIndex]}
-                  alt={`Hero slide ${activeSlideIndex + 1}`}
+                  src={heroImages[activeSlideIndex - 1]}
+                  alt={`Hero slide ${activeSlideIndex}`}
                   className="w-full h-full object-cover"
                 />
               </motion.div>
             </AnimatePresence>
           </div>
-        ) : (
-          <motion.div
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.4, ease: "easeOut" }}
-            className="absolute inset-0"
-          >
-            <img
-              src={heroImages[0]}
-              alt="Rural Bangladesh farming community"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
         )}
-
-        <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/60 to-black/80" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.5),_transparent_75%)]" />
 
         <div
           className="absolute inset-0 opacity-15 mix-blend-overlay pointer-events-none"
@@ -465,10 +452,10 @@ export default function HomePage() {
           className="absolute -top-32 -right-32 w-96 h-96 bg-primary/30 rounded-full blur-3xl pointer-events-none"
         />
 
-        {/* Small Dot Indicators (rendered if more than 1 image) */}
-        {heroImages.length > 1 && (
+        {/* Small Dot Indicators */}
+        {totalSlides > 1 && (
           <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 shadow-lg">
-            {heroImages.map((_: string, idx: number) => (
+            {Array.from({ length: totalSlides }).map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentSlide(idx)}
@@ -483,75 +470,86 @@ export default function HomePage() {
           </div>
         )}
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          <div className="grid lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-8 flex flex-col items-start text-left space-y-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/40 bg-primary/10 backdrop-blur-sm"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
-                </span>
-                <span className="text-xs sm:text-sm font-medium tracking-wide text-green-200 uppercase">
-                  {tContent("গ্রামীণ উন্নয়ন", "Rural Development")}
-                </span>
-              </motion.div>
+        <AnimatePresence initial={false}>
+          {activeSlideIndex === 0 && (
+            <motion.div
+              key="hero-text-content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full"
+            >
+              <div className="grid lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-8 flex flex-col items-start text-left space-y-8">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/40 bg-primary/10 backdrop-blur-sm"
+                  >
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+                    </span>
+                    <span className="text-xs sm:text-sm font-medium tracking-wide text-green-200 uppercase">
+                      {tContent("গ্রামীণ উন্নয়ন", "Rural Development")}
+                    </span>
+                  </motion.div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight drop-shadow-md"
-              >
-                <span className="bg-gradient-to-r from-white via-green-50 to-green-200 bg-clip-text text-transparent">
-                  {tContent(homeData?.hero_title_bn, homeData?.hero_title_en)}
-                </span>
-              </motion.h1>
+                  <motion.h1
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.2 }}
+                    className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight drop-shadow-md"
+                  >
+                    <span className="bg-gradient-to-r from-white via-green-50 to-green-200 bg-clip-text text-transparent">
+                      {tContent(homeData?.hero_title_bn, homeData?.hero_title_en)}
+                    </span>
+                  </motion.h1>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.35 }}
-                className="text-base sm:text-lg md:text-xl text-white/85 leading-relaxed font-light max-w-2xl drop-shadow-sm"
-              >
-                {tContent(
-                  homeData?.hero_subtitle_bn,
-                  homeData?.hero_subtitle_en,
-                )}
-              </motion.p>
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.35 }}
+                    className="text-base sm:text-lg md:text-xl text-white/85 leading-relaxed font-light max-w-2xl drop-shadow-sm"
+                  >
+                    {tContent(
+                      homeData?.hero_subtitle_bn,
+                      homeData?.hero_subtitle_en,
+                    )}
+                  </motion.p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="flex flex-wrap items-center gap-4 pt-2"
-              >
-                <Link
-                  href="/contact"
-                  className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-lg hover:-translate-y-0.5 flex items-center gap-2"
-                >
-                  <span className="relative z-10">{t("common.applyNow")}</span>
-                  <ArrowRight className="relative z-10 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
-                </Link>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                    className="flex flex-wrap items-center gap-4 pt-2"
+                  >
+                    <Link
+                      href="/contact"
+                      className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-lg hover:-translate-y-0.5 flex items-center gap-2"
+                    >
+                      <span className="relative z-10">{t("common.applyNow")}</span>
+                      <ArrowRight className="relative z-10 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                      <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+                    </Link>
 
-                <Link
-                  href="/about"
-                  className="group border border-white/30 hover:border-white/70 hover:bg-white/10 text-white px-8 py-4 rounded-xl font-semibold transition-all backdrop-blur-md flex items-center gap-2"
-                >
-                  <span>
-                    {tContent("আমাদের সম্পর্কে জানুন", "Learn More About Us")}
-                  </span>
-                  <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                </Link>
-              </motion.div>
-            </div>
-          </div>
-        </div>
+                    <Link
+                      href="/about"
+                      className="group border border-white/30 hover:border-white/70 hover:bg-white/10 text-white px-8 py-4 rounded-xl font-semibold transition-all backdrop-blur-md flex items-center gap-2"
+                    >
+                      <span>
+                        {tContent("আমাদের সম্পর্কে জানুন", "Learn More About Us")}
+                      </span>
+                      <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                    </Link>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </section>
 
       {/* 3. Breaking Barriers Section */}
