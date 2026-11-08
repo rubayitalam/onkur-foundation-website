@@ -401,7 +401,7 @@ export default function HomePage() {
           }
           setTouchStart(null);
         }}
-        className="relative min-h-[90vh] md:min-h-screen flex items-center bg-secondary text-white overflow-hidden"
+        className="relative min-h-[75vh] sm:min-h-[85vh] md:min-h-screen flex items-center bg-secondary text-white overflow-hidden"
       >
         {/* Background Image Slides (slides 1 to N, displaying pure clean images with no text overlay) */}
         {activeSlideIndex > 0 && heroImages[activeSlideIndex - 1] && (
@@ -416,12 +416,20 @@ export default function HomePage() {
                   opacity: { duration: 0.8, ease: "easeInOut" },
                   scale: { duration: 4, ease: "easeOut" },
                 }}
-                className="absolute inset-0"
+                className="absolute inset-0 flex items-center justify-center"
               >
+                {/* Mobile ambient blurred backdrop so the full image blends naturally */}
+                <img
+                  src={heroImages[activeSlideIndex - 1]}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110 md:hidden"
+                />
+                {/* Responsive hero image: full picture visible on mobile (object-contain), cover on desktop */}
                 <img
                   src={heroImages[activeSlideIndex - 1]}
                   alt={`Hero slide ${activeSlideIndex}`}
-                  className="w-full h-full object-cover"
+                  className="relative z-10 w-full h-full object-contain md:object-cover"
                 />
               </motion.div>
             </AnimatePresence>
