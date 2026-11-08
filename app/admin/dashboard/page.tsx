@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { ref, onValue, set, push, remove } from "firebase/database";
+import { ref, onValue, set, push, remove, update } from "firebase/database";
 import {
   getDownloadURL,
   ref as storageRef,
@@ -344,6 +344,7 @@ export default function AdminDashboardPage() {
     publishedAt: "",
     author: "",
     category: "News",
+    order: 1,
   });
   const [activeFaq, setActiveFaq] = useState<any>({
     id: "",
@@ -595,11 +596,15 @@ export default function AdminDashboardPage() {
         setBlogList(
           Object.keys(val)
             .map((k) => ({ id: k, ...val[k] }))
-            .sort(
-              (a, b) =>
-                new Date(b.publishedAt).getTime() -
-                new Date(a.publishedAt).getTime(),
-            ),
+            .sort((a, b) => {
+              const orderA = typeof a.order === "number" ? a.order : 9999;
+              const orderB = typeof b.order === "number" ? b.order : 9999;
+              if (orderA !== orderB) return orderA - orderB;
+              return (
+                new Date(b.publishedAt || 0).getTime() -
+                new Date(a.publishedAt || 0).getTime()
+              );
+            }),
         );
         markLoaded();
       },
@@ -1188,6 +1193,7 @@ export default function AdminDashboardPage() {
         .replace(/-+/g, "-");
       const payload = {
         ...activeBlog,
+        order: typeof activeBlog.order === "number" ? activeBlog.order : Number(activeBlog.order) || 1,
         slug: activeBlog.slug?.trim() || generatedSlug || id,
       };
       delete payload.id;
@@ -1206,11 +1212,33 @@ export default function AdminDashboardPage() {
         publishedAt: "",
         author: "",
         category: "News",
+        order: blogList.length + 1,
       });
     } catch (err: any) {
       alert("Error: " + err.message);
     } finally {
       setSaving(false);
+    }
+  };
+
+  const moveBlog = async (index: number, direction: -1 | 1) => {
+    const targetIndex = index + direction;
+    if (targetIndex < 0 || targetIndex >= blogList.length) return;
+
+    const updated = [...blogList];
+    const temp = updated[index];
+    updated[index] = updated[targetIndex];
+    updated[targetIndex] = temp;
+
+    try {
+      const updates: Record<string, any> = {};
+      updated.forEach((post, i) => {
+        updates[`blog/${post.id}/order`] = i + 1;
+      });
+      await update(ref(db), updates);
+      triggerToast("Blog order updated!");
+    } catch (err: any) {
+      alert("Failed to update order: " + err.message);
     }
   };
 
@@ -4093,7 +4121,7 @@ export default function AdminDashboardPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="bg-white text-white px-5 py-2.5 rounded-lg text-xs font-semibold hover:bg-gray-100 cursor-pointer"
+                  className="bg-primary text-white px-5 py-2.5 rounded-lg text-xs font-semibold hover:bg-primary/90 cursor-pointer shadow-xs"
                 >
                   Save Landing Heading
                 </button>
@@ -4140,7 +4168,7 @@ export default function AdminDashboardPage() {
                       className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs"
                     />
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <input
                       type="text"
                       placeholder="Slug (optional)"
@@ -4176,6 +4204,19 @@ export default function AdminDashboardPage() {
                       </option>
                       <option value="Community">Community</option>
                     </select>
+                    <input
+                      type="number"
+                      placeholder="Display Order (ক্রম, e.g. 1)"
+                      value={activeBlog.order ?? 1}
+                      onChange={(e) =>
+                        setActiveBlog({
+                          ...activeBlog,
+                          order: parseInt(e.target.value) || 1,
+                        })
+                      }
+                      className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs"
+                      title="Display Order (ক্রম): lower numbers appear first"
+                    />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
@@ -4275,9 +4316,9 @@ export default function AdminDashboardPage() {
                     <button
                       type="submit"
                       disabled={saving}
-                      className="bg-white text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-gray-100 cursor-pointer"
+                      className="bg-primary text-white px-5 py-2 rounded-lg text-xs font-semibold hover:bg-primary/90 cursor-pointer shadow-xs"
                     >
-                      Save Article
+                      {activeBlog.id ? "Update Article" : "Save Article"}
                     </button>
                     <button
                       type="button"
@@ -4295,6 +4336,7 @@ export default function AdminDashboardPage() {
                           publishedAt: "",
                           author: "",
                           category: "News",
+                          order: blogList.length + 1,
                         })
                       }
                       className="border border-gray-200 text-gray-700 px-4 py-2 rounded-lg text-xs hover:bg-gray-50 cursor-pointer"
@@ -4304,13 +4346,20 @@ export default function AdminDashboardPage() {
                   </div>
                 </form>
 
-                <div className="space-y-4 pt-4">
-                  {blogList.map((post) => (
+                <div className="space-y-3 pt-4">
+                  {blogList.map((post, index) => (
                     <div
                       key={post.id}
-                      className="p-4 bg-white border border-gray-200 rounded-xl flex items-center justify-between shadow-xs"
+                      className="p-4 bg-white border border-gray-200 rounded-xl flex items-center justify-between shadow-xs hover:border-gray-300 transition-colors"
                     >
                       <div className="flex items-center gap-3">
+                        <span
+                          className="w-7 h-7 rounded-lg bg-secondary/10 text-secondary text-xs font-bold flex items-center justify-center shrink-0"
+                          title={`Display Order: #${post.order || index + 1}`}
+                        >
+                          #{post.order || index + 1}
+                        </span>
+
                         {post.coverImageUrl && (
                           <img
                             src={post.coverImageUrl}
@@ -4330,20 +4379,40 @@ export default function AdminDashboardPage() {
                             )}
                           </div>
                           <p className="text-[9px] text-gray-500 font-light mt-0.5">
-                            {new Date(post.publishedAt).toLocaleDateString()}
+                            {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : ""}
                           </p>
                         </div>
                       </div>
-                      <div className="flex gap-1">
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          disabled={index === 0}
+                          onClick={() => moveBlog(index, -1)}
+                          className="p-1.5 text-gray-500 hover:text-primary hover:bg-gray-100 rounded-lg disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                          title="Move up (উপরে নিন)"
+                        >
+                          <ArrowUp className="w-4 h-4" />
+                        </button>
+                        <button
+                          type="button"
+                          disabled={index === blogList.length - 1}
+                          onClick={() => moveBlog(index, 1)}
+                          className="p-1.5 text-gray-500 hover:text-primary hover:bg-gray-100 rounded-lg disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                          title="Move down (নিচে নিন)"
+                        >
+                          <ArrowDown className="w-4 h-4" />
+                        </button>
                         <button
                           onClick={() => setActiveBlog(post)}
                           className="text-primary hover:bg-primary/5 p-2 rounded-md transition-colors"
+                          title="Edit"
                         >
                           <Edit className="w-3.5 h-3.5" />
                         </button>
                         <button
                           onClick={() => deleteBlog(post.id)}
                           className="text-red-500 hover:bg-red-50 p-2 rounded-md transition-colors"
+                          title="Delete"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>

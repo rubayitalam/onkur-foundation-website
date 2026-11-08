@@ -31,11 +31,15 @@ export default function BlogListingPage() {
         if (val) {
           const arr = Object.keys(val)
             .map((k) => ({ id: k, ...val[k] }))
-            .sort(
-              (a, b) =>
-                new Date(b.publishedAt).getTime() -
-                new Date(a.publishedAt).getTime(),
-            );
+            .sort((a, b) => {
+              const orderA = typeof a.order === "number" ? a.order : 9999;
+              const orderB = typeof b.order === "number" ? b.order : 9999;
+              if (orderA !== orderB) return orderA - orderB;
+              return (
+                new Date(b.publishedAt || 0).getTime() -
+                new Date(a.publishedAt || 0).getTime()
+              );
+            });
           setPosts(arr);
         } else {
           setPosts([]);
