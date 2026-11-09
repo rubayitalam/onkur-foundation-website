@@ -6,6 +6,7 @@ import { ref, onValue } from "firebase/database";
 import { db } from "@/lib/firebase";
 import { useLanguage } from "@/context/LanguageContext";
 import { Calendar, Users, ArrowLeft, Tag } from "lucide-react";
+import { sanitizeBlogHtml, isHtml } from "@/lib/blogUtils";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -212,12 +213,24 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
       {/* Body Content */}
       <div className="pt-6 border-t border-secondary/10">
-        <p 
-          className="text-base sm:text-lg text-text leading-relaxed font-medium whitespace-pre-wrap opacity-100"
-          style={{ color: "#2B2621", opacity: 1 }}
-        >
-          {tContent(post.content_bn, post.content_en)}
-        </p>
+        {(() => {
+          const bodyContent = tContent(post.content_bn, post.content_en) || "";
+          if (isHtml(bodyContent)) {
+            return (
+              <div
+                className="rich-content"
+                dangerouslySetInnerHTML={{
+                  __html: sanitizeBlogHtml(bodyContent),
+                }}
+              />
+            );
+          }
+          return (
+            <div className="rich-content whitespace-pre-wrap">
+              {bodyContent}
+            </div>
+          );
+        })()}
       </div>
 
     </article>

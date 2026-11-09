@@ -11,6 +11,7 @@ import {
 } from "firebase/storage";
 import { auth, db, storage } from "@/lib/firebase";
 import { useLanguage } from "@/context/LanguageContext";
+import RichTextEditor from "@/components/RichTextEditor";
 import {
   Home,
   Info,
@@ -4284,33 +4285,47 @@ export default function AdminDashboardPage() {
                       className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs w-full"
                     />
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <textarea
-                      rows={6}
-                      required
-                      placeholder="Full Body Content (Bangla)"
-                      value={activeBlog.content_bn || ""}
-                      onChange={(e) =>
-                        setActiveBlog({
-                          ...activeBlog,
-                          content_bn: e.target.value,
-                        })
-                      }
-                      className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs w-full font-mono"
-                    />
-                    <textarea
-                      rows={6}
-                      required
-                      placeholder="Full Body Content (English)"
-                      value={activeBlog.content_en || ""}
-                      onChange={(e) =>
-                        setActiveBlog({
-                          ...activeBlog,
-                          content_en: e.target.value,
-                        })
-                      }
-                      className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs w-full font-mono"
-                    />
+                  {/* Rich Text Editors for Bangla and English Body Content */}
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label className="text-xs font-bold text-secondary">
+                          Full Body Content (Bangla / বাংলা বিস্তারিত কনটেন্ট)
+                        </label>
+                        <span className="text-[10px] text-gray-500">Rich Text Formatted</span>
+                      </div>
+                      <RichTextEditor
+                        value={activeBlog.content_bn || ""}
+                        onChange={(html) =>
+                          setActiveBlog((prev: any) => ({
+                            ...prev,
+                            content_bn: html,
+                          }))
+                        }
+                        placeholder="বাংলায় বিস্তারিত ব্লগ পোস্ট লিখুন বা ফরম্যাট করুন..."
+                        minHeight="280px"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label className="text-xs font-bold text-secondary">
+                          Full Body Content (English / ইংরেজি বিস্তারিত কনটেন্ট)
+                        </label>
+                        <span className="text-[10px] text-gray-500">Rich Text Formatted</span>
+                      </div>
+                      <RichTextEditor
+                        value={activeBlog.content_en || ""}
+                        onChange={(html) =>
+                          setActiveBlog((prev: any) => ({
+                            ...prev,
+                            content_en: html,
+                          }))
+                        }
+                        placeholder="Write or format full blog article in English..."
+                        minHeight="280px"
+                      />
+                    </div>
                   </div>
                   <div className="flex gap-2">
                     <button

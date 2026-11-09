@@ -36,6 +36,18 @@ export default function RootLayout({
       lang="bn"
       className={`${hindSiliguri.variable} ${inter.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-white text-text">
         <LanguageProvider>
           <div className="flex flex-col min-h-screen justify-between">
